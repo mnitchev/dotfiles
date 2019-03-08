@@ -18,8 +18,8 @@
 [push]
   default = current
 [color "status"]
-  added = yellow
-  changed = green
+  added = green
+  changed = yellow
   untracked = cyan
 [color]
   ui = auto

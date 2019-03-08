@@ -13,6 +13,7 @@ main() {
     install_ginkgo
     install_tmux_config
     update_vim
+    install_luan_nvim
   popd > /dev/null
   echo "💾   All done. Enjoy! ️"
 }
@@ -64,10 +65,16 @@ set_zsh() {
       git pull
     popd
   else
-    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    git clone --recursive -b eirini https://github.com/akshaymankar/prezto-eirini.git "${ZDOTDIR:-$HOME}/.zprezto"
   fi
-  # chsh -s /bin/zsh
-  
+
+  if [[ -d "${ZDOTDIR:-$HOME}/.zprezto/contrib" ]]; then
+    pushd "${ZDOTDIR:-$HOME}/.zprezto/contrib" > /dev/null
+      git pull
+    popd
+  else
+    git clone --recursive https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
+  fi
 }
 
 update_vim() {
@@ -113,8 +120,13 @@ install_ginkgo() {
 }
 
 install_tmux_config() {
-  ln -svnf tmux.conf "${HOME}/.tmux.conf"
+  ln -svnf $PWD/tmux.conf "${HOME}/.tmux.conf"
 }
 
+install_luan_nvim() {
+  if [[ ! -d ~/.config/nvim ]]; then
+    git clone https://github.com/luan/nvim ~/.config/nvim
+  fi
+}
 
 main
