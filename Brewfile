@@ -1,4 +1,3 @@
-tap "caskroom/fonts"
 tap "cloudfoundry/tap"
 tap "dpb587/tap"
 tap "git-duet/tap"

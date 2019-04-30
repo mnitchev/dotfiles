@@ -12,8 +12,8 @@ main() {
     install_local_scripts
     install_ginkgo
     install_tmux_config
-    update_vim
     install_luan_nvim
+    update_vim
   popd > /dev/null
   echo "💾   All done. Enjoy! ️"
 }
@@ -82,6 +82,7 @@ update_vim() {
   pip3 install --upgrade neovim
   npm install -g neovim
   gem install neovim --user-install
+  mkdir -p ~/.config
 }
 
 install_cred_alert() {
