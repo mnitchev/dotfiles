@@ -62,7 +62,7 @@ set_zsh() {
   echo "Setting zsh"
   if [[ -d "${ZDOTDIR:-$HOME}/.zprezto" ]]; then
     pushd "${ZDOTDIR:-$HOME}/.zprezto" > /dev/null
-      git pull
+      git pull origin eirini
     popd
   else
     git clone --recursive -b eirini https://github.com/akshaymankar/prezto-eirini.git "${ZDOTDIR:-$HOME}/.zprezto"

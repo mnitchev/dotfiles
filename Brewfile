@@ -50,7 +50,7 @@ brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 cask "docker"
 cask "fly"
 cask "flycut"
-cask "font-firacode-nerd-font"
+cask "homebrew/cask-fonts/font-firacode-nerd-font"
 cask "font-source-code-pro-for-powerline"
 cask "google-cloud-sdk"
 cask "gpg-suite"
