@@ -122,6 +122,10 @@ install_ginkgo() {
 
 install_tmux_config() {
   ln -svnf $PWD/tmux.conf "${HOME}/.tmux.conf"
+  if [[ ! -d "${HOME}/.tmux" ]]; then
+    mkdir -p "${HOME}/.tmux/plugins"
+    git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux/plugins/tpm"
+  fi
 }
 
 install_luan_nvim() {
