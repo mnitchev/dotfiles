@@ -55,6 +55,7 @@ brew "git-duet/tap/git-duet"
 brew "julzdiverse/tools/aviator"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 brew "wagoodman/dive/dive"
+brew "golangci/tap/golangci-lint"
 cask "basictex"
 cask "docker"
 cask "fly"
