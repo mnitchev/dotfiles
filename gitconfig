@@ -27,27 +27,27 @@
   wordRegex = [^[:space:]]
   algorithm = patience
 [help]
-	autocorrect = 1
+  autocorrect = 1
 [advice]
-	statusHints = false
+  statusHints = false
 [branch]
-	autosetuprebase = always
+  autosetuprebase = always
 [fetch]
-	prune = true
+  prune = true
 [pull]
-	rebase = true
+  rebase = true
 [rebase]
-	autostash = true
+  autostash = true
 [log]
   decorate = true
 [format]
   pretty = oneline
 [rerere]
-	enabled = true
+  enabled = true
 [http "https://gopkg.in"]
-    followRedirects = true
+  followRedirects = true
 [commit]
   verbose = true
   template = ~/.gitmessage
 [url "git@github.com:"]
-	pushInsteadOf = https://github.com/
+  pushInsteadOf = https://github.com/
