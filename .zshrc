@@ -19,8 +19,8 @@ bindkey "^[e" end-of-line
 ZSH_THEME="lambda-mod/lambda-mod"
 
 # Environment variables
-export ZSH=/Users/i336315/.oh-my-zsh
-export GOPATH="/Users/i336315/workspace/go"
+export ZSH="$HOME/.oh-my-zsh"
+export GOPATH="$HOME/workspace/go"
 export EIRINI="$GOPATH/src/code.cloudfoundry.org/eirini"
 export JUNK="$HOME/workspace/junk"
 export WORKSPACE="$HOME/workspace"
@@ -461,3 +461,25 @@ plugins=(
 ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
+
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+
+### Added by IBM Cloud CLI
+#source /usr/local/Bluemix/bx
+neofetch
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
