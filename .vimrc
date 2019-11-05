@@ -139,6 +139,7 @@ autocmd CursorMoved * exe exists("HlUnderCursor")?HlUnderCursor?printf('match In
 let mapleader=","
 set ttymouse=xterm2
 set mouse=a
+set timeout timeoutlen=250
 let g:NERDTreeMouseMode=3
 map <C-j> <C-W>j
 map <C-k> <C-W>j
@@ -167,6 +168,10 @@ map ;; <Esc>
 nmap <CR> :w<CR>
 imap jk <Esc>
 nnoremap \\ :exe "let HlUnderCursor=exists(\"HlUnderCursor\")?HlUnderCursor*-1+1:1"<CR>
+nmap po :pu<CR>
+nmap <leader>b :bn<CR>
+nmap <leader>v :bp<CR>
+nmap <leader>x :bd<CR>
 map h <insert>
 nnoremap h i
 nnoremap j h
