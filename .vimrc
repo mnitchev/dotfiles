@@ -1,4 +1,5 @@
 execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
 set rtp+=/usr/local/opt/fzf
 set conceallevel=3
 set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12
@@ -6,7 +7,12 @@ let g:airline_theme='bubblegum'
 set nocompatible
 set nohlsearch
 set ignorecase
+set hidden
 
+" Plug
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
