@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -euo pipefail
+
+make-it-pairable() {
+  tmux rename-session eirini-pairing
+}
+
+start-ngrok() {
+  ngrok start ssh -region eu -log /tmp/ngrok.log >/dev/null &
+}
+
+extract_ngrok_url() {
+  local url port host
+  while [[ "$url" == "" ]]; do
+    url="$(curl -s localhost:4040/api/tunnels | jq -r '.tunnels[] | select(.name == "ssh") | .public_url')"
+  done
+  port="$(echo "$url" | cut -d ':' -f 3)"
+  host="$(echo "$url" | cut -d ':' -f 2 | cut -d '/' -f 3)"
+  echo "ssh eirini@$host -p $port" | pbcopy
+  echo "instructions copied"
+}
+
+start-pairing() {
+  make-it-pairable
+  start-ngrok
+  extract_ngrok_url
+}
+
+start-pairing
