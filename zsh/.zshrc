@@ -14,7 +14,7 @@ export LANG=en_US.UTF-8
 
 # Golang
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 # Git duet
 export GIT_DUET_ROTATE_AUTHOR=1
