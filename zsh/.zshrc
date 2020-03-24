@@ -11,6 +11,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Set language environment
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Golang
 export GOPATH=$HOME/go
@@ -26,3 +27,6 @@ export KUBE_EDITOR="vim"
 
 # Keys
 bindkey '\C-b' beginning-of-line
+
+# Vim stuff
+export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
