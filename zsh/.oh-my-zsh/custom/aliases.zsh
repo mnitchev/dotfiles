@@ -113,3 +113,4 @@ alias kns='change-kube-namespace'
 
 # ------------------ `General ------------------
 alias klusters='kluster'
+alias vim='nvim'
