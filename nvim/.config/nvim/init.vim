@@ -50,6 +50,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'nanotech/jellybeans.vim'                                                                  " My current colorscheme
 
+    Plug 'vmchale/dhall-vim'
+
 call plug#end()
 " ---------------------------------------------------------------------
 
