@@ -4,6 +4,7 @@
   st = status
   br = branch
   ci = duet-commit --verbose
+  ca = duet-commit --amend --reset-author --verbose
   cleanup = !git checkout master && git
   st = status
   lol = log --graph --decorate --oneline
