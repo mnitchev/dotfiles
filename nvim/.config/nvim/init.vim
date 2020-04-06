@@ -52,6 +52,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'vmchale/dhall-vim'
 
+    Plug 'airblade/vim-gitgutter'                                                                   " Show git diff in the sign column
+
 call plug#end()
 " ---------------------------------------------------------------------
 
