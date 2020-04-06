@@ -1,8 +1,6 @@
 #!/bin/bash
 set -xeuo pipefail
 
-NAME=${NAME:-"Anonymous Eirininaut"}
-EMAIL=${EMAIL:-"eirini@cloudfoundry.org"}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
@@ -15,8 +13,8 @@ generate_gitconfig() {
 [include]
   path = ~/.common-gitconfig
 [user]
-  name = $NAME
-  email = $EMAIL
+  name = "Anonymous Eirininaut"
+  email = "eirini@cloudfoundry.org"
 EOF
 }
 
