@@ -31,6 +31,9 @@ bindkey '\C-b' beginning-of-line
 # Vim stuff
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 
+# Custom scripts
+export PATH=$PATH:$HOME/bin
+
 # Set Pure ZSH theme
 autoload -U promptinit; promptinit
 prompt pure
