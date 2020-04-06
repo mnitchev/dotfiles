@@ -18,7 +18,7 @@
 [apply]
   whitespace = nowarn
 [core]
-  ; pager = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
+  pager = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -FRX
   editor = /usr/local/bin/nvim
   hooksPath = ~/workspace/git-hooks-core
 [push]
