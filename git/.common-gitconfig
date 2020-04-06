@@ -9,11 +9,12 @@
   st = status
   lol = log --graph --decorate --oneline
   lola = log --graph --decorate --oneline --all
+  gpr = pull --rebase
 
 [apply]
   whitespace = nowarn
 [core]
-  pager = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
+  ; pager = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
   editor = /usr/local/bin/nvim
   hooksPath = ~/workspace/git-hooks-core
 [push]
@@ -39,16 +40,12 @@
   rebase = true
 [rebase]
   autostash = true
-[log]
-  decorate = true
-[format]
-  pretty = oneline
 [rerere]
   enabled = true
 [http "https://gopkg.in"]
   followRedirects = true
 [commit]
   verbose = true
-  template = ~/.gitmessage
+  ; template = ~/.gitmessage
 [url "git@github.com:"]
   pushInsteadOf = https://github.com/
