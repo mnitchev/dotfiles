@@ -19,7 +19,7 @@ EOF
 }
 
 configure_home() {
-  stow --dir="$SCRIPT_DIR" --target "$HOME" nvim tmux zsh git
+  stow --dir="$SCRIPT_DIR" --target "$HOME" nvim tmux zsh git util
 }
 
 main
