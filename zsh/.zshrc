@@ -22,8 +22,8 @@ export GIT_DUET_ROTATE_AUTHOR=1
 export GIT_DUET_GLOBAL=true
 
 # Editors
-export GIT_EDITOR="vim"
-export KUBE_EDITOR="vim"
+export GIT_EDITOR="nvim"
+export KUBE_EDITOR="nvim"
 
 # Keys
 bindkey '\C-b' beginning-of-line
