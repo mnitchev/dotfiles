@@ -9,6 +9,10 @@ main() {
 }
 
 generate_gitconfig() {
+  if [[ -f "$HOME/.gitconfig"  ]]; then
+    return
+  fi
+
   cat <<EOF > "$HOME/.gitconfig"
 [include]
   path = ~/.common-gitconfig
