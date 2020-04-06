@@ -126,8 +126,8 @@ command Foc execute "winc | | winc _"
 command Unfoc execute "winc ="
 
 " vimrc key mappings
-nmap <silent> <leader>ve :edit ~/.vimrc<CR>
-nmap <silent> <leader>vs :source ~/.vimrc<CR>
+nmap <silent> <leader>ve :edit ~/.config/nvim/init.vim<CR>
+nmap <silent> <leader>vs :source ~/.config/nvim/init.vim<CR>
 
 " Reload file
 inoremap <silent> <leader>r :edit<CR>
