@@ -1,6 +1,5 @@
 authors:
   julz: Julian Skupnjak
-  am: Akshay Mankar
   gd: Georgi Dankov
   gs: Georgi Sabev
   gc: Giuseppe Capizzi
@@ -10,7 +9,6 @@ authors:
 
 email_addresses:
   julz: skupnjak@de.ibm.com
-  am: amankar@pivotal.io
   gd: gddankov@gmail.com
   gs: georgethebeatle@gmail.com
   gc: gcapizzi@pivotal.io
