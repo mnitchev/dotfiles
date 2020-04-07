@@ -38,6 +38,7 @@ alias gresh='git reset HEAD'
 
 alias gpush='git push'
 alias gpull='git pull'
+alias gpr='git pull --rebase'
 alias gfe='git fetch'
 
 alias grem='git remote'
@@ -114,3 +115,6 @@ alias kns='change-kube-namespace'
 # ------------------ `General ------------------
 alias klusters='kluster'
 alias vim='nvim'
+
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'

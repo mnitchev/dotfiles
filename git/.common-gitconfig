@@ -9,7 +9,6 @@
   st = status
   lol = log --graph --decorate --oneline
   lola = log --graph --decorate --oneline --all
-  gpr = pull --rebase
   di = diff
   df = diff
   dc = diff --cached
