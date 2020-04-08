@@ -137,6 +137,9 @@ augroup ft_prolog
     au!
     au BufNewFile,BufRead *.pl set filetype=prolog
 augroup END
+
+" save on enter
+nnoremap <silent> <expr> <cr> empty(&buftype) ? ':w<cr>' : '<cr>'
 " ---------------------------------------------------------------------
 
 
