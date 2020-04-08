@@ -625,3 +625,11 @@ inoremap <silent><expr> <C-o> pumvisible() ? coc#_select_confirm() :
                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " --------------------------------------------------------------------------
+
+
+" --------------------------------- Snippets  -------------------------------
+""" ultisnips
+let g:UltiSnipsExpandTrigger='<c-j>'
+let g:UltiSnipsJumpForwardTrigger='<c-f>'
+let g:UltiSnipsJumpBackwardTrigger='<c-b>'
+" --------------------------------------------------------------------------
