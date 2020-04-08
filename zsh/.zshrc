@@ -34,8 +34,23 @@ export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # Custom scripts
 export PATH=$PATH:$HOME/bin
 
+# Show non-zero exit status
+precmd_pipestatus() {
+    local exit_status="${(j.|.)pipestatus}"
+    if [[ $exit_status = 0 ]]; then
+           return 0
+    fi
+    echo -n ${exit_status}' '
+}
+
 # Set Pure ZSH theme
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 zstyle :prompt:pure:path color '#6871FF'
+
+# Show exit code of last command as a separate prompt character
+PROMPT='%(?.%F{#32CD32}.%F{red}❯%F{red})❯%f '
+
+# Show exit status before prompt
+PROMPT='%F{red}$(precmd_pipestatus)'$PROMPT
