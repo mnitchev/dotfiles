@@ -9,8 +9,6 @@ file_name=$(echo $LASTPASS_NAME | sed "s|/|-|g")
 PRIVATE_KEY="/tmp/$file_name"
 
 main() {
-  eval "$(ssh-agent -s)"
-
   if [ ! $(ssh-add -l | grep -o -e $file_name) ]
   then
     trap delete_private_key_file EXIT
