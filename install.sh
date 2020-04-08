@@ -38,7 +38,11 @@ compile_authorized_keys() {
 }
 
 configure_home() {
-  stow --dir="$SCRIPT_DIR" --target "$HOME" nvim tmux zsh git util
+  local bundles
+  bundles=(nvim tmux zsh git util)
+
+  stow --dir="$SCRIPT_DIR" --target "$HOME" --delete "${bundles[@]}"
+  stow --dir="$SCRIPT_DIR" --target "$HOME" "${bundles[@]}"
 }
 
 main
