@@ -261,6 +261,8 @@ endfunction
 
 " Toggle NERDTree
 nnoremap <C-n> :call NERDTreeToggleAndFind()<CR>
+nnoremap <silent> \ :NERDTreeToggle<CR>
+nnoremap <silent> \| :NERDTreeFind<cr>
 
 " Single mouse click will open any node
 let g:NERDTreeMouseMode=3
