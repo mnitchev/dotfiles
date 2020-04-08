@@ -493,6 +493,9 @@ let g:go_auto_type_info = 1
 " Highlight all uses of the identifier under the cursor
 let g:go_auto_sameids = 1
 
+" Toggle comment with ctrl + /
+nmap <C-_> gc$
+vmap <C-_> gc
 " --------------------------------------------------------------------------
 
 
