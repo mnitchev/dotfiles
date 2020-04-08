@@ -38,3 +38,4 @@ export PATH=$PATH:$HOME/bin
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
+zstyle :prompt:pure:path color '#6871FF'
