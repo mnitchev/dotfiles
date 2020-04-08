@@ -13,8 +13,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'w0rp/ale'                                                                                 " Asynchronous Lint Engine
     Plug 'neoclide/coc.nvim', {'branch':'release' }
 
-     " Plug 'junegunn/fzf', { 'do': './install --bin' }                                                " Awesome fuzzy finder 
-    " Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                               " Awesome fuzzy finder
+    Plug 'junegunn/fzf.vim'
 
     Plug 'jiangmiao/auto-pairs'                                                                     " Insert/delete brackets
 
@@ -632,4 +632,32 @@ inoremap <silent><expr> <C-o> pumvisible() ? coc#_select_confirm() :
 let g:UltiSnipsExpandTrigger='<c-j>'
 let g:UltiSnipsJumpForwardTrigger='<c-f>'
 let g:UltiSnipsJumpBackwardTrigger='<c-b>'
+" --------------------------------------------------------------------------
+
+
+" --------------------------------- FuzzyFind  -----------------------------
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+let g:fzf_command_prefix = 'FZF'
+let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_buffers_jump = 1
+
+" Show preview when searching files
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Use Rg for searching for contents and show preview
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!vendor/" '.shellescape(<q-args>), 1,
+  \    fzf#vim#with_preview({'down': '60%', 'options': '--bind alt-down:preview-down --bind alt-up:preview-up'},'right:50%', '?'),
+  \   <bang>0)
+
+" hide the statusline of the containing buffer
+augroup fzf
+  autocmd!
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+
+nnoremap <silent> <c-p> :FZFFiles<cr>
 " --------------------------------------------------------------------------
