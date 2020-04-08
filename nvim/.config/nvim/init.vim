@@ -54,6 +54,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'airblade/vim-gitgutter'                                                                   " Show git diff in the sign column
 
+    Plug 'christoomey/vim-tmux-navigator'                                                           " Navigate through vim splits seamlessly
+
 call plug#end()
 " ---------------------------------------------------------------------
 
