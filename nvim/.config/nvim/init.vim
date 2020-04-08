@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'scrooloose/nerdtree'                                                                      " Directory tree explorer
 
-    Plug 'w0rp/ale'                                                                                 " Asynchronous Lint Engine
+    Plug 'dense-analysis/ale'                                                                       " Asynchronous Lint Engine
     Plug 'neoclide/coc.nvim', {'branch':'release' }
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                               " Awesome fuzzy finder
