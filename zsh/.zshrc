@@ -54,3 +54,9 @@ PROMPT='%(?.%F{#32CD32}.%F{red}❯%F{red})❯%f '
 
 # Show exit status before prompt
 PROMPT='%F{red}$(precmd_pipestatus)'$PROMPT
+
+# Fuzzy Find
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Direnv
+eval "$(direnv hook zsh)"
