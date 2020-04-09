@@ -56,6 +56,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'christoomey/vim-tmux-navigator'                                                           " Navigate through vim splits seamlessly
 
+    Plug 'majutsushi/tagbar'                                                                        " Outline viewer for vim
+
 call plug#end()
 " ---------------------------------------------------------------------
 
@@ -667,4 +669,8 @@ nnoremap <silent> <c-p> :FZFFiles<cr>
 
 " ------------------Toggle showing whitespaces------------------------------
 nnoremap <F3> :set list!<CR>
+" --------------------------------------------------------------------------
+
+" ------------------Toggle showing outline view ----------------------------
+nmap <F8> :TagbarToggle<CR>
 " --------------------------------------------------------------------------
