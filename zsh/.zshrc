@@ -47,7 +47,6 @@ precmd_pipestatus() {
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
-zstyle :prompt:pure:path color '#6871FF'
 
 # Show exit code of last command as a separate prompt character
 PROMPT='%(?.%F{#32CD32}.%F{red}❯%F{red})❯%f '
