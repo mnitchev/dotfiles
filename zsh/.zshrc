@@ -48,6 +48,25 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+# Show current kubectl cluster and namespace
+precmd_kubectl_context() {
+    local context
+    if ! context="$(kubectl config current-context 2>/dev/null)"; then
+        # ZSH_KUBECTL_PROMPT=""
+        return 1
+    fi
+    local ns kube_symbol kubectl_prompt tidy_context
+    ns="$(kubectl config view -o "jsonpath={.contexts[?(@.name==\"${context}\")].context.namespace}")"
+    tidy_context="$(kubectl config current-context | cut -d "/" -f 1 2>/dev/null)"
+
+    kube_symbol='k8s'
+    kubectl_prompt="${kube_symbol}~${tidy_context}:${ns}"
+
+    RPROMPT="%{$fg[blue]%}«${kubectl_prompt}»%{$reset_color%}"
+}
+add-zsh-hook precmd precmd_kubectl_context
+
+
 # Show exit code of last command as a separate prompt character
 PROMPT='%(?.%F{#32CD32}.%F{red}❯%F{red})❯%f '
 
