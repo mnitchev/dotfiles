@@ -58,6 +58,9 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'majutsushi/tagbar'                                                                        " Outline viewer for vim
 
+    Plug 'mhinz/vim-startify'                                                                       " Fancy start screen
+
+
 call plug#end()
 " ---------------------------------------------------------------------
 
