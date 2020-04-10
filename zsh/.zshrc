@@ -48,6 +48,9 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+# Remove pure theme state (user@hostname) from prompt
+prompt_pure_state=()
+
 # Show current pair
 precmd_git_duet() {
     local author author_initials committer committer_initials
