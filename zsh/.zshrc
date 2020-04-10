@@ -48,6 +48,23 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+# Show current pair
+precmd_git_duet() {
+    local author author_initials committer committer_initials
+    author="$(git duet | grep AUTHOR_NAME | cut -d "=" -f 2| tr -d \')"
+    author_initials="$(grep "$author" ~/.git-authors | cut -d ":" -f 1 | sed 's/ //g')"
+
+    committer="$(git duet | grep COMMITTER_NAME | cut -d "=" -f 2| tr -d \')"
+    committer_initials="$(grep "$committer" ~/.git-authors | cut -d ":" -f 1 | sed 's/ //g')"
+
+    if [ "$author_initials" = "$committer_initials" ]; then
+        RPROMPT="solo~$author_initials"
+        return 0
+    fi
+    RPROMPT="pair~$author_initials+$committer_initials"
+}
+add-zsh-hook precmd precmd_git_duet
+
 # Show current kubectl cluster and namespace
 precmd_kubectl_context() {
     local context
@@ -62,9 +79,16 @@ precmd_kubectl_context() {
     kube_symbol='k8s'
     kubectl_prompt="${kube_symbol}~${tidy_context}:${ns}"
 
-    RPROMPT="%{$fg[blue]%}«${kubectl_prompt}»%{$reset_color%}"
+    RPROMPT="${kubectl_prompt} | "$RPROMPT
 }
 add-zsh-hook precmd precmd_kubectl_context
+
+# Surround RPROMPT
+precmd_surround_rprompt() {
+  RPROMPT="%{$fg[blue]%}«${RPROMPT}»%{$reset_color%}"
+}
+add-zsh-hook precmd precmd_surround_rprompt
+
 
 
 # Show exit code of last command as a separate prompt character
