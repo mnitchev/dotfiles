@@ -37,3 +37,5 @@ alias gremv='git remote -v'
 alias glog='git log'
 alias glog-fuller='git log --format=fuller'
 alias glogtree='git logtree'
+
+alias gsu='git submodule update --init --recursive'
