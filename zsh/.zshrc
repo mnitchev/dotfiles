@@ -106,3 +106,6 @@ PROMPT='%F{red}$(precmd_pipestatus)'$PROMPT
 
 # Direnv
 eval "$(direnv hook zsh)"
+
+# kubectl completion
+source <(kubectl completion zsh)
