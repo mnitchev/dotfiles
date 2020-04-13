@@ -1,12 +1,12 @@
 #!/bin/bash
-set -euo pipefail
+set -xeuo pipefail
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
   generate_gitconfig
   compile_authorized_keys
-  configure_home
+  configure_home "$@"
 }
 
 generate_gitconfig() {
@@ -38,11 +38,15 @@ compile_authorized_keys() {
 }
 
 configure_home() {
-  local bundles
+  local bundles action
   bundles=(nvim tmux zsh git util)
+  action=${1:-"install"}
 
   stow --dir="$SCRIPT_DIR" --target "$HOME" --delete "${bundles[@]}"
+  if [[ "$action" == "clean" ]]; then
+      return
+  fi
   stow --dir="$SCRIPT_DIR" --target "$HOME" "${bundles[@]}"
 }
 
-main
+main "$@"
