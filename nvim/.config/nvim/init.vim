@@ -547,6 +547,10 @@ let g:ale_list_window_size = 5
 " Disable highlighting
 let g:ale_set_highlights = 0
 
+let g:ale_linters = { 'go': ['golangci-lint', 'gopls'] }
+let g:ale_go_golangci_lint_package = 1
+let g:ale_go_golangci_lint_options = '--fast'
+
 " --------------------------------------------------------------------------
 
 " --------------------------------- Vipe  -------------------------------
