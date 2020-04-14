@@ -649,7 +649,6 @@ let g:UltiSnipsJumpBackwardTrigger='<c-b>'
 
 " --------------------------------- FuzzyFind  -----------------------------
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-let g:fzf_command_prefix = 'FZF'
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_buffers_jump = 1
 
@@ -671,7 +670,7 @@ augroup fzf
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
-nnoremap <silent> <c-p> :FZFFiles<cr>
+nnoremap <silent> <c-p> :Files<cr>
 " --------------------------------------------------------------------------
 
 " ------------------Toggle showing whitespaces------------------------------
