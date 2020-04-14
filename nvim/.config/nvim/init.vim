@@ -28,8 +28,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips'                                                                         " Add various code snippets
     Plug 'josharian/impl'                                                                           " Generates method stubs for implementing an interface
 
-    Plug 'jremmen/vim-ripgrep'
-
     Plug 'jeffkreeftmeijer/vim-numbertoggle'                                                       " Toggle between relative and absolute line numbers -- Note: currently disabled because it's causing lag for some reason
 
     Plug 'vim-ruby/vim-ruby'                                                                        " Ruby plugin
