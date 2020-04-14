@@ -103,6 +103,8 @@ PROMPT='%F{red}$(precmd_pipestatus)'$PROMPT
 
 # Fuzzy Find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 15% --border'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!vendor/"'
 
 # Direnv
 eval "$(direnv hook zsh)"
