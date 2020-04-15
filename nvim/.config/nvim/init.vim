@@ -28,7 +28,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips'                                                                         " Add various code snippets
     Plug 'josharian/impl'                                                                           " Generates method stubs for implementing an interface
 
-    Plug 'jeffkreeftmeijer/vim-numbertoggle'                                                       " Toggle between relative and absolute line numbers -- Note: currently disabled because it's causing lag for some reason
+    Plug 'jremmen/vim-ripgrep'
 
     Plug 'vim-ruby/vim-ruby'                                                                        " Ruby plugin
 
@@ -50,13 +50,15 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'vmchale/dhall-vim'
 
-    Plug 'airblade/vim-gitgutter'                                                                   " Show git diff in the sign column
+    Plug 'mhinz/vim-signify'                                                                        " Show git diff in the sign column
 
     Plug 'christoomey/vim-tmux-navigator'                                                           " Navigate through vim splits seamlessly
 
     Plug 'majutsushi/tagbar'                                                                        " Outline viewer for vim
 
     Plug 'mhinz/vim-startify'                                                                       " Fancy start screen
+
+    Plug 'zhimsel/vim-stay'                                                                         " Remember cursor, folds, etc
 
 
 call plug#end()
@@ -493,8 +495,17 @@ autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 " Show type info for word under the cursor
 let g:go_auto_type_info = 1
 
-" Highlight all uses of the identifier under the cursor
-let g:go_auto_sameids = 1
+" Don't highlight all uses of the identifier under the cursor
+let g:go_auto_sameids = 0
+
+" The only currently working implementation of go-rename
+let g:go_rename_command='gopls'
+
+" fancy inline docs
+let g:go_doc_popup_window=1
+
+" don't screw up folds on save
+let g:go_fmt_experimental=1
 
 " Toggle comment with ctrl + /
 nmap <C-_> gc$
