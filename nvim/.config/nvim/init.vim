@@ -337,6 +337,10 @@ let s:p.inactive.right = [ [ s:darkgrey, s:darkgrey ], [ s:darkgrey, s:darkgrey 
 let s:p.normal.error = [ [ s:red, s:blackish ] ]
 let s:p.normal.warning = [ [ s:yellow, s:blackish ] ]
 
+" Tabs
+let s:p.tabline.left = [ [ s:lightgrey, s:blackish ] ]
+let s:p.tabline.tabsel = [ [ s:blue, s:blackish ] ]
+
 " Set the palette
 let g:lightline#colorscheme#jellybeans#palette = lightline#colorscheme#flatten(s:p)
 
