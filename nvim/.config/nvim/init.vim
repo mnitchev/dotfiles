@@ -60,6 +60,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'zhimsel/vim-stay'                                                                         " Remember cursor, folds, etc
 
+    Plug 'tpope/vim-unimpaired'                                                                     " Useful mappings
+    Plug 'tpope/vim-repeat'                                                                         " Make . work with tpope's plugins
 
 call plug#end()
 " ---------------------------------------------------------------------
