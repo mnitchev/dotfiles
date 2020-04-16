@@ -10,13 +10,10 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'scrooloose/nerdtree'                                                                      " Directory tree explorer
 
-    Plug 'dense-analysis/ale'                                                                       " Asynchronous Lint Engine
     Plug 'neoclide/coc.nvim', {'branch':'release' }
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                               " Awesome fuzzy finder
     Plug 'junegunn/fzf.vim'
-
-    Plug 'jiangmiao/auto-pairs'                                                                     " Insert/delete brackets
 
     Plug 'tpope/vim-surround'                                                                       " Provides mappings to easily delete, change and add surroundings (parentheses, brackets, quotes, XML tags, and more) in pairs
 
@@ -27,8 +24,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'trayo/vim-gomega-snippets'
     Plug 'SirVer/ultisnips'                                                                         " Add various code snippets
     Plug 'josharian/impl'                                                                           " Generates method stubs for implementing an interface
-
-    Plug 'jremmen/vim-ripgrep'
 
     Plug 'vim-ruby/vim-ruby'                                                                        " Ruby plugin
 
@@ -62,6 +57,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'tpope/vim-unimpaired'                                                                     " Useful mappings
     Plug 'tpope/vim-repeat'                                                                         " Make . work with tpope's plugins
+
+    Plug 'mhinz/vim-grepper'
 
 call plug#end()
 " ---------------------------------------------------------------------
@@ -191,6 +188,9 @@ highlight StatusLineNC guibg=#1c1c1c
 
 " Wildmenu autocomplete
 highlight StatusLine gui=italic guifg=grey guibg=#1c1c1c
+
+" COC floating window background
+highlight CocFloating guibg=#C0C0C0
 " ---------------------------------------------------------------------
 
 
@@ -279,9 +279,6 @@ let g:NERDTreeMouseMode=3
 " Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Automatically close NerdTree when you open a file
-let NERDTreeQuitOnOpen = 1
-
 " Automatically delete the buffer of the file you just deleted with NerdTree
 let NERDTreeAutoDeleteBuffer = 1
 
@@ -352,12 +349,13 @@ let g:lightline = {
       \             [ 'gitbranch' ],
       \             [ 'readonly' ],
       \             [ 'relativepath', 'modified' ] ],
-      \   'right': [ [ 'linter_warnings', 'linter_errors', 'linter_ok' ],
+      \   'right': [ [ 'cocstatus'],
       \              [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'filetype', 'encodingformat' ] ],
       \ },
       \ 'component_function': {
+      \   'cocstatus': 'coc#status',
       \   'gitbranch': 'LightlineBranch',
       \   'mode': 'LightlineMode',
       \   'encodingformat': 'LightlineFileEncodingFormat',
@@ -367,14 +365,6 @@ let g:lightline = {
       \   'relativepath': 'LightlineRelativePath',
       \   'modified': 'LightlineModified',
       \   'readonly': 'LightlineReadonly',
-      \ },
-      \ 'component_expand': {
-      \   'linter_warnings': 'LightlineLinterWarnings',
-      \   'linter_errors': 'LightlineLinterErrors',
-      \ },
-      \ 'component_type': {
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error'
       \ },
       \ 'subseparator': { 'left': '', 'right': '' },
       \ }
@@ -445,37 +435,13 @@ function! LightlineReadonly()
   endif
   return &ft !~? 'help' && &readonly ? 'RO' : ''
 endfunction
-
-" ALE integration
-
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
-endfunction
-
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
-endfunction
-
-autocmd User ALELint call lightline#update()
-
-augroup LightLineOnALE
-  autocmd!
-  autocmd User ALEFixPre   call lightline#update()
-  autocmd User ALEFixPost  call lightline#update()
-  autocmd User ALELintPre  call lightline#update()
-  autocmd User ALELintPost call lightline#update()
-augroup end
-
 " --------------------------------------------------------------------------
 
 
-
 " --------------------------------- Vim-Go --------------------------------
+"
+let g:go_gopls_enabled=0
+let g:go_doc_keywordprg_enabled=0
 
 " Highlight different language structs
 let g:go_highlight_types = 1
@@ -498,13 +464,7 @@ autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')  
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')           " Vertical split with test file
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')            " Horizontal split with test file
 
-" Show type info for word under the cursor
-let g:go_auto_type_info = 1
-
-" Don't highlight all uses of the identifier under the cursor
-let g:go_auto_sameids = 0
-
-" The only currently working implementation of go-rename
+" This loads gopls on demand, and it works!
 let g:go_rename_command='gopls'
 
 " fancy inline docs
@@ -630,6 +590,9 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" rename idents
+nmap <leader>r <Plug>(coc-rename)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
