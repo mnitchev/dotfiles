@@ -459,9 +459,6 @@ autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')  
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')           " Vertical split with test file
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')            " Horizontal split with test file
 
-" This loads gopls on demand, and it works!
-let g:go_rename_command='gopls'
-
 " Toggle comment with ctrl + /
 nmap <C-_> gc$
 vmap <C-_> gc
@@ -521,6 +518,10 @@ set signcolumn=yes
 
 let g:coc_status_warning_sign = '⚠'
 let g:coc_status_error_sign = '❌'
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 augroup fixImports
     autocmd!
