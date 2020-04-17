@@ -442,6 +442,7 @@ endfunction
 "
 let g:go_gopls_enabled=0
 let g:go_doc_keywordprg_enabled=0
+let g:go_fmt_autosave=0
 
 " Highlight different language structs
 let g:go_highlight_types = 1
@@ -453,12 +454,6 @@ let g:go_highlight_build_constraints = 1
 " disable the default mappings provided by the plugin
 let g:go_def_mapping_enabled = 0
 
-" Call goimports on save
-let g:go_fmt_command = "goimports"
-
-" Disable showing a location list when |'g:go_fmt_command'| fails
-let g:go_fmt_fail_silently = 1
-
 " Alternate toggles
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')              " Switch to test file
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')           " Vertical split with test file
@@ -466,12 +461,6 @@ autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 
 " This loads gopls on demand, and it works!
 let g:go_rename_command='gopls'
-
-" fancy inline docs
-let g:go_doc_popup_window=1
-
-" don't screw up folds on save
-let g:go_fmt_experimental=1
 
 " Toggle comment with ctrl + /
 nmap <C-_> gc$
@@ -490,43 +479,6 @@ let vim_markdown_preview_github=1
 
 " --------------------------------------------------------------------------
 
-
-
-" --------------------------------- ALE -------------------------------
-
-" Error sign in gutter
-let g:ale_sign_error = 'X»'
-
-" Warning sign in gutter
-let g:ale_sign_warning = '!»'
-
-" Warning sign color
-highlight ALEWarningSign guibg=#1c1c1c guifg=#8f9627
-highlight ALEErrorSign guibg=#1c1c1c guifg=#dd1c1c
-
-" Format for echo messages
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-" Navigate between errors
-nmap <silent> [a <Plug>(ale_previous_wrap)
-nmap <silent> ]a <Plug>(ale_next_wrap)
-
-" Do not run when typing
-let g:ale_lint_on_text_changed = 'never'
-
-" Show 5 lines of errors (default: 10)
-let g:ale_list_window_size = 5
-
-" Disable highlighting
-let g:ale_set_highlights = 0
-
-let g:ale_linters = { 'go': ['golangci-lint', 'gopls'] }
-let g:ale_go_golangci_lint_package = 1
-let g:ale_go_golangci_lint_options = '--fast'
-
-" --------------------------------------------------------------------------
 
 " --------------------------------- Vipe  -------------------------------
 " Show number of matches in the command-line
@@ -567,6 +519,13 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+let g:coc_status_warning_sign = '⚠'
+let g:coc_status_error_sign = '❌'
+
+augroup fixImports
+    autocmd!
+    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+augroup end
 
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -591,8 +550,8 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" rename idents
-nmap <leader>r <Plug>(coc-rename)
+nmap <leader>rn  <Plug>(coc-rename)
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
