@@ -190,7 +190,7 @@ highlight StatusLineNC guibg=#1c1c1c
 highlight StatusLine gui=italic guifg=grey guibg=#1c1c1c
 
 " COC floating window background
-highlight CocFloating guibg=#C0C0C0
+highlight CocFloating guibg=#333333
 " ---------------------------------------------------------------------
 
 
