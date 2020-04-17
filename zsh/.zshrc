@@ -4,6 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME=""
 
 plugins=(
+  kubectl
   z
   zsh-autosuggestions
 )
@@ -108,6 +109,3 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob
 
 # Direnv
 eval "$(direnv hook zsh)"
-
-# kubectl completion
-source <(kubectl completion zsh)
