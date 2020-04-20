@@ -1,100 +1,68 @@
 " ------------------------------ PLUGINS ------------------------------
 call plug#begin('~/.vim/plugged')
-    Plug 'junegunn/vim-plug'                                                                        " This plugin manager
-
-    Plug 'itchyny/lightline.vim'                                                                    " Light and configurable statusline
-
-    Plug 'tpope/vim-fugitive'                                                                       " Git wrapper
-
-    Plug 'rhysd/git-messenger.vim'                                                                  " Reveal the commit messages under the cursor in a 'popup window'
-
-    Plug 'scrooloose/nerdtree'                                                                      " Directory tree explorer
-
-    Plug 'neoclide/coc.nvim', {'branch':'release' }
-
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                               " Awesome fuzzy finder
+    Plug 'benmills/vimux'                                             " Allow vim to do tmux stuff, like open panes for the test plugin
+    Plug 'christoomey/vim-system-copy'                                " Add mappings to copy to clipboard
+    Plug 'christoomey/vim-tmux-navigator'                             " Navigate through vim splits seamlessly
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                " Golang plugin
+    Plug 'itchyny/lightline.vim'                                      " Light and configurable statusline
+    Plug 'JamshedVesuna/vim-markdown-preview'                         " Preview markdown files in the browser
+    Plug 'janko/vim-test'                                             " Test runner integration
+    Plug 'josharian/impl'                                             " Generates method stubs for implementing an interface
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Awesome fuzzy finder
     Plug 'junegunn/fzf.vim'
-
-    Plug 'tpope/vim-surround'                                                                       " Provides mappings to easily delete, change and add surroundings (parentheses, brackets, quotes, XML tags, and more) in pairs
-
-    Plug 'JamshedVesuna/vim-markdown-preview'                                                       " Preview markdown files in the browser
-
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                                              " Golang plugin
-    Plug 'trayo/vim-ginkgo-snippets'                                                                " Add snippets for Ginkgo BDD testing library for go
-    Plug 'trayo/vim-gomega-snippets'
-    Plug 'SirVer/ultisnips'                                                                         " Add various code snippets
-    Plug 'josharian/impl'                                                                           " Generates method stubs for implementing an interface
-
-    Plug 'vim-ruby/vim-ruby'                                                                        " Ruby plugin
-
-    Plug 'tpope/vim-commentary'                                                                     " Comment stuff out
-
-    Plug 'christoomey/vim-system-copy'                                                              " Add mappings to copy to clipboard
-
-    Plug 'powerman/vim-plugin-AnsiEsc'                                                              " ANSI escape sequences concealed, but highlighted as specified
-
-    Plug 'RRethy/vim-illuminate'                                                                    " Selectively illuminating other uses of the current word under the cursor
-
-    Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }                                                        " Runs shfmt to auto format the current buffer
-
-    Plug 'romainl/vim-cool'                                                                         " Make hlsearch more useful
-
-    Plug 'mtth/scratch.vim'                                                                         " Unobtrusive scratch window
-
-    Plug 'nanotech/jellybeans.vim'                                                                  " My current colorscheme
-
-    Plug 'vmchale/dhall-vim'
-
-    Plug 'mhinz/vim-signify'                                                                        " Show git diff in the sign column
-
-    Plug 'christoomey/vim-tmux-navigator'                                                           " Navigate through vim splits seamlessly
-
-    Plug 'majutsushi/tagbar'                                                                        " Outline viewer for vim
-
-    Plug 'mhinz/vim-startify'                                                                       " Fancy start screen
-
-    Plug 'zhimsel/vim-stay'                                                                         " Remember cursor, folds, etc
-
-    Plug 'tpope/vim-unimpaired'                                                                     " Useful mappings
-    Plug 'tpope/vim-repeat'                                                                         " Make . work with tpope's plugins
-
+    Plug 'junegunn/vim-plug'                                          " This plugin manager
+    Plug 'majutsushi/tagbar'                                          " Outline viewer for vim
     Plug 'mhinz/vim-grepper'
-
-    Plug 'milkypostman/vim-togglelist'                                                              " Toggle quickfix and location windows
-
-    Plug 'benmills/vimux'                                                                           " allow vim to do tmux stuff, like open panes for the test plugin
-
-    Plug 'janko/vim-test'                                                                           " test runner integration
-
+    Plug 'mhinz/vim-signify'                                          " Show git diff in the sign column
+    Plug 'mhinz/vim-startify'                                         " Fancy start screen
+    Plug 'milkypostman/vim-togglelist'                                " Toggle quickfix and location windows
+    Plug 'mtth/scratch.vim'                                           " Unobtrusive scratch window
+    Plug 'nanotech/jellybeans.vim'                                    " My current colorscheme
+    Plug 'neoclide/coc.nvim', {'branch':'release' }
+    Plug 'powerman/vim-plugin-AnsiEsc'                                " ANSI escape sequences concealed, but highlighted as specified
+    Plug 'rhysd/git-messenger.vim'                                    " Reveal the commit messages under the cursor in a 'popup window'
+    Plug 'romainl/vim-cool'                                           " Make hlsearch more useful
+    Plug 'RRethy/vim-illuminate'                                      " Selectively illuminating other uses of the current word under the cursor
+    Plug 'scrooloose/nerdtree'                                        " Directory tree explorer
+    Plug 'SirVer/ultisnips'                                           " Add various code snippets
+    Plug 'tpope/vim-commentary'                                       " Comment stuff out
+    Plug 'tpope/vim-eunuch'                                           " Unix utility commands
+    Plug 'tpope/vim-fugitive'                                         " Git wrapper
+    Plug 'tpope/vim-repeat'                                           " Make . work with tpope's plugins
+    Plug 'tpope/vim-surround'                                         " Provides mappings to easily delete, change and add surroundings (parentheses, brackets, quotes, XML tags, and more) in pairs
+    Plug 'tpope/vim-unimpaired'                                       " Useful mappings
+    Plug 'trayo/vim-ginkgo-snippets'                                  " Add snippets for Ginkgo BDD testing library for go
+    Plug 'trayo/vim-gomega-snippets'
+    Plug 'vim-ruby/vim-ruby'                                          " Ruby plugin
+    Plug 'vmchale/dhall-vim'
+    Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }                          " Runs shfmt to auto format the current buffer
+    Plug 'zhimsel/vim-stay'                                           " Remember cursor, folds, etc
 call plug#end()
 " ---------------------------------------------------------------------
 
-
-
 " ------------------------------ GENERAL ------------------------------
-set mouse=a                                                         "Enable mouse
-set backspace=indent,eol,start                                      "Make backspace normal
-set nocompatible                                                    "Disable vi compatibility. Because we're not in 1995
-set tw=0                                                            "Disable automactic line wrapping
-set list                                                            "Display whitespace characters
-set listchars=tab:▸\ ,trail:~,extends:>,precedes:<,space:·          "Specify whitespace characters visualization
-set noerrorbells                                                    "Disable beeping
-set encoding=utf8                                                   "Encoding
-set ffs=unix,dos                                                    "File formats that will be tried (in order) when vim reads and writes to a file
-set splitbelow                                                      "Set preview window position to bottom of the page
-set scrolloff=5                                                     "Show at least N lines above/below the cursor.
-set hidden                                                          "Opening a new file when the current buffer has unsaved changes causes files to be hidden instead of closed
-set undolevels=1000                                                 "Undo many times
-set noshowmode                                                      "Do not show message on last line when in Insert, Replace or Visual mode
-
-set termguicolors                                                   "Enable TrueColor
+set mouse=a                                                           "Enable mouse
+set backspace=indent,eol,start                                        "Make backspace normal
+set nocompatible                                                      "Disable vi compatibility. Because we're not in 1995
+set tw=0                                                              "Disable automactic line wrapping
+set list                                                              "Display whitespace characters
+set listchars=tab:▸\ ,trail:~,extends:>,precedes:<,space:·            "Specify whitespace characters visualization
+set noerrorbells                                                      "Disable beeping
+set encoding=utf8                                                     "Encoding
+set ffs=unix,dos                                                      "File formats that will be tried (in order) when vim reads and writes to a file
+set splitbelow                                                        "Set preview window position to bottom of the page
+set scrolloff=5                                                       "Show at least N lines above/below the cursor.
+set hidden                                                            "Opening a new file when the current buffer has unsaved changes causes files to be hidden instead of closed
+set undolevels=1000                                                   "Undo many times
+set noshowmode                                                        "Do not show message on last line when in Insert, Replace or Visual mode
+set termguicolors                                                     "Enable TrueColor
 
 if !has('nvim')
   set ttymouse=sgr                                                    "Make the mouse work even in columns beyond 223
 endif
 
-let mapleader=' '                                                   "Leader is comma
-let maplocalleader='\'                                              "Local leader is comma
+let mapleader=' '                                                     "Leader is comma
+let maplocalleader='\'                                                "Local leader is comma
 
 "Replace escape with jk
 inoremap jk <esc>
@@ -105,10 +73,6 @@ inoremap ;; <esc>
 "Convert current word to uppercase
 inoremap <C-u> <esc>mzgUiw`za
 
-" Save file with sudo -- does not work with Neovim currently - https://github.com/neovim/neovim/issues/8217
-" command w!! w !sudo tee % > /dev/null
-
-" :(
 command! WQ wq
 command! Wq wq
 command! W w
@@ -128,7 +92,6 @@ endfunction
 
 com! DiffSaved call s:DiffWithSaved()
 
-
 " Maximize current window
 command Foc execute "winc | | winc _"
 " Show all windows
@@ -146,8 +109,11 @@ augroup END
 
 " save on enter
 nnoremap <silent> <expr> <cr> empty(&buftype) ? ':w<cr>' : '<cr>'
-" ---------------------------------------------------------------------
 
+" search mappings
+nnoremap <silent> <leader>ss :Grepper -tool rg<cr>
+nnoremap <leader>sr :Rg 
+" ---------------------------------------------------------------------
 
 " ------------------------------ COLORS ------------------------------
 "Enable syntax processing
@@ -193,14 +159,12 @@ highlight StatusLine gui=italic guifg=grey guibg=#1c1c1c
 highlight CocFloating guibg=#333333
 " ---------------------------------------------------------------------
 
-
 " ------------------------------ SPACES & TABS -----------------------------
 set tabstop=4               "Number of visual spaces per TAB
 set softtabstop=4           "Number of spaces in tab when editing
 set expandtab               "Tabs are spaces
 set shiftwidth=4            "Indent with 4 spaces
 " ---------------------------------------------------------------------
-
 
 " ------------------------------ UI CONFIG ------------------------------
 set number                              "Show line numbers
@@ -212,7 +176,6 @@ set showmatch                           "Highlight matching [{()}]
 set fillchars+=vert:│                   "Solid vertical split line
 set cursorline                          "Highlight current line
 
-
 augroup CursorLine
     au!
     au VimEnter * setlocal cursorline
@@ -222,20 +185,17 @@ augroup CursorLine
 augroup END
 " ---------------------------------------------------------------------
 
-
 " ------------------------------ SEARCHING ------------------------------
 set incsearch               "Incremental search
 set hlsearch                "Highlight matches
 set ignorecase              "Ignore case on search
 " ---------------------------------------------------------------------
 
-
 " ------------------------------ FOLDING ------------------------------
 set foldenable              "Enable folding
 set foldmethod=syntax       "Fold based on syntax highlighting
 set foldlevelstart=99       "Do not close folds when a buffer is opened
 " ---------------------------------------------------------------------
-
 
 " ------------------------------ MOVEMENT ------------------------------
 "Move vertically (down) by visual line
@@ -247,8 +207,6 @@ nnoremap k gk
 inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " ---------------------------------------------------------------------
-
-
 
 " =======================================================================================
 " =============================== PLUGIN CONFIGURATIONS =================================
@@ -296,7 +254,6 @@ autocmd FileType nerdtree setlocal nolist
 let NERDTreeShowHidden=1
 
 " --------------------------------------------------------------------------
-
 
 " --------------------------------- Lightline --------------------------------
 
@@ -437,7 +394,6 @@ function! LightlineReadonly()
 endfunction
 " --------------------------------------------------------------------------
 
-
 " --------------------------------- Vim-Go --------------------------------
 "
 let g:go_gopls_enabled=0
@@ -459,12 +415,11 @@ autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')  
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')           " Vertical split with test file
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')            " Horizontal split with test file
 
+" --------------------------------------------------------------------------
+
 " Toggle comment with ctrl + /
 nmap <C-_> gc$
 vmap <C-_> gc
-" --------------------------------------------------------------------------
-
-
 
 " --------------------------------- Vim-Markdown-Preview --------------------------------
 
@@ -476,12 +431,10 @@ let vim_markdown_preview_github=1
 
 " --------------------------------------------------------------------------
 
-
 " --------------------------------- Vipe  -------------------------------
 " Show number of matches in the command-line
 let g:CoolTotalMatches = 1
 " --------------------------------------------------------------------------
-
 
 " --------------------------------- Vipe  -------------------------------
 map <leader>t :call RunRspec()<cr>
@@ -495,7 +448,6 @@ endfunction
 let g:shfmt_extra_args = '-i 2'
 " --------------------------------------------------------------------------
 
-
 " --------------------------------- Coc  -------------------------------
 
 " Use K to show documentation in preview window
@@ -508,7 +460,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -527,7 +478,6 @@ augroup fixImports
     autocmd!
     autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 augroup end
-
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -575,14 +525,12 @@ inoremap <silent><expr> <C-o> pumvisible() ? coc#_select_confirm() :
 
 " --------------------------------------------------------------------------
 
-
 " --------------------------------- Snippets  -------------------------------
 """ ultisnips
 let g:UltiSnipsExpandTrigger='<c-j>'
 let g:UltiSnipsJumpForwardTrigger='<c-f>'
 let g:UltiSnipsJumpBackwardTrigger='<c-b>'
 " --------------------------------------------------------------------------
-
 
 " --------------------------------- FuzzyFind  -----------------------------
 let g:fzf_layout = { 'down': '~30%' }
@@ -611,11 +559,6 @@ nnoremap <silent> <leader>fo :Buffers<cr>
 nnoremap <silent> <leader>fm :History<cr>
 " --------------------------------------------------------------------------
 "
-" --------------------------------- Searching ------------------------------
-nnoremap <silent> <leader>ss :Grepper -tool rg<cr>
-nnoremap <leader>sr :Rg 
-" --------------------------------------------------------------------------
-
 " -------------------------------- Startify --------------------------------
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
