@@ -132,9 +132,6 @@ command Unfoc execute "winc ="
 nmap <silent> <leader>ve :edit ~/.config/nvim/init.vim<CR>
 nmap <silent> <leader>vs :source ~/.config/nvim/init.vim<CR>
 
-" Reload file
-inoremap <silent> <leader>r :edit<CR>
-
 " Read *.pl files as prolog files
 augroup ft_prolog
     au!
