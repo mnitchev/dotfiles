@@ -610,6 +610,11 @@ nnoremap <silent> <c-p> :Files<cr>
 nnoremap <silent> <leader>fo :Buffers<cr>
 nnoremap <silent> <leader>fm :History<cr>
 " --------------------------------------------------------------------------
+"
+" --------------------------------- Searching ------------------------------
+nnoremap <silent> <leader>ss :Grepper -tool rg<cr>
+nnoremap <leader>sr :Rg 
+" --------------------------------------------------------------------------
 
 " -------------------------------- Startify --------------------------------
 let g:startify_change_to_dir = 0
