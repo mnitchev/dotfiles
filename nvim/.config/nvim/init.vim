@@ -60,6 +60,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'mhinz/vim-grepper'
 
+    Plug 'milkypostman/vim-togglelist'                                                              " Toggle quickfix and location windows
+
 call plug#end()
 " ---------------------------------------------------------------------
 
@@ -546,7 +548,6 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 nmap <leader>rn  <Plug>(coc-rename)
-nmap <leader>qf  <Plug>(coc-fix-current)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
