@@ -96,9 +96,6 @@ inoremap jk <esc>
 "For pairing convenience
 inoremap ;; <esc>
 
-" Saving that precious key hit
-nnoremap ; :
-
 "Convert current word to uppercase
 inoremap <C-u> <esc>mzgUiw`za
 
