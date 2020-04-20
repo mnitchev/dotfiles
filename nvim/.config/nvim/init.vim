@@ -62,6 +62,10 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'milkypostman/vim-togglelist'                                                              " Toggle quickfix and location windows
 
+    Plug 'benmills/vimux'                                                                           " allow vim to do tmux stuff, like open panes for the test plugin
+
+    Plug 'janko/vim-test'                                                                           " test runner integration
+
 call plug#end()
 " ---------------------------------------------------------------------
 
@@ -626,3 +630,39 @@ nnoremap <F3> :set list!<CR>
 " ------------------Toggle showing outline view ----------------------------
 nmap <F8> :TagbarToggle<CR>
 " --------------------------------------------------------------------------
+"
+" ------------------ Testing -----------------------------------------------
+if empty($TMUX)
+  let g:test#strategy = 'neoterm'
+else
+  let g:test#strategy = 'vimux'
+endif
+
+"" We can customise tests requiring setup as below...
+" function! ScriptTestTransform(cmd) abort
+"   let l:command = a:cmd
+
+"   let l:commandTail = split(a:cmd)[-1]
+"   if &filetype == 'go'
+"     if filereadable('script/test')
+"       let l:command = 'script/test ' . l:commandTail
+"     elseif filereadable('scripts/test')
+"       let l:command = 'scripts/test ' . l:commandTail
+"     elseif filereadable('scripts/test-unit')
+"       let l:command = 'scripts/test-unit ' . l:commandTail
+"     end
+"   end
+
+"   return l:command
+" endfunction
+
+" let g:test#custom_transformations = {'scripttest': function('ScriptTestTransform')}
+" let g:test#transformation = 'scripttest'
+nnoremap <silent> <leader>tt :TestNearest<cr>
+nnoremap <silent> <leader>t. :TestLast<cr>
+nnoremap <silent> <leader>tf :TestFile<cr>
+nnoremap <silent> <leader>ts :TestSuite<cr>
+nnoremap <silent> <leader>tg :TestVisit<cr>
+" --------------------------------------------------------------------------
+"
+set nolist
