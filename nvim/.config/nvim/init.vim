@@ -605,6 +605,8 @@ augroup fzf
 augroup END
 
 nnoremap <silent> <c-p> :Files<cr>
+nnoremap <silent> <leader>fo :Buffers<cr>
+nnoremap <silent> <leader>fm :History<cr>
 " --------------------------------------------------------------------------
 
 " -------------------------------- Startify --------------------------------
