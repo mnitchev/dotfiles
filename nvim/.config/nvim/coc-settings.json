@@ -5,12 +5,16 @@
   "coc.preferences.formatOnSaveFiletypes": ["go", "dhall"],
   "suggest.enablePreview": true,
   "suggest.enablePreselect": false,
-  "diagnostic.enable":true,
   "languageserver": {
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],
-      "filetypes": ["go"]
+      "filetypes": ["go"],
+      "initializationOptions": {
+          "completeUnimported": true,
+          "usePlaceholders": true,
+          "staticcheck": true
+      }
     },
     "dhall": {
       "command": "dhall-lsp-server",
