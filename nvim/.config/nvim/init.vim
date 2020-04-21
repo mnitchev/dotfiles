@@ -587,25 +587,21 @@ else
 endif
 
 "" We can customise tests requiring setup as below...
-" function! ScriptTestTransform(cmd) abort
-"   let l:command = a:cmd
+function! ScriptTestTransform(cmd) abort
+  let l:command = a:cmd
 
-"   let l:commandTail = split(a:cmd)[-1]
-"   if &filetype == 'go'
-"     if filereadable('script/test')
-"       let l:command = 'script/test ' . l:commandTail
-"     elseif filereadable('scripts/test')
-"       let l:command = 'scripts/test ' . l:commandTail
-"     elseif filereadable('scripts/test-unit')
-"       let l:command = 'scripts/test-unit ' . l:commandTail
-"     end
-"   end
+  let l:commandTail = split(a:cmd)[-1]
+  if &filetype == 'go'
+    if filereadable('scripts/test')
+      let l:command = 'scripts/test ' . l:commandTail
+    end
+  end
 
-"   return l:command
-" endfunction
+  return l:command
+endfunction
 
-" let g:test#custom_transformations = {'scripttest': function('ScriptTestTransform')}
-" let g:test#transformation = 'scripttest'
+let g:test#custom_transformations = {'scripttest': function('ScriptTestTransform')}
+let g:test#transformation = 'scripttest'
 nnoremap <silent> <leader>tt :TestNearest<cr>
 nnoremap <silent> <leader>t. :TestLast<cr>
 nnoremap <silent> <leader>tf :TestFile<cr>
