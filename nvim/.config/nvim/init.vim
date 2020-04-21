@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'benmills/vimux'                                             " Allow vim to do tmux stuff, like open panes for the test plugin
     Plug 'christoomey/vim-system-copy'                                " Add mappings to copy to clipboard
     Plug 'christoomey/vim-tmux-navigator'                             " Navigate through vim splits seamlessly
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                " Golang plugin
+    Plug 'fatih/vim-go'                                               " Golang plugin
     Plug 'itchyny/lightline.vim'                                      " Light and configurable statusline
     Plug 'JamshedVesuna/vim-markdown-preview'                         " Preview markdown files in the browser
     Plug 'janko/vim-test'                                             " Test runner integration
