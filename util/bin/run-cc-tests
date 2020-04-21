@@ -2,30 +2,50 @@
 
 set -xeuo pipefail
 
-sudo apt-get update
-sudo apt-get -y install libpq-dev libmysqlclient-dev mysql-server
+main() {
+  if ! dpkg-query -s mysql-server &>/dev/null;then
+      set-up-mysql
+  fi
 
-function finish {
+  sudo service mysql start
+  run-tests "$@"
+  trap finish EXIT
+}
+
+finish() {
     sudo service mysql stop
 }
-trap finish EXIT
 
-sudo service mysql start
+set-up-mysql() {
+  sudo apt-get update
+  sudo apt-get -y install libpq-dev libmysqlclient-dev mysql-server
 
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; FLUSH PRIVILEGES;" | sudo mysql || true
+  sudo service mysql start
 
-pushd /home/vagrant/workspace/cloud_controller_ng
-    bundler_version="$(cat Gemfile.lock | grep -A1 "BUNDLED WITH" | tail -1 | tr -d ' ')"
-    gem install --user-install bundler --version "$bundler_version"
+  echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;" | sudo mysql || true
 
-    bundle install 
+  pushd /home/vagrant/workspace/cloud_controller_ng
+      bundler_version="$(cat Gemfile.lock | grep -A1 "BUNDLED WITH" | tail -1 | tr -d ' ')"
+      gem install --user-install bundler --version "$bundler_version"
 
-    DB=mysql rake db:drop
-    DB=mysql rake db:create
+      bundle install 
+  popd
+}
 
-    if [ $# -eq 0 ]; then
-        bundle exec rake spec
-    else
-        bundle exec rspec $@
-    fi
-popd
+run-tests() {
+  local specs
+  specs="$@"
+
+  pushd /home/vagrant/workspace/cloud_controller_ng
+      DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:drop
+      DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:create
+
+      if [ $# -eq 0 ]; then
+          DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rake spec
+      else
+          DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rspec $specs
+      fi
+  popd
+}
+
+main "$@"
