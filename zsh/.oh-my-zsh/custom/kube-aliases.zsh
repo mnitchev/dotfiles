@@ -59,3 +59,39 @@ alias ka='kubectl apply -f'
 alias klo='kubectl logs -f'
 alias kex='kube-exec'
 alias kns='change-kube-namespace'
+alias kuse='change-kube-cluster'
+
+# attach to a pod
+kube-exec() {
+    local pod_name
+    pod_name="$1"
+    shift
+    kubectl exec $@ -it "$pod_name" /bin/bash
+}
+
+# set namespace
+change-kube-namespace() {
+    local ns
+    ns="$1"
+    if [[ -z "$ns" ]];then
+        #TODO: print current namespace
+    fi
+    local ctx
+    ctx=$(kubectl config current-context)
+
+    ns=$(kubectl get namespace $1 --no-headers --output=go-template={{.metadata.name}} 2>/dev/null)
+
+    if [ -z "${ns}" ]; then
+        echo "Namespace (${1}) not found!"
+        return 1
+    fi
+
+    kubectl config set-context ${ctx} --namespace="${ns}"
+}
+
+change-kube-cluster() {
+    local name cluster_name
+    name="$1"
+    cluster_name="$(kubectl config get-clusters | grep "$name")"
+    kubectl config use-context "$cluster_name"
+}
