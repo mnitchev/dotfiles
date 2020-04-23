@@ -1,6 +1,7 @@
 " ------------------------------ PLUGINS ------------------------------
 call plug#begin('~/.vim/plugged')
     Plug 'benmills/vimux'                                             " Allow vim to do tmux stuff, like open panes for the test plugin
+    Plug 'bronson/vim-trailing-whitespace'
     Plug 'christoomey/vim-system-copy'                                " Add mappings to copy to clipboard
     Plug 'christoomey/vim-tmux-navigator'                             " Navigate through vim splits seamlessly
     Plug 'fatih/vim-go'                                               " Golang plugin
@@ -112,7 +113,10 @@ nnoremap <silent> <expr> <cr> empty(&buftype) ? ':w<cr>' : '<cr>'
 
 " search mappings
 nnoremap <silent> <leader>ss :Grepper -tool rg<cr>
-nnoremap <leader>sr :Rg 
+nnoremap <leader>sr :Rg
+
+" autoremove trailing whitespace
+autocmd BufWritePre * FixWhitespace
 " ---------------------------------------------------------------------
 
 " ------------------------------ COLORS ------------------------------
