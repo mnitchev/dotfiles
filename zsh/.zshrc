@@ -36,6 +36,9 @@ export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # Custom scripts
 export PATH=$PATH:$HOME/bin
 
+# snap
+export PATH=$PATH:/snap/bin
+
 # Show non-zero exit status
 precmd_pipestatus() {
     local exit_status="${(j.|.)pipestatus}"
