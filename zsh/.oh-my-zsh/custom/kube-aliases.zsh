@@ -63,10 +63,7 @@ alias kuse='change-kube-cluster'
 
 # attach to a pod
 kube-exec() {
-    local pod_name
-    pod_name="$1"
-    shift
-    kubectl exec $@ -it "$pod_name" /bin/bash
+    kubectl exec "$@" -it /bin/bash
 }
 
 # set namespace
