@@ -11,8 +11,9 @@ if [ "$since" = "--help" ]; then
   exit 0
 fi
 
-git diff --name-only $since | xargs -n 1 -I {} kubectl cp {} scf/api-group-0:/var/vcap/packages/cloud_controller_ng/cloud_controller_ng/{}
+git diff --name-only $since -- ':(exclude)spec' | xargs -n 1 -I {} kubectl cp {} scf/api-group-0:/var/vcap/packages/cloud_controller_ng/cloud_controller_ng/{} &>/dev/null
 
 kubectl -n scf exec api-group-0 -- /bin/bash -c '/var/vcap/bosh/bin/monit restart cloud_controller_ng; \
     /var/vcap/bosh/bin/monit restart cloud_controller_worker_local_1; \
-    /var/vcap/bosh/bin/monit restart cloud_controller_worker_local_2'
+    /var/vcap/bosh/bin/monit restart cloud_controller_worker_local_2' \
+  &>/dev/null
