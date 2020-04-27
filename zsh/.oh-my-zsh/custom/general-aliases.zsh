@@ -19,11 +19,12 @@ cf-lite() {
     endpoint="https://api.$(cf-ip).nip.io"
   fi
   cf api $endpoint --skip-ssl-validation
-  cf login -u admin -p "$password"
-  cf create-org o
-  cf target -o o
-  cf create-space s
-  cf target -o o -s s
+  if ! cf login -u admin -p "$password" -o o -s s; then
+    cf create-org o
+    cf target -o o
+    cf create-space s
+    cf target -o o -s s
+  fi
 }
 
 cf-ip() {
