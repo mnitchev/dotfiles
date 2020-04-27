@@ -58,6 +58,11 @@ prompt_pure_state=()
 
 # Show current pair
 precmd_git_duet() {
+    if ! [[ $(git duet) ]]; then
+        RPROMPT=""
+        return 0
+    fi
+
     local author author_initials committer committer_initials
     author="$(git duet | grep AUTHOR_NAME | cut -d "=" -f 2| tr -d \')"
     author_initials="$(grep "$author" ~/.git-authors | cut -d ":" -f 1 | sed 's/ //g')"
