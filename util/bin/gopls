@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cgroup_path="/sys/fs/cgroup/memory/gopls"
+sudo mkdir -p "$cgroup_path"
+
+echo "$$" | sudo tee -a "$cgroup_path/cgroup.procs" >/dev/null
+total_memory="$(grep MemTotal /proc/meminfo | awk '{print $2}')"
+memory_limit="$(( 50 * 1024 * $total_memory / 100 ))"
+echo "$memory_limit" | sudo tee "$cgroup_path/memory.limit_in_bytes" >/dev/null
+
+$HOME/go/bin/gopls "$@"
