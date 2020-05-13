@@ -12,6 +12,7 @@ alias pbpaste='xsel --clipboard --output'
 alias cflogin='cf-lite'
 alias dockerlogin='docker login -u eiriniuser -p $(pass eirini/docker-hub)'
 alias flylogin='fly-login'
+alias flake-hunter='concourse-flake-hunter -c https://jetson.eirini.cf-app.com -n main search'
 
 cf-lite() {
   local password="$1"
