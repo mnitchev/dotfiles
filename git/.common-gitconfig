@@ -15,7 +15,6 @@
   df = diff
   dc = diff --cached
   ds = diff --staged
-
 [apply]
   whitespace = nowarn
 [core]
@@ -54,3 +53,5 @@
   ; template = ~/.gitmessage
 [url "git@github.com:"]
   pushInsteadOf = https://github.com/
+[merge]
+  conflictstyle = diff3
