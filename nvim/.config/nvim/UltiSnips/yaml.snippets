@@ -1,0 +1,78 @@
+snippet cctd "task definition" b
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: ${2: image}
+inputs:
+- name: ${3: input}
+outputs:
+- name: ${4: output}
+params:
+  ${5:PARAM_NAME}: ${6:param-value}
+run:
+  path: /usr/bin/env
+  args:
+  - bash
+  - -c
+  - ${7:command}
+endsnippet
+
+snippet cctc "task with config" b
+- task: ${1: task-name}
+  config:
+    ${2: task config}
+endsnippet
+
+snippet cctf "task with file reference" b
+- task: ${1: task-name}
+  file: ${2: task file}
+endsnippet
+
+snippet ccg "get" b
+- get: ${1: resource-name}
+endsnippet
+
+snippet ccgt "get with trigger" b
+- get: ${1: resource-name}
+  trigger: true
+endsnippet
+
+snippet ccgp "get with trigger" b
+- get: ${1: resource-name}
+  passed:
+  - ${2: passed}
+endsnippet
+
+snippet ccgtp "get with trigger and passed" b
+- get: ${1: resource-name}
+  trigger: true
+  passed:
+  - ${2: passed}
+endsnippet
+
+snippet ccp "put" b
+- put: ${1: name}
+  params:
+    ${2: param}: ${3: value}
+endsnippet
+
+snippet ccpgit "put git-resource" b
+- put: ${1: git-resource}
+  params:
+    repository: ${2: git-resource-updated}
+endsnippet
+
+snippet ccj "job" b
+- name: ${1: name}
+  plan:
+  ${2}
+endsnippet
+
+snippet ccr "resource" b
+- name: ${1: resource-name}
+  type: ${2: type}
+  icon: ${3: icon}
+  source:
+    ${4}
+endsnippet
