@@ -117,6 +117,10 @@ nnoremap <leader>sr :Rg
 
 " autoremove trailing whitespace
 autocmd BufWritePre * FixWhitespace
+
+" shell-like navigation while in normal mode
+inoremap <c-b> <c-\><c-o>h
+inoremap <c-f> <c-\><c-o>l
 " ---------------------------------------------------------------------
 
 " ------------------------------ COLORS ------------------------------
