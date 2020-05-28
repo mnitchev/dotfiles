@@ -216,6 +216,27 @@ inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " ---------------------------------------------------------------------
 
+
+" ------------------------------ SANE PASTING---------------------------
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+
+" NB: this supports "rp that replaces the selection by the contents of @r
+vnoremap <silent> <expr> p <sid>Repl()
+" ---------------------------------------------------------------------
+
+" ------------------------------ CONTINUE INDENTING---------------------
+vnoremap > >gv
+vnoremap < <gv
+" ---------------------------------------------------------------------
+
 " =======================================================================================
 " =============================== PLUGIN CONFIGURATIONS =================================
 " =======================================================================================
@@ -476,17 +497,17 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
-let g:coc_status_warning_sign = '⚠'
-let g:coc_status_error_sign = '❌'
+let g:coc_status_warning_sign = '⚠ '
+let g:coc_status_error_sign = '❌ '
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-augroup fixImports
-    autocmd!
-    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-augroup end
+" augroup fixImports
+"     autocmd!
+"     autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" augroup end
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
