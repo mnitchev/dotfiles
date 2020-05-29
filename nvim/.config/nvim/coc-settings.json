@@ -1,26 +1,49 @@
 {
-  "coc.preferences.hoverTarget": "float",
-  "coc.preferences.enableFloatHighlight": true,
-  "coc.preferences.useQuickfixForLocations": true,
-  "coc.preferences.formatOnSaveFiletypes": ["go", "dhall", "yaml", "markdown", "sh"],
-  "suggest.enablePreview": true,
-  "suggest.enablePreselect": false,
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "filetypes": ["go"],
-      "initializationOptions": {
-          "completeUnimported": true,
-          "usePlaceholders": true,
-          "staticcheck": true
-      }
-    },
-    "dhall": {
-      "command": "dhall-lsp-server",
-      "filetypes": [
-        "dhall"
-      ]
+    "coc.preferences.hoverTarget": "float",
+    "coc.preferences.enableFloatHighlight": true,
+    "coc.preferences.useQuickfixForLocations": true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "dhall",
+        "go",
+        "json",
+        "markdown",
+        "sh",
+        "yaml"
+    ],
+    "suggest.enablePreview": true,
+    "suggest.enablePreselect": false,
+    "languageserver": {
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "filetypes": [
+                "go"
+            ],
+            "initializationOptions": {
+                "completeUnimported": true,
+                "usePlaceholders": true,
+                "staticcheck": true
+            }
+        },
+        "dhall": {
+            "command": "dhall-lsp-server",
+            "filetypes": [
+                "dhall"
+            ]
+        },
+        "bash": {
+            "command": "bash-language-server",
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
+        }
     }
-  }
 }
