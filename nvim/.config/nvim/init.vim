@@ -424,7 +424,6 @@ endfunction
 " --------------------------------------------------------------------------
 
 " --------------------------------- Vim-Go --------------------------------
-"
 let g:go_gopls_enabled=0
 let g:go_doc_keywordprg_enabled=0
 let g:go_fmt_autosave=0
@@ -507,10 +506,10 @@ let g:coc_status_error_sign = '❌ '
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" augroup fixImports
-"     autocmd!
-"     autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-" augroup end
+augroup fixImports
+    autocmd!
+    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+augroup end
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
