@@ -7,5 +7,5 @@ replace-ibm-cluster() {
     if old_name="$(kubectl config get-clusters | grep "$name")"; then
         kubectl config delete-cluster "$old_name"
     fi
-    ibmcloud ks cluster config --cluster "$name"
+    IKS_BETA_VERSION=1 ibmcloud ks cluster config --cluster "$name"
 }
