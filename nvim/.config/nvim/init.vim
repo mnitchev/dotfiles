@@ -30,6 +30,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-eunuch'                                           " Unix utility commands
     Plug 'tpope/vim-fugitive'                                         " Git wrapper
     Plug 'tpope/vim-repeat'                                           " Make . work with tpope's plugins
+    Plug 'tpope/vim-rhubarb'                                          " Open selected code in githb in browser
     Plug 'tpope/vim-surround'                                         " Provides mappings to easily delete, change and add surroundings (parentheses, brackets, quotes, XML tags, and more) in pairs
     Plug 'tpope/vim-unimpaired'                                       " Useful mappings
     Plug 'trayo/vim-ginkgo-snippets'                                  " Add snippets for Ginkgo BDD testing library for go
@@ -640,6 +641,12 @@ nnoremap <silent> <leader>t. :TestLast<cr>
 nnoremap <silent> <leader>tf :TestFile<cr>
 nnoremap <silent> <leader>ts :TestSuite<cr>
 nnoremap <silent> <leader>tg :TestVisit<cr>
+" --------------------------------------------------------------------------
+"
+" -------------------------------- vim-rhubarb -----------------------------
+" open in github
+nmap <silent> <leader>gh :Gbrowse<cr>
+vmap <silent> <leader>gh :Gbrowse<cr>
 " --------------------------------------------------------------------------
 "
 set nolist
