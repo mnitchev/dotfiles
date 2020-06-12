@@ -7,8 +7,6 @@
 alias c='clear'
 alias watch='watch '
 alias vim='nvim'
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
 alias cflogin='cf-lite'
 alias dockerlogin='docker login -u eiriniuser -p $(pass eirini/docker-hub)'
 alias flylogin='fly-login'
