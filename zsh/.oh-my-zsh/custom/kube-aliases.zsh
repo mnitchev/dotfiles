@@ -62,27 +62,60 @@ alias kns='change-kube-namespace'
 alias kuse='change-kube-cluster'
 alias kssh='kube-ssh'
 
+klogs() {
+  kube-ctl kube-logs $@
+}
+
+kube-logs() {
+  exec 3>&1
+  err=$(kubectl logs -f $@ 2>&1 1>&3)
+  if [[ "$?" -eq 1 ]] && $(echo -n "$err" | grep -q "a container name must be specified"); then
+      local count=1 line_num result_count containers
+      containers=$(echo -n "$err" | awk -F '[][]' '{print $2}')
+      result_count=$(echo -n $containers | wc -w)
+
+      echo "Found $result_count containers:"
+      for i in $(seq 1 $result_count); do
+          echo "${count}) $(echo -n $containers | awk -v N=$i '{print $N}')"
+          count=$((count+1))
+      done
+      while true; do
+      read "line_num?Select pod number: "
+      if [[ "$line_num" -gt 0 ]] && [[ "$line_num" -le "$result_count" ]]; then
+        break
+      fi
+      done
+      container="$(echo -n $containers | awk -v N=$line_num '{print $N}')"
+      kubectl logs -f $@ -c "$container"
+  fi
+}
+
 kube-ssh() {
-    local name line_num pod_name namespace results_count pod_metadata
-    name=$1
+  kube-ctl kube-exec $@
+}
+
+kube-ctl() {
+    local command_name name line_num pod_name namespace result_count pod_metadata
+    command_name="$1"
+    name="$2"
     line_num=1
-    shift 1
+    shift 2
     pod_metadata=$(kgp --all-namespaces -o custom-columns=:.metadata.name,:.metadata.namespace | awk -v name="$name" '$1 ~ name { print }')
-    results_count="$(echo $pod_metadata | wc -l)"
+    result_count="$(echo $pod_metadata | wc -l)"
     if [[ -z "$pod_metadata" ]]; then
         echo "No pod found that matches name $name"
         return 1
     fi
-    if [[ "$results_count" -gt 1 ]]; then
+    if [[ "$result_count" -gt 1 ]]; then
       local count=1
-      echo "Found $results_count pods:"
-      for i in $(seq 1 $results_count); do
+      echo "Found $result_count pods:"
+      for i in $(seq 1 $result_count); do
           echo "${count}) $(echo $pod_metadata | sed -n "${i}p")"
           count=$((count+1))
       done
       while true; do
       read "line_num?Select pod number: "
-      if [[ "$line_num" -gt 0 ]] && [[ "$line_num" -le "$results_count" ]]; then
+      if [[ "$line_num" -gt 0 ]] && [[ "$line_num" -le "$result_count" ]]; then
         break
       fi
       done
@@ -90,7 +123,7 @@ kube-ssh() {
     fi
     pod_name="$(echo $pod_metadata | awk '{ print $1 }')"
     namespace="$(echo $pod_metadata | awk '{ print $2 }')"
-    kube-exec $pod_name -n $namespace $@
+    $command_name $pod_name -n $namespace $@
 }
 
 # attach to a pod
