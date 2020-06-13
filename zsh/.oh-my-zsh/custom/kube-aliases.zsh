@@ -60,13 +60,21 @@ alias klo='kubectl logs -f'
 alias kex='kube-exec'
 alias kns='change-kube-namespace'
 alias kuse='change-kube-cluster'
-alias kssh='kube-ssh'
+alias kssh='kube-ctl kube-exec pod'
+alias klogs='kube-ctl kube-logs pod'
+alias kedit='kube-ctl kube-edit'
+alias kdes='kube-ctl kube-des'
 
-klogs() {
-  kube-ctl kube-logs $@
+kube-edit() {
+  kubectl edit $@
+}
+
+kube-des() {
+  kubectl describe $@
 }
 
 kube-logs() {
+  shift 1
   exec 3>&1
   err=$(kubectl logs -f $@ 2>&1 1>&3)
   if [[ "$?" -eq 1 ]] && $(echo -n "$err" | grep -q "a container name must be specified"); then
@@ -90,25 +98,22 @@ kube-logs() {
   fi
 }
 
-kube-ssh() {
-  kube-ctl kube-exec $@
-}
-
 kube-ctl() {
     local command_name name line_num pod_name namespace result_count pod_metadata
     command_name="$1"
-    name="$2"
+    resource_type="$2"
+    name="$3"
     line_num=1
-    shift 2
-    pod_metadata=$(kgp --all-namespaces -o custom-columns=:.metadata.name,:.metadata.namespace | awk -v name="$name" '$1 ~ name { print }')
+    shift 3
+    pod_metadata=$(kubectl get "$resource_type" --all-namespaces -o custom-columns=:.metadata.name,:.metadata.namespace | awk -v name="$name" '$1 ~ name { print }')
     result_count="$(echo $pod_metadata | wc -l)"
     if [[ -z "$pod_metadata" ]]; then
-        echo "No pod found that matches name $name"
+        echo "No resource $resource_type found that matches name $name"
         return 1
     fi
     if [[ "$result_count" -gt 1 ]]; then
       local count=1
-      echo "Found $result_count pods:"
+      echo "Found $result_count ${resource_type}s:"
       for i in $(seq 1 $result_count); do
           echo "${count}) $(echo $pod_metadata | sed -n "${i}p")"
           count=$((count+1))
@@ -123,11 +128,12 @@ kube-ctl() {
     fi
     pod_name="$(echo $pod_metadata | awk '{ print $1 }')"
     namespace="$(echo $pod_metadata | awk '{ print $2 }')"
-    $command_name $pod_name -n $namespace $@
+    $command_name $resource_type $pod_name -n $namespace $@
 }
 
 # attach to a pod
 kube-exec() {
+    shift 1
     kubectl exec "$@" -it /bin/bash
     if [[ "$?" -eq 1 ]]; then
         kubectl exec "$@" -it /bin/sh
