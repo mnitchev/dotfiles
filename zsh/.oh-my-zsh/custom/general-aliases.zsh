@@ -14,7 +14,7 @@ alias flake-hunter='concourse-flake-hunter -c https://jetson.eirini.cf-app.com -
 
 cf-lite() {
   local context_name cluster_name
-  pull_if_needed "/home/mnitchev/workspace/eirini-private-config"
+  pull_if_needed "$HOME/workspace/eirini-private-config"
   context_name="$(kubectl config current-context)"
   if $(echo "$context_name" | grep -q gke); then
       cluster_name="$(echo "$context_name" | sed "s/gke_cff-eirini-peace-pods_europe-west[1-9]-[a-z]_//g")"
@@ -61,7 +61,7 @@ cf_login() {
   password="$(yq read "$HOME/workspace/eirini-private-config/environments/kube-clusters/$cluster_name/$values_file_name" $password_path)"
 
   echo "Loging into cluster $cluster_name"
-  cf api $endpoint --skip-ssl-validation || exit 1
+  cf api $endpoint --skip-ssl-validation || return
   if ! cf login -u admin -p "$password" -o o -s s; then
     cf create-org o
     cf target -o o
