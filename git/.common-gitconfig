@@ -19,9 +19,11 @@
 [apply]
   whitespace = nowarn
 [core]
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
   editor = /usr/local/bin/nvim
   hooksPath = ~/workspace/git-hooks-core
+[interactive]
+  diffFilter = delta --color-only
 [push]
   default = current
 [color "status"]
