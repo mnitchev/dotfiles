@@ -99,15 +99,15 @@ kube-logs() {
 }
 
 kube-ctl() {
-    local command_name name line_num pod_name namespace result_count pod_metadata
+    local command_name resource_type name line_num resource_name namespace result_count resource_metadata
     command_name="$1"
     resource_type="$2"
     name="$3"
     line_num=1
     shift 3
-    pod_metadata=$(kubectl get "$resource_type" --all-namespaces -o custom-columns=:.metadata.name,:.metadata.namespace | awk -v name="$name" '$1 ~ name { print }')
-    result_count="$(echo $pod_metadata | wc -l)"
-    if [[ -z "$pod_metadata" ]]; then
+    resource_metadata=$(kubectl get "$resource_type" --all-namespaces -o custom-columns=:.metadata.name,:.metadata.namespace | awk -v name="$name" '$1 ~ name { print }')
+    result_count="$(echo $resource_metadata | wc -l)"
+    if [[ -z "$resource_metadata" ]]; then
         echo "No resource $resource_type found that matches name $name"
         return 1
     fi
@@ -115,7 +115,7 @@ kube-ctl() {
       local count=1
       echo "Found $result_count ${resource_type}s:"
       for i in $(seq 1 $result_count); do
-          echo "${count}) $(echo $pod_metadata | sed -n "${i}p")"
+          echo "${count}) $(echo $resource_metadata | sed -n "${i}p")"
           count=$((count+1))
       done
       while true; do
@@ -124,11 +124,11 @@ kube-ctl() {
         break
       fi
       done
-      pod_metadata="$(echo $pod_metadata | sed -n "${line_num}p")"
+      resource_metadata="$(echo $resource_metadata | sed -n "${line_num}p")"
     fi
-    pod_name="$(echo $pod_metadata | awk '{ print $1 }')"
-    namespace="$(echo $pod_metadata | awk '{ print $2 }')"
-    $command_name $resource_type $pod_name -n $namespace $@
+    resource_name="$(echo $resource_metadata | awk '{ print $1 }')"
+    namespace="$(echo $resource_metadata | awk '{ print $2 }')"
+    $command_name $resource_type $resource_name -n $namespace $@
 }
 
 # attach to a pod
