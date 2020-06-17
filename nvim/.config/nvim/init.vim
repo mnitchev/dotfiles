@@ -459,6 +459,9 @@ let vim_markdown_preview_browser='Google Chrome'
 " Use github syntax
 let vim_markdown_preview_github=1
 
+" Leave Ctrl-P alone
+let vim_markdown_preview_hotkey='<Leader>mp'
+
 " --------------------------------------------------------------------------
 
 " --------------------------------- Vipe  -------------------------------
