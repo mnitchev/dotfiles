@@ -56,6 +56,7 @@ set splitbelow                                                        "Set previ
 set scrolloff=5                                                       "Show at least N lines above/below the cursor.
 set hidden                                                            "Opening a new file when the current buffer has unsaved changes causes files to be hidden instead of closed
 set undolevels=1000                                                   "Undo many times
+set undofile                                                          "Undo across vim sessions
 set noshowmode                                                        "Do not show message on last line when in Insert, Replace or Visual mode
 set termguicolors                                                     "Enable TrueColor
 
