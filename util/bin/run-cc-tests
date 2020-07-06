@@ -3,9 +3,8 @@
 set -xeuo pipefail
 
 main() {
-  if ! dpkg-query -s mysql-server &>/dev/null;then
-      set-up-mysql
-  fi
+  set-up-mysql
+  set-up-bundler
 
   sudo service mysql start
   run-tests "$@"
@@ -13,22 +12,30 @@ main() {
 }
 
 finish() {
-    sudo service mysql stop
+  sudo service mysql stop
 }
 
 set-up-mysql() {
-  sudo apt-get update
-  sudo apt-get -y install libpq-dev libmysqlclient-dev mysql-server
+  if ! dpkg-query -s mysql-server &>/dev/null; then
+    sudo apt-get update
+    sudo apt-get -y install libpq-dev libmysqlclient-dev mysql-server
 
-  sudo service mysql start
+    sudo service mysql start
 
-  echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;" | sudo mysql || true
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;" | sudo mysql || true
+  fi
+}
 
-  pushd /home/vagrant/workspace/cloud_controller_ng
+set-up-bundler() {
+  pushd $HOME/workspace/capi-release/src/cloud_controller_ng
+  {
+    if ! type bundler >/dev/null; then
       bundler_version="$(cat Gemfile.lock | grep -A1 "BUNDLED WITH" | tail -1 | tr -d ' ')"
       gem install --user-install bundler --version "$bundler_version"
 
-      bundle install 
+      bundle install
+    fi
+  }
   popd
 }
 
@@ -36,15 +43,15 @@ run-tests() {
   local specs
   specs="$@"
 
-  pushd /home/vagrant/workspace/cloud_controller_ng
-      DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:drop
-      DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:create
+  pushd $HOME/workspace/capi-release/src/cloud_controller_ng
+  DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:drop
+  DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:create
 
-      if [ $# -eq 0 ]; then
-          DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rake spec
-      else
-          DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rspec $specs
-      fi
+  if [ $# -eq 0 ]; then
+    DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rake spec
+  else
+    DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rspec $specs
+  fi
   popd
 }
 
