@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 main() {
   generate_gitconfig
@@ -10,11 +10,11 @@ main() {
 }
 
 generate_gitconfig() {
-  if [[ -f "$HOME/.gitconfig"  ]]; then
+  if [[ -f "$HOME/.gitconfig" ]]; then
     return
   fi
 
-  cat <<EOF > "$HOME/.gitconfig"
+  cat <<EOF >"$HOME/.gitconfig"
 [include]
   path = ~/.common-gitconfig
 [user]
@@ -29,22 +29,22 @@ compile_authorized_keys() {
 
   while read -r gh_name; do
     key=$(curl -sL "https://api.github.com/users/$gh_name/keys" | jq -r ".[0].key")
-    echo "$key $gh_name" >> "$HOME/.ssh/authorized_keys"
-  done < "$SCRIPT_DIR/team-github-ids"
+    echo "$key $gh_name" >>"$HOME/.ssh/authorized_keys"
+  done <"$SCRIPT_DIR/team-github-ids"
 
   # remove duplicate keys
   keys=$(cat "$authorized_keys")
-  echo "$keys" | sort | uniq > "$authorized_keys"
+  echo "$keys" | sort | uniq >"$authorized_keys"
 }
 
 configure_home() {
   local bundles action
-  bundles=(nvim tmux zsh git util)
+  bundles=(nvim tmux zsh git util cows)
   action=${1:-"install"}
 
   stow --dir="$SCRIPT_DIR" --target "$HOME" --delete "${bundles[@]}"
   if [[ "$action" == "clean" ]]; then
-      return
+    return
   fi
   stow --dir="$SCRIPT_DIR" --target "$HOME" "${bundles[@]}"
 }

@@ -3,7 +3,7 @@ alias ibmcluster='replace-ibm-cluster'
 
 ibm-login() {
   ibmcloud login -u eirini@cloudfoundry.org -p $(pass eirini/ibm-id)
-  cowsay -s  "IMPORTANT NOTICE: Please DO NOT delete ibm clusters \"pebbles01\" and \"dino02\" as they are owned by the Quarks Team" | lolcat -as 200
+  eirinisay  "IMPORTANT NOTICE: Please DO NOT delete ibm clusters \"pebbles01\" and \"dino02\" as they are owned by the Quarks Team" | lolcat -as 200
 }
 
 replace-ibm-cluster() {

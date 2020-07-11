@@ -11,6 +11,7 @@ alias cflogin='cf-lite'
 alias dockerlogin='docker login -u eiriniuser -p $(pass eirini/docker-hub)'
 alias flylogin='fly-login'
 alias flake-hunter='concourse-flake-hunter -c https://jetson.eirini.cf-app.com -n main search'
+alias eirinisay='cowsay -f $HOME/cows/eirini.cow'
 
 cf-lite() {
   local context_name cluster_name
