@@ -598,6 +598,7 @@ nnoremap <silent> <leader>fa :A<cr>
 " --------------------------------------------------------------------------
 "
 " -------------------------------- Startify --------------------------------
+let g:startify_custom_header = map(systemlist('fortune | cowsay -f $HOME/cows/eirini.cow'), '"               ". v:val')
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 let g:startify_lists = [
