@@ -79,21 +79,11 @@ kube-logs() {
   err=$(kubectl logs -f $@ 2>&1 1>&3)
   if [[ "$?" -eq 1 ]] && $(echo -n "$err" | grep -q "a container name must be specified"); then
       local count=1 line_num result_count containers
-      containers=$(echo -n "$err" | awk -F '[][]' '{print $2}')
+      containers=$(echo -n "$err" | awk -F '[][]' '{print $2}' | sed 's/ /\n/g')
       result_count=$(echo -n $containers | wc -w)
 
       echo "Found $result_count containers:"
-      for i in $(seq 1 $result_count); do
-          echo "${count}) $(echo -n $containers | awk -v N=$i '{print $N}')"
-          count=$((count+1))
-      done
-      while true; do
-      read "line_num?Select pod number: "
-      if [[ "$line_num" -gt 0 ]] && [[ "$line_num" -le "$result_count" ]]; then
-        break
-      fi
-      done
-      container="$(echo -n $containers | awk -v N=$line_num '{print $N}')"
+      container="$(echo -n $containers | fzf)"
       kubectl logs -f $@ -c "$container"
   fi
 }
@@ -114,17 +104,7 @@ kube-ctl() {
     if [[ "$result_count" -gt 1 ]]; then
       local count=1
       echo "Found $result_count ${resource_type}s:"
-      for i in $(seq 1 $result_count); do
-          echo "${count}) $(echo $resource_metadata | sed -n "${i}p")"
-          count=$((count+1))
-      done
-      while true; do
-      read "line_num?Select pod number: "
-      if [[ "$line_num" -gt 0 ]] && [[ "$line_num" -le "$result_count" ]]; then
-        break
-      fi
-      done
-      resource_metadata="$(echo $resource_metadata | sed -n "${line_num}p")"
+      resource_metadata="$(echo $resource_metadata | fzf)"
     fi
     resource_name="$(echo $resource_metadata | awk '{ print $1 }')"
     namespace="$(echo $resource_metadata | awk '{ print $2 }')"
