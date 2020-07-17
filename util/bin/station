@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if ! ssh-add -L 2>&1 >/dev/null; then
+  echo "No ssh key is loaded. Please add your ssh key before running this script!"
+  exit 1
+fi
+
+export EIRINI_STATION_USERNAME=$(ssh-add -L | cut -d ' ' -f 3 | cut -d @ -f 1)
+export EIRINI_STATION_GCP_JSON_KEY_PATH="$(mktemp)"
+
+pass eirini/gcs-eirini-ci-terraform-json-key >"$EIRINI_STATION_GCP_JSON_KEY_PATH"
+trap "rm -f $EIRINI_STATION_GCP_JSON_KEY_PATH" EXIT
+
+pushd "$HOME/workspace/eirini-station"
+{
+  vagrant --provider=google $@
+}
+popd
