@@ -29,6 +29,7 @@ cf-lite() {
 pull_if_needed() {
   local git_dir
   git_dir="$1"
+  git -C "$git_dir" fetch --all
   if $(git -C "$git_dir" st -uno  | grep -q behind); then
     git -C "$git_dir" pull --rebase
   fi

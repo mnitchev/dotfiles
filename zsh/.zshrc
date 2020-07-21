@@ -27,6 +27,7 @@ export KUBE_EDITOR="nvim"
 
 # Keys
 bindkey '\C-b' beginning-of-line
+bindkey "^[r" redo
 
 # Vim stuff
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
