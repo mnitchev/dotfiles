@@ -59,6 +59,7 @@ set undolevels=1000                                                   "Undo many
 set undofile                                                          "Undo across vim sessions
 set noshowmode                                                        "Do not show message on last line when in Insert, Replace or Visual mode
 set termguicolors                                                     "Enable TrueColor
+set inccommand=nosplit                                                "Shows the effects of a command incrementally, as you type
 
 if !has('nvim')
   set ttymouse=sgr                                                    "Make the mouse work even in columns beyond 223
@@ -594,6 +595,7 @@ augroup END
 nnoremap <silent> <c-p> :Files<cr>
 nnoremap <silent> <leader>fo :Buffers<cr>
 nnoremap <silent> <leader>fm :History<cr>
+nnoremap <silent> <leader>fd :bp\|bd #<cr>
 nnoremap <silent> <leader>fa :A<cr>
 " --------------------------------------------------------------------------
 "
