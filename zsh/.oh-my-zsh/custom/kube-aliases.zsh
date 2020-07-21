@@ -64,6 +64,8 @@ alias kssh='kube-ctl kube-exec pod'
 alias klogs='kube-ctl kube-logs pod'
 alias kedit='kube-ctl kube-edit'
 alias kdes='kube-ctl kube-des'
+alias krm='kube-ctl kube-del'
+alias kget='kube-ctl kube-get'
 
 kube-edit() {
   kubectl edit $@
@@ -71,6 +73,14 @@ kube-edit() {
 
 kube-des() {
   kubectl describe $@
+}
+
+kube-del() {
+  kubectl delete $@
+}
+
+kube-get() {
+  kubectl get $@
 }
 
 kube-logs() {
