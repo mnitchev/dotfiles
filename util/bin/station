@@ -7,7 +7,7 @@ if ! ssh-add -L 2>&1 >/dev/null; then
   exit 1
 fi
 
-export EIRINI_STATION_USERNAME=$(ssh-add -L | cut -d ' ' -f 3 | cut -d @ -f 1)
+export EIRINI_STATION_USERNAME="${STATION_USER:-$(ssh-add -L | cut -d ' ' -f 3 | cut -d @ -f 1)}"
 export EIRINI_STATION_GCP_JSON_KEY_PATH="$(mktemp)"
 
 pass eirini/gcp-eirini-station-json-key >"$EIRINI_STATION_GCP_JSON_KEY_PATH"
