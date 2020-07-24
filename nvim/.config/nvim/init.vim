@@ -597,6 +597,7 @@ nnoremap <silent> <leader>fo :Buffers<cr>
 nnoremap <silent> <leader>fm :History<cr>
 nnoremap <silent> <leader>fd :bp\|bd #<cr>
 nnoremap <silent> <leader>fa :A<cr>
+nnoremap <silent> <leader>m `
 " --------------------------------------------------------------------------
 "
 " -------------------------------- Startify --------------------------------
