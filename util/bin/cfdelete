@@ -5,6 +5,6 @@ set -euo pipefail
 gcloud_token=$(mktemp)
 
 pass eirini/gcs-eirini-ci-terraform-json-key >"$gcloud_token"
-trap "rm -f $(gcloud_token)" EXIT
+trap "rm -f ${gcloud_token}" EXIT
 
 GOOGLE_APPLICATION_CREDENTIALS="$gcloud_token" kapp delete -a cf --yes
