@@ -93,7 +93,7 @@ kube-logs() {
       result_count=$(echo -n $containers | wc -w)
 
       echo "Found $result_count containers:"
-      container="$(echo -n $containers | fzf)"
+      container="$(echo -n $containers | fzf --header=CONTAINER)"
       kubectl logs -f $@ -c "$container"
   fi
 }
@@ -105,7 +105,8 @@ kube-ctl() {
     name="$3"
     line_num=1
     shift 3
-    resource_metadata=$(kubectl get "$resource_type" --all-namespaces -o custom-columns=:.metadata.name,:.metadata.namespace | awk -v name="$name" '$1 ~ name { print }')
+    kube_output=$(kubectl get "$resource_type" --all-namespaces)
+    resource_metadata=$(echo "$kube_output" | awk -v name="$name" '$2 ~ name { print }')
     result_count="$(echo $resource_metadata | wc -l)"
     if [[ -z "$resource_metadata" ]]; then
         echo "No resource $resource_type found that matches name $name"
@@ -114,10 +115,13 @@ kube-ctl() {
     if [[ "$result_count" -gt 1 ]]; then
       local count=1
       echo "Found $result_count ${resource_type}s:"
-      resource_metadata="$(echo $resource_metadata | fzf)"
+      prompt_header="$(echo $kube_output | head -1)"
+      formated_data=$(echo "${prompt_header}\n${resource_metadata}" | column -t)
+      prompt_header="$(echo $formated_data | head -1)"
+      resource_metadata="$(echo $formated_data | tail -n +2 | fzf --header=$prompt_header)"
     fi
-    resource_name="$(echo $resource_metadata | awk '{ print $1 }')"
-    namespace="$(echo $resource_metadata | awk '{ print $2 }')"
+    namespace="$(echo $resource_metadata | awk '{ print $1 }')"
+    resource_name="$(echo $resource_metadata | awk '{ print $2 }')"
     $command_name $resource_type $resource_name -n $namespace $@
 }
 
