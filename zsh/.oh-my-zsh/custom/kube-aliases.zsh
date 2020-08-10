@@ -93,7 +93,6 @@ kube-logs() {
       containers=$(echo -n "$err" | awk -F '[][]' '{print $2}' | sed 's/ /\n/g')
       result_count=$(echo -n $containers | wc -w)
 
-      echo "Found $result_count containers:"
       container="$(echo -n $containers | fzf --header=CONTAINER)"
       kubectl logs -f $@ -c "$container"
   fi
@@ -115,7 +114,6 @@ kube-ctl() {
     fi
     if [[ "$result_count" -gt 1 ]]; then
       local count=1
-      echo "Found $result_count ${resource_type}s:"
       prompt_header="$(echo $kube_output | head -1)"
       formated_data=$(echo "${prompt_header}\n${resource_metadata}" | column -t)
       prompt_header="$(echo $formated_data | head -1)"
