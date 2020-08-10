@@ -118,6 +118,11 @@ nnoremap <silent> <expr> <cr> empty(&buftype) ? ':w<cr>' : '<cr>'
 nnoremap <silent> <leader>ss :Grepper -tool rg<cr>
 nnoremap <leader>sr :Rg
 
+function! s:search_term_under_cursor()
+  execute "Rg " expand("<cword>")
+endfunction
+nnoremap <leader>st :call <SID>search_term_under_cursor()<CR>
+
 " autoremove trailing whitespace
 autocmd BufWritePre * FixWhitespace
 
