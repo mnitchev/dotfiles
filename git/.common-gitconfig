@@ -3,9 +3,9 @@
   unstage = reset HEAD
   st = status
   br = branch
-  ci = duet-commit --verbose
+  ci = commit --verbose
   co = checkout
-  ca = duet-commit --amend --reset-author --verbose
+  ca = commit --amend --reset-author --verbose
   cleanup = !git checkout master && git
   st = status
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
