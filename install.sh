@@ -20,6 +20,10 @@ generate_gitconfig() {
 [user]
   name = "Anonymous Eirininaut"
   email = "eirini@cloudfoundry.org"
+[duet "env"]
+  git-author-initials = ae
+  git-author-name = Anonymous Eirininaut
+  git-author-email = eirini@cloudfoundry.org
 EOF
 }
 
