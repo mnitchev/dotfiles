@@ -159,3 +159,7 @@ change-kube-cluster() {
     cluster_name="$(kubectl config get-clusters | grep "$name")"
     kubectl config use-context "$cluster_name"
 }
+
+delete-integration-namespaces() {
+  kubectl delete namespace $(kgns | awk '$1 ~ /opi-integration/ { print $1 }')
+}
