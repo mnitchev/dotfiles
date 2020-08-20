@@ -79,5 +79,7 @@ cf-ip() {
 fly-login() {
   local team
   team=${1:-"main"}
-  fly --target eirini login --team-name "$team" --concourse-url https://jetson.eirini.cf-app.com/
+  if ! flightattendant -target eirini; then
+    fly --target eirini login --team-name "$team" --concourse-url https://jetson.eirini.cf-app.com/
+  fi
 }
