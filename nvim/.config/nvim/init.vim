@@ -517,6 +517,9 @@ let g:coc_status_error_sign = '❌ '
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Use leader ep and en to navigate to previous/next error
+nmap <leader>ep  <Plug>(coc-diagnostic-prev-error)
+nmap <leader>en  <Plug>(coc-diagnostic-next-error)
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
