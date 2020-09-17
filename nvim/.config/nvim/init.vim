@@ -71,9 +71,6 @@ let maplocalleader='\'
 "Replace escape with jk
 inoremap jk <esc>
 
-"For pairing convenience
-inoremap ;; <esc>
-
 "Convert current word to uppercase
 inoremap <C-u> <esc>mzgUiw`za
 
