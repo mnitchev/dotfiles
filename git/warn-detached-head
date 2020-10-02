@@ -1,0 +1,16 @@
+#!/bin/bash
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+red="\033[31m"
+blue="\033[34m"
+default="\033[0;1m"
+
+if ! git symbolic-ref -q HEAD; then
+  echo -e "${bold}Uh oh!  It looks like you're in a ${red}detached head${default} state!${normal}"
+  echo
+  echo "Please checkout a proper branch before committing"
+  echo -e "(or you can bypass this check using the ${blue}--no-verify${default}${normal} flag)"
+  echo
+  exit 1
+fi

@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 main() {
   generate_gitconfig
+  install_pre_commit_hook
   compile_authorized_keys
   configure_home "$@"
 }
@@ -25,6 +26,10 @@ generate_gitconfig() {
   git-author-name = Anonymous Eirininaut
   git-author-email = eirini@cloudfoundry.org
 EOF
+}
+
+install_pre_commit_hook() {
+  ln -s "$SCRIPT_DIR/git/warn-detached-head" "$HOME/workspace/git-hooks-core/pre-commit.d/"
 }
 
 compile_authorized_keys() {
