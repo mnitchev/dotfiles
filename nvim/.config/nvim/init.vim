@@ -601,6 +601,8 @@ nnoremap <silent> <c-p> :Files<cr>
 nnoremap <silent> <leader>fo :Buffers<cr>
 nnoremap <silent> <leader>fm :History<cr>
 nnoremap <silent> <leader>fd :bp\|bd #<cr>
+nnoremap <silent> <leader>fn :bn<cr>
+nnoremap <silent> <leader>fp :bp<cr>
 nnoremap <silent> <leader>fa :A<cr>
 nnoremap <silent> <leader>m `
 " --------------------------------------------------------------------------
