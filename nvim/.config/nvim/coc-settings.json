@@ -15,7 +15,9 @@
     "languageserver": {
         "golang": {
             "command": "gopls",
-            "args": ["-remote=auto"],
+            "args": [
+                "-remote=auto"
+            ],
             "rootPatterns": [
                 "go.mod"
             ],
@@ -25,7 +27,8 @@
             "initializationOptions": {
                 "completeUnimported": true,
                 "usePlaceholders": true,
-                "staticcheck": true
+                "staticcheck": true,
+                "gofumpt": true
             }
         },
         "dhall": {
