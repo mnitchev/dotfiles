@@ -5,7 +5,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 main() {
   generate_gitconfig
-  install_pre_commit_hook
   compile_authorized_keys
   configure_home "$@"
 }
@@ -28,10 +27,6 @@ generate_gitconfig() {
 EOF
 }
 
-install_pre_commit_hook() {
-  ln -s "$SCRIPT_DIR/git/warn-detached-head" "$HOME/workspace/git-hooks-core/pre-commit.d/"
-}
-
 compile_authorized_keys() {
   local authorized_keys keys key
   authorized_keys="$HOME/.ssh/authorized_keys"
@@ -48,7 +43,7 @@ compile_authorized_keys() {
 
 configure_home() {
   local bundles action
-  bundles=(nvim tmux zsh git util cows)
+  bundles=(nvim tmux zsh git-pre-commit-hook git util cows)
   action=${1:-"install"}
 
   stow --dir="$SCRIPT_DIR" --target "$HOME" --delete "${bundles[@]}"
