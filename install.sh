@@ -33,6 +33,15 @@ compile_authorized_keys() {
 
   while read -r gh_name; do
     key=$(curl -sL "https://api.github.com/users/$gh_name/keys" | jq -r ".[0].key")
+    if [[ "$key" =~ "rate limit exceeded" ]]; then
+      echo "+-------------------------------------------------------------------------+"
+      echo "| ⚠️  WARNING:                                                             |"
+      echo "+-------------------------------------------------------------------------+"
+      echo "| Looks like we have exceeded the github rate limit. Skipping generation  |"
+      echo "| of authorized_keys file. You will have to manually add authorized keys! |"
+      echo "+-------------------------------------------------------------------------+"
+      return
+    fi
     echo "$key $gh_name" >>"$HOME/.ssh/authorized_keys"
   done <"$SCRIPT_DIR/team-github-ids"
 
