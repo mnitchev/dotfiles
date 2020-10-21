@@ -46,8 +46,7 @@ compile_authorized_keys() {
   done <"$SCRIPT_DIR/team-github-ids"
 
   # remove duplicate keys
-  keys=$(cat "$authorized_keys")
-  echo "$keys" | sort | uniq >"$authorized_keys"
+  sort --unique "$authorized_keys" -o "$authorized_keys"
 }
 
 configure_home() {
