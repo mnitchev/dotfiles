@@ -32,8 +32,8 @@ compile_authorized_keys() {
   authorized_keys="$HOME/.ssh/authorized_keys"
 
   while read -r gh_name; do
-    key=$(curl -sL "https://api.github.com/users/$gh_name/keys" | jq -r ".[0].key")
-    if [[ "$key" =~ "rate limit exceeded" ]]; then
+    keys=$(curl -sL "https://api.github.com/users/$gh_name/keys")
+    if [[ "$keys" =~ "rate limit exceeded" ]]; then
       echo "+-------------------------------------------------------------------------+"
       echo "| ⚠️  WARNING:                                                             |"
       echo "+-------------------------------------------------------------------------+"
@@ -42,6 +42,7 @@ compile_authorized_keys() {
       echo "+-------------------------------------------------------------------------+"
       return
     fi
+    key=$(jq -r ".[0].key" <<< "$keys")
     echo "$key $gh_name" >>"$HOME/.ssh/authorized_keys"
   done <"$SCRIPT_DIR/team-github-ids"
 
