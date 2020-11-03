@@ -42,7 +42,7 @@ compile_authorized_keys() {
       echo "+-------------------------------------------------------------------------+"
       return
     fi
-    key=$(jq -r ".[0].key" <<< "$keys")
+    key=$(jq -r ".[].key" <<<"$keys")
     echo "$key $gh_name" >>"$HOME/.ssh/authorized_keys"
   done <"$SCRIPT_DIR/team-github-ids"
 
