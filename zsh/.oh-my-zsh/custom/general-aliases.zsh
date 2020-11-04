@@ -17,9 +17,12 @@ cf-lite() {
   local context_name cluster_name
   pull_if_needed "$HOME/workspace/eirini-private-config"
   context_name="$(kubectl config current-context)"
-  if $(echo "$context_name" | grep -q gke); then
+  if [[ $context_name =~ gke ]]; then
       cluster_name="$(echo "$context_name" | sed "s/gke_cff-eirini-peace-pods_europe-west[1-9]-[a-z]_//g")"
       cf_login_gke "$cluster_name"
+  elif [[ $context_name =~ kind- ]]; then
+      cluster_name="$(echo "$context_name" | sed "s/^kind-//")"
+      cf_login_kind "$cluster_name"
   else
       cluster_name="$(echo "$context_name" | sed "s/\/.*$//g")"
       cf_login_ibmcloud "$cluster_name"
@@ -38,29 +41,38 @@ pull_if_needed() {
 cf_login_ibmcloud() {
     local cluster_name endpoint_path password_path
     cluster_name="$1"
-    values_file_name="values.yaml"
+    values_file="$HOME/workspace/eirini-private-config/environments/kube-clusters/$cluster_name/values.yaml"
     endpoint_path="env.DOMAIN"
     password_path="secrets.CLUSTER_ADMIN_PASSWORD"
-    cf_login "$cluster_name" "$values_file_name" "$endpoint_path" "$password_path"
+    cf_login "$cluster_name" "$values_file" "$endpoint_path" "$password_path"
 }
 
 cf_login_gke() {
     local cluster_name endpoint_path password_path
     cluster_name="$1"
-    values_file_name="default-values.yml"
+    values_file="$HOME/workspace/eirini-private-config/environments/kube-clusters/$cluster_name/default-values.yml"
     endpoint_path="system_domain"
     password_path="cf_admin_password"
-    cf_login "$cluster_name" "$values_file_name" "$endpoint_path" "$password_path"
+    cf_login "$cluster_name" "$values_file" "$endpoint_path" "$password_path"
+}
+
+cf_login_kind() {
+    local cluster_name endpoint_path password_path
+    cluster_name="$1"
+    values_file="$HOME/workspace/eirini/scripts/values/$cluster_name.cf-values.yml"
+    endpoint_path="system_domain"
+    password_path="cf_admin_password"
+    cf_login "$cluster_name" "$values_file" "$endpoint_path" "$password_path"
 }
 
 cf_login() {
   local cluster_name endpoint_path password_path endpoint password
   cluster_name="$1"
-  values_file_name="$2"
+  values_file="$2"
   endpoint_path="$3"
   password_path="$4"
-  endpoint="api.$(yq read "$HOME/workspace/eirini-private-config/environments/kube-clusters/$cluster_name/$values_file_name" $endpoint_path)"
-  password="$(yq read "$HOME/workspace/eirini-private-config/environments/kube-clusters/$cluster_name/$values_file_name" $password_path)"
+  endpoint="api.$(yq read "$values_file" $endpoint_path)"
+  password="$(yq read "$values_file" $password_path)"
 
   echo "Loging into cluster $cluster_name"
   cf api $endpoint --skip-ssl-validation || return
