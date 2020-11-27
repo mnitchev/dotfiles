@@ -1,6 +1,5 @@
 authors:
   julz: Julian Skupnjak
-  gd: Georgi Dankov
   gs: Georgi Sabev
   gc: Giuseppe Capizzi
   db: Danail Branekov
@@ -10,7 +9,6 @@ authors:
 
 email_addresses:
   julz: skupnjak@de.ibm.com
-  gd: gddankov@gmail.com
   gs: georgethebeatle@gmail.com
   gc: gcapizzi@pivotal.io
   db: danailster@gmail.com
