@@ -281,6 +281,11 @@ let NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
+" Unmap C-j and C-k from NERDTree.
+" This breaks vim-tmux integration otherwise.
+let g:NERDTreeMapJumpNextSibling = ''
+let g:NERDTreeMapJumpPrevSibling = ''
+
 " Do not show whitespace characters in NERDTree window
 autocmd FileType nerdtree setlocal nolist
 
