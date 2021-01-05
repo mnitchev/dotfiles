@@ -3,7 +3,6 @@
     "coc.preferences.enableFloatHighlight": true,
     "coc.preferences.useQuickfixForLocations": true,
     "coc.preferences.formatOnSaveFiletypes": [
-        "dhall",
         "go",
         "json",
         "markdown",
@@ -30,12 +29,6 @@
                 "staticcheck": true,
                 "gofumpt": true
             }
-        },
-        "dhall": {
-            "command": "dhall-lsp-server",
-            "filetypes": [
-                "dhall"
-            ]
         },
         "bash": {
             "command": "bash-language-server",
