@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if ! [[ $(git duet) ]]; then
+  echo "no pair info"
+  exit 0
+fi
+
+author="$(git duet | grep AUTHOR_NAME | cut -d "=" -f 2 | tr -d \')"
+author_initials="$(grep "$author" ~/.git-authors | cut -d ":" -f 1 | sed 's/ //g')"
+
+committer="$(git duet | grep COMMITTER_NAME | cut -d "=" -f 2 | tr -d \')"
+committer_initials="$(grep "$committer" ~/.git-authors | cut -d ":" -f 1 | sed 's/ //g')"
+
+if [ "$author_initials" = "$committer_initials" ]; then
+  echo "solo $author_initials"
+  exit 0
+fi
+
+echo "pair $author_initials+$committer_initials"
