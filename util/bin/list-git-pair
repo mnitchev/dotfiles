@@ -12,8 +12,8 @@ committer="$(git duet | grep COMMITTER_NAME | cut -d "=" -f 2 | tr -d \')"
 committer_initials="$(grep "$committer" ~/.git-authors | cut -d ":" -f 1 | sed 's/ //g')"
 
 if [ "$author_initials" = "$committer_initials" ]; then
-  echo "solo $author_initials"
+  echo "🎸 $author_initials"
   exit 0
 fi
 
-echo "pair $author_initials+$committer_initials"
+echo "🍐 $author_initials+$committer_initials"
