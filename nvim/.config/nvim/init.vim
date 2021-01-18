@@ -174,9 +174,9 @@ highlight CocFloating guibg=#333333
 
 " ------------------------------ SPACES & TABS -----------------------------
 set tabstop=4               "Number of visual spaces per TAB
-set softtabstop=4           "Number of spaces in tab when editing
+set softtabstop=2           "Number of spaces in tab when editing
 set expandtab               "Tabs are spaces
-set shiftwidth=4            "Indent with 4 spaces
+set shiftwidth=2            "Indent with 2 spaces
 " ---------------------------------------------------------------------
 
 " ------------------------------ UI CONFIG ------------------------------
