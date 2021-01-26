@@ -493,7 +493,7 @@ let g:shfmt_fmt_on_save = 1
 " --------------------------------- Coc  -------------------------------
 
 " add json-lsp
-let g:coc_global_extensions=['coc-json', 'coc-yaml']
+let g:coc_global_extensions=['coc-json', 'coc-yaml', 'coc-prettier']
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>

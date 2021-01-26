@@ -1,46 +1,50 @@
 {
-    "coc.preferences.hoverTarget": "float",
-    "coc.preferences.enableFloatHighlight": true,
-    "coc.preferences.useQuickfixForLocations": true,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "go",
-        "json",
-        "markdown",
-        "sh",
-        "yaml"
-    ],
-    "suggest.enablePreview": true,
-    "suggest.enablePreselect": false,
-    "languageserver": {
-        "golang": {
-            "command": "gopls",
-            "args": [
-                "-remote=auto"
-            ],
-            "rootPatterns": [
-                "go.mod"
-            ],
-            "filetypes": [
-                "go"
-            ],
-            "initializationOptions": {
-                "completeUnimported": true,
-                "usePlaceholders": true,
-                "staticcheck": true,
-                "gofumpt": true
-            }
-        },
-        "bash": {
-            "command": "bash-language-server",
-            "args": [
-                "start"
-            ],
-            "filetypes": [
-                "sh"
-            ],
-            "ignoredRootPaths": [
-                "~"
-            ]
-        }
+  "coc.preferences.hoverTarget": "float",
+  "coc.preferences.enableFloatHighlight": true,
+  "coc.preferences.useQuickfixForLocations": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "json",
+    "markdown",
+    "sh",
+    "yaml"
+  ],
+  "suggest.enablePreview": true,
+  "suggest.enablePreselect": false,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "args": [
+        "-remote=auto"
+      ],
+      "rootPatterns": [
+        "go.mod"
+      ],
+      "filetypes": [
+        "go"
+      ],
+      "initializationOptions": {
+        "completeUnimported": true,
+        "usePlaceholders": true,
+        "staticcheck": true,
+        "gofumpt": true
+      }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
     }
+  },
+  "prettier.disableLanguages": [
+    "yaml",
+    "json"
+  ]
 }
