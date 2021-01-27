@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+source $SCRIPT_DIR/common
+
+if git branch --show-current | grep "^wip-.*"; then
+  echo -e "${bold}Oh no!  It looks like you're trying to commit to a ${red}wip branch${default}!${normal}"
+  echo "You should consider committing to master or develop"
+  prompt_user
+fi
