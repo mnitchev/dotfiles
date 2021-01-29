@@ -52,7 +52,7 @@ compile_authorized_keys() {
 
 configure_home() {
   local bundles action
-  bundles=(nvim tmux zsh git-pre-commit-hook git util cows)
+  bundles=(nvim tmux zsh git-hooks git util cows)
   action=${1:-"install"}
 
   stow --dir="$SCRIPT_DIR" --target "$HOME" --delete "${bundles[@]}"
