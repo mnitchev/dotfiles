@@ -1,4 +1,5 @@
 alias fix-ssh='export-ssh-agent-config'
+alias fix-gpg='symlink-gpg-agent-socket'
 alias fixnload='fix-ssh && load-key'
 
 export-ssh-agent-config() {
@@ -10,4 +11,11 @@ export-ssh-agent-config() {
         return
     fi
     export SSH_AUTH_SOCK="$ssh_sock"
+}
+
+symlink-gpg-agent-socket() {
+    local system_gpg_socket_location user
+    system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
+    rm -f "$system_gpg_socket_location"
+    ln -s "${HOME}/.gnupg/S.gpg-agent-$user" "$system_gpg_socket_location"
 }
