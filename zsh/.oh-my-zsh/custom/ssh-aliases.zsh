@@ -14,6 +14,13 @@ export-ssh-agent-config() {
   export SSH_AUTH_SOCK="$ssh_sock"
 }
 
+gpg-socket-symlinked() {
+  local system_gpg_socket_location
+  system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
+
+  test -L "$system_gpg_socket_location"
+}
+
 symlink-gpg-agent-socket() {
   local system_gpg_socket_location user
   user="$1"
@@ -21,6 +28,7 @@ symlink-gpg-agent-socket() {
     user="$(whoami)"
   fi
   system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
+  gpgconf --kill gpg-agent
   rm -f "$system_gpg_socket_location"
   ln -s "${HOME}/.gnupg/S.gpg-agent-$user" "$system_gpg_socket_location"
 }
