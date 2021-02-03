@@ -7,7 +7,7 @@ alias nginit='init-ngrok'
 print-ssh-command() {
   username=$(whoami)
   ip=$(curl -s ipecho.net/plain)
-  echo "ssh $username@$ip"
+  echo "ssh -A -R /home/$username/.gnupg/S.gpg-agent-\$EIRINI_STATION_USERNAME:\$HOME/.gnupg/S.gpg-agent.extra $username@$ip"
 }
 
 print-ngrok-tunnel() {
