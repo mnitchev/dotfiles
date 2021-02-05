@@ -60,7 +60,7 @@ compile_gpg_keys() {
       fi
 
       echo -e "1\n" | gpg --no-tty --command-fd 0 --keyserver keys.openpgp.org --search-keys $email
-      echo -e "trust\n5\ny\nsave\n" | gpg --no-tty--command-fd 0 --edit-key $email
+      echo -e "trust\n5\ny\nsave\n" | gpg --no-tty --command-fd 0 --edit-key $email
     done
   }
   popd >/dev/null || exit 1
