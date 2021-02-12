@@ -75,7 +75,9 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob
 eval "$(direnv hook zsh)"
 
 # Fix forwarded sockets socket
-fix-ssh
+if ! ssh-agent-socket-available; then
+  fix-ssh
+fi
 if ! gpg-socket-symlinked; then
   fix-gpg
 fi

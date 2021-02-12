@@ -14,6 +14,10 @@ export-ssh-agent-config() {
   export SSH_AUTH_SOCK="$ssh_sock"
 }
 
+ssh-agent-socket-available() {
+  test -S "$SSH_AUTH_SOCK"
+}
+
 gpg-socket-symlinked() {
   local system_gpg_socket_location
   system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
