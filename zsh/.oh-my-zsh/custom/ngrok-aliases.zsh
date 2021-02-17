@@ -13,7 +13,7 @@ print-ssh-command() {
   ip=$(curl -s ipecho.net/plain)
   echo "${bold}${yellow}Using plain ssh:${normal}"
   echo
-  echo "ssh -A -R /home/$username/.gnupg/S.gpg-agent-\$EIRINI_STATION_USERNAME:\$HOME/.gnupg/S.gpg-agent.extra $username@$ip"
+  echo "ssh $username@$ip"
   echo
   echo "${bold}${yellow}Or using pair-connect:${normal}"
   echo
