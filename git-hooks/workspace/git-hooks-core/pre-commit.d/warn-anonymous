@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+source $SCRIPT_DIR/common
+
+if git config --global --list | grep -q "Anonymous Eirininaut"; then
+  echo -e "${bold}Uh oh! ${red}Anonymous Eirininaut${default} are not really expected to commit!${normal}"
+  echo
+  echo "Please consider setting your username before committing"
+  prompt_user
+fi
