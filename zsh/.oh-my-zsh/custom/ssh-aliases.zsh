@@ -37,7 +37,6 @@ symlink-gpg-agent-socket() {
   fi
 
   system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
-  gpgconf --kill gpg-agent
   rm -f "$system_gpg_socket_location"
   ln -s "${HOME}/.gnupg/S.gpg-agent-$user" "$system_gpg_socket_location"
 }
