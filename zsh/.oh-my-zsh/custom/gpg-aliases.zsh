@@ -16,10 +16,6 @@ symlink-gpg-agent-socket() {
     user="$(whoami)"
   fi
 
-  if [[ "$user" == vagrant ]]; then
-    return
-  fi
-
   system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
   rm -f "$system_gpg_socket_location"
   ln -s "${HOME}/.gnupg/S.gpg-agent-$user" "$system_gpg_socket_location"
