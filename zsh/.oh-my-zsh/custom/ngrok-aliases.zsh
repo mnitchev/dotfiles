@@ -22,7 +22,7 @@ print-ssh-command() {
   echo
   echo "${bold}${yellow}Or using pair-connect:${normal}"
   echo
-  echo "pair-connect -a $connection"
+  echo "pair-connect $connection"
 }
 
 print-ngrok-tunnel() {
