@@ -79,5 +79,6 @@ if ! ssh-agent-socket-available; then
   fix-ssh
 fi
 
-# Make GPG user the forwarded socket of the machine owner
-fix-gpg
+if ! gpg-socket-symlinked; then
+  fix-gpg
+fi
