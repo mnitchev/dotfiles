@@ -18,7 +18,7 @@ print-ssh-command() {
 
   echo "${bold}${yellow}Using plain ssh:${normal}"
   echo
-  echo "ssh $username@$ip"
+  echo "ssh $connection"
   echo
   echo "${bold}${yellow}Or using pair-connect:${normal}"
   echo
