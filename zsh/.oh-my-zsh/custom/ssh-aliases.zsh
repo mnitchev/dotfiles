@@ -1,5 +1,6 @@
 alias fix-ssh='export-ssh-agent-config'
 alias fixnload='fix-ssh && load-key'
+alias pssh='print-ssh-command'
 
 export-ssh-agent-config() {
   killall ssh-agent 2>/dev/null
@@ -16,3 +17,8 @@ ssh-agent-socket-available() {
   test -S "$SSH_AUTH_SOCK"
 }
 
+print-ssh-command() {
+  username=$(whoami)
+  ip=$(curl -s ipecho.net/plain)
+  echo "ssh -A -R $HOME/.gnupg/S.gpg-agent-guest:\$HOME/.gnupg/S.gpg-agent ${username}@${ip}"
+}

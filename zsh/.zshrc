@@ -78,6 +78,6 @@ eval "$(direnv hook zsh)"
 if ! ssh-agent-socket-available; then
   fix-ssh
 fi
-if ! gpg-socket-symlinked; then
-  fix-gpg
-fi
+
+# Make GPG user the forwarded socket of the machine owner
+fix-gpg

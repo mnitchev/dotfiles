@@ -11,10 +11,7 @@ gpg-socket-symlinked() {
 
 symlink-gpg-agent-socket() {
   local system_gpg_socket_location user
-  user="$1"
-  if [[ -z "$user" ]]; then
-    user="$(whoami)"
-  fi
+  user="${1:-host}"
 
   system_gpg_socket_location="$(gpgconf --list-dir agent-socket)"
   rm -f "$system_gpg_socket_location"
