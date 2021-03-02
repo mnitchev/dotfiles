@@ -1,0 +1,4 @@
+#!/bin/bash
+
+active_socket=$(basename $(readlink $(gpgconf --list-dirs agent-socket)) | sed -e "s/^S.gpg-agent-//")
+echo 1>&2 gpg: using the $active_socket socket && /usr/bin/pass $@

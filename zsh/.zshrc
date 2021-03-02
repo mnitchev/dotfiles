@@ -34,7 +34,7 @@ bindkey "^[r" redo
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 
 # Custom scripts
-export PATH=$PATH:$HOME/bin
+export PATH=$HOME/bin:$PATH
 
 # Golang
 export GOPATH=$HOME/go
