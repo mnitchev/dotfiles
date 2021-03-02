@@ -1,6 +1,7 @@
 alias fix-gpg='symlink-gpg-agent-socket'
 alias use-gpg='symlink-gpg-agent-socket-interactive'
 alias who-gpg='get-active-gpg-socket'
+alias pass='echo 1>&2 GPG: using the $(who-gpg) socket && pass'
 
 gpg-socket-symlinked() {
   local system_gpg_socket_location
