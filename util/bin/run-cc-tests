@@ -2,27 +2,31 @@
 
 set -xeuo pipefail
 
+export DB=postgres
+export DB_CONNECTION_STRING="postgres://postgres:postgres@localhost:5432/cc_test"
+
 main() {
-  set-up-mysql
+  set-up-postgres
   set-up-bundler
 
-  sudo service mysql start
+  sudo service postgresql start
   run-tests "$@"
   trap finish EXIT
 }
 
 finish() {
-  sudo service mysql stop
+  sudo service postgres stop
 }
 
-set-up-mysql() {
-  if ! dpkg-query -s mysql-server &>/dev/null; then
+set-up-postgres() {
+  if ! dpkg-query -s postgresql &>/dev/null; then
     sudo apt-get update
-    sudo apt-get -y install libpq-dev libmysqlclient-dev mysql-server
 
-    sudo service mysql start
+    sudo apt install -y postgresql postgresql-contrib
 
-    echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;" | sudo mysql || true
+    sudo service postgresql start
+
+    echo "ALTER USER postgres PASSWORD 'postgres';" | sudo -u postgres psql
   fi
 }
 
@@ -44,13 +48,13 @@ run-tests() {
   specs="$@"
 
   pushd $HOME/workspace/capi-release/src/cloud_controller_ng
-  DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:drop
-  DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" rake db:create
+  rake db:drop
+  rake db:create
 
   if [ $# -eq 0 ]; then
-    DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rake spec
+    bundle exec rake spec
   else
-    DB=mysql DB_CONNECTION_STRING="mysql2://root:password@localhost:3306/cc_test" bundle exec rspec $specs
+    bundle exec rspec $specs
   fi
   popd
 }
