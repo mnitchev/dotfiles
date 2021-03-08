@@ -1,8 +1,9 @@
 #!/bin/bash
 
 active_socket=$(basename $(readlink $(gpgconf --list-dirs agent-socket)) | sed -e "s/^S.gpg-agent-//")
-passbin="/usr/bin/pass"
+passbin=$(which -a pass | grep -v $HOME | head -1)
 if [ ! -f "$passbin" ]; then
-  passbin="/usr/local/bin/pass"
+  echo Pass does not seem to be installed!
+  exit 1
 fi
 echo 1>&2 gpg: using the $active_socket socket && "$passbin" $@
