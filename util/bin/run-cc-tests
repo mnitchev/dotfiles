@@ -6,21 +6,10 @@ export DB=postgres
 export PGPASSWORD="$(pass eirini/ccng/test-db-password)"
 
 main() {
-  install-deps
   setup-postgres
   bundle-install
 
   run-tests "$@"
-}
-
-install-deps() {
-  local deps
-  deps=(postgresql postgresql-contrib libpq-dev libmysqlclient-dev)
-
-  if ! dpkg-query -s $deps &>/dev/null; then
-    sudo apt-get update
-    sudo apt-get install -y $deps
-  fi
 }
 
 setup-postgres() {
@@ -51,7 +40,7 @@ run-tests() {
   if [ $# -eq 0 ]; then
     bundle exec rake spec
   else
-    time bundle exec rspec $specs
+    bundle exec rspec $specs
   fi
   popd
 }
