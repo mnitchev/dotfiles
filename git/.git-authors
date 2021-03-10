@@ -1,6 +1,5 @@
 authors:
   ae: Anonymous Eirininaut
-  julz: Julian Skupnjak
   gs: Georgi Sabev
   gc: Giuseppe Capizzi
   db: Danail Branekov
@@ -9,7 +8,6 @@ authors:
 
 email_addresses:
   ae: eirini@cloudfoundry.org
-  julz: skupnjak@de.ibm.com
   gs: georgethebeatle@gmail.com
   gc: gcapizzi@pivotal.io
   db: danailster@gmail.com
