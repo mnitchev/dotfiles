@@ -3,42 +3,42 @@
 set -xeuo pipefail
 
 export DB=postgres
-export DB_CONNECTION_STRING="postgres://postgres:postgres@localhost:5432/cc_test"
+export PGPASSWORD="$(pass eirini/ccng/test-db-password)"
 
 main() {
-  set-up-postgres
-  set-up-bundler
+  install-deps
+  setup-postgres
+  bundle-install
 
-  sudo service postgresql start
   run-tests "$@"
-  trap finish EXIT
 }
 
-finish() {
-  sudo service postgres stop
-}
+install-deps() {
+  local deps
+  deps=(postgresql postgresql-contrib libpq-dev libmysqlclient-dev)
 
-set-up-postgres() {
-  if ! dpkg-query -s postgresql &>/dev/null; then
+  if ! dpkg-query -s $deps &>/dev/null; then
     sudo apt-get update
-
-    sudo apt install -y postgresql postgresql-contrib
-
-    sudo service postgresql start
-
-    echo "ALTER USER postgres PASSWORD 'postgres';" | sudo -u postgres psql
+    sudo apt-get install -y $deps
   fi
 }
 
-set-up-bundler() {
+setup-postgres() {
+  if ! sudo service postgresql status >dev/null; then
+    sudo service postgresql start
+  fi
+  echo "ALTER USER postgres PASSWORD '$PGPASSWORD';" | sudo -u postgres psql
+}
+
+bundle-install() {
   pushd $HOME/workspace/capi-release/src/cloud_controller_ng
   {
     if ! type bundler >/dev/null; then
       bundler_version="$(cat Gemfile.lock | grep -A1 "BUNDLED WITH" | tail -1 | tr -d ' ')"
       gem install --user-install bundler --version "$bundler_version"
-
-      bundle install
     fi
+
+    bundle install
   }
   popd
 }
@@ -48,13 +48,10 @@ run-tests() {
   specs="$@"
 
   pushd $HOME/workspace/capi-release/src/cloud_controller_ng
-  rake db:drop
-  rake db:create
-
   if [ $# -eq 0 ]; then
     bundle exec rake spec
   else
-    bundle exec rspec $specs
+    time bundle exec rspec $specs
   fi
   popd
 }
