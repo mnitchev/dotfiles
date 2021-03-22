@@ -71,8 +71,8 @@ cf_login() {
   values_file="$2"
   endpoint_path="$3"
   password_path="$4"
-  endpoint="api.$(yq read "$values_file" $endpoint_path)"
-  password="$(yq read "$values_file" $password_path)"
+  endpoint="api.$(yq eval ".$endpoint_path" "$values_file")"
+  password="$(yq eval ".$password_path" "$values_file")"
 
   echo "Loging into cluster $cluster_name"
   cf api $endpoint --skip-ssl-validation || return
