@@ -524,7 +524,7 @@ nmap <leader>en  <Plug>(coc-diagnostic-next-error)
 
 augroup fixImports
     autocmd!
-    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+    autocmd BufWritePre *.go :silent! :call CocAction('runCommand', 'editor.action.organizeImport')
 augroup end
 
 " Use tab for trigger completion with characters ahead and navigate.
