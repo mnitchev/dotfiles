@@ -4,13 +4,25 @@ set -euo pipefail
 
 RED='\033[38;2;0;0;0;48;2;255;0;0;1m'
 NORMAL='\033[0m'
+EIRINI_REPOS="eirini eirini-ci eirini-private-config eirini-release"
 
 main() {
   while read -r _ _ remote_ref _; do
     if [[ "$remote_ref" =~ .*/master$ ]]; then
+      check-eirini-project
       check-ci
     fi
   done
+}
+
+check-eirini-project() {
+  git_dir="$(git rev-parse --show-toplevel)"
+  repo_name="$(basename $git_dir)"
+
+  if [[ ! " ${EIRINI_REPOS[@]} " =~ " ${repo_name} " ]]; then
+    echo 'Skipping CI checks'
+    exit 0
+  fi
 }
 
 check-ci() {
