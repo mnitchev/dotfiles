@@ -665,8 +665,8 @@ nnoremap <silent> <leader>tg :TestVisit<cr>
 "
 " -------------------------------- vim-rhubarb -----------------------------
 " open in github
-nmap <silent> <leader>gh :Gbrowse<cr>
-vmap <silent> <leader>gh :Gbrowse<cr>
+nmap <silent> <leader>gh :GBrowse<cr>
+vmap <silent> <leader>gh :GBrowse<cr>
 " --------------------------------------------------------------------------
 "
 set nolist
