@@ -161,5 +161,5 @@ change-kube-cluster() {
 }
 
 delete-integration-namespaces() {
-  kubectl delete namespace $(kgns | awk '$1 ~ /opi-integration/ { print $1 }')
+  kubectl delete namespace $(kgns | awk '$1 ~ /integration-/ { print $1 }')
 }
