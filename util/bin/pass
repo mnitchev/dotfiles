@@ -1,9 +1,30 @@
 #!/bin/bash
 
+bold=$(tput bold)
+normal=$(tput sgr0)
+red="\033[31m"
+
 active_socket=$(basename $(readlink $(gpgconf --list-dirs agent-socket)) | sed -e "s/^S.gpg-agent-//")
 passbin=$(which -a pass | grep -v $HOME | head -1)
 if [ ! -f "$passbin" ]; then
   echo Pass does not seem to be installed!
   exit 1
 fi
-echo 1>&2 gpg: using the $active_socket socket && "$passbin" $@
+
+exit_code=1
+echo 1>&2 gpg: using the $active_socket socket
+for attempt in {1,2,3}; do
+  "$passbin" $@
+  exit_code="$?"
+
+  if [[ "$exit_code" -eq 2 ]]; then
+    echo -e "${red}${bold}Bad Passphrase (attempt $attempt of 3)${normal}" >&2
+    continue
+  fi
+
+  if [[ "$exit_code" -ge 0 ]]; then
+    exit "$exit_code"
+  fi
+done
+
+exit "$exit_code"

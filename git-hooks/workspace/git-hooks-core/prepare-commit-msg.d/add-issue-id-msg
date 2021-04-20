@@ -9,9 +9,6 @@ export author_initials="$(awk '/git-author-initials/ { print $3 }' "$config_file
 author_username="$(awk -v id="$author_initials" '{ if ($1 ~ id && usernames==1) print $2 }; /^usernames:/ { usernames=1 }' $HOME/.git-authors)"
 
 if ! gh auth status &>/dev/null; then
-  while ! pass "$pass_token" &>/dev/null; do
-    echo 'wrong passphrase - try again'
-  done
   pass "$pass_token" | gh auth login --with-token
 fi
 
