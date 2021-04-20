@@ -32,7 +32,7 @@ compile_authorized_keys() {
   local authorized_keys keys key
   authorized_keys="$HOME/.ssh/authorized_keys"
 
-  while read -r gh_name; do
+  for gh_name in $(awk '{ if (usernames==1) print $2 }; /^usernames:/ { usernames=1 }' ~/.git-authors); do
     keys=$(curl -sL "https://api.github.com/users/$gh_name/keys")
     if [[ "$keys" =~ "rate limit exceeded" ]]; then
       echo "+-------------------------------------------------------------------------+"
@@ -45,7 +45,7 @@ compile_authorized_keys() {
     fi
     key=$(jq -r ".[].key" <<<"$keys")
     echo "$key $gh_name" >>"$HOME/.ssh/authorized_keys"
-  done <"$SCRIPT_DIR/team-github-ids"
+  done
 
   # remove duplicate keys
   sort --unique "$authorized_keys" -o "$authorized_keys"

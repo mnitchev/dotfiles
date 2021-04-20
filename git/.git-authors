@@ -13,3 +13,10 @@ email_addresses:
   db: danailster@gmail.com
   kb: kbrowne@vmware.com
   mn: marionitchev@gmail.com
+
+usernames:
+  db: danail-branekov
+  gc: gcapizzi
+  gs: georgethebeatle
+  kb: kieron-dev
+  mn: mnitchev
