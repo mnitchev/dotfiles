@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 config_file="$HOME/.gitconfig"
 pass_token=eirini/github/eirinici/gh-access-token
 
