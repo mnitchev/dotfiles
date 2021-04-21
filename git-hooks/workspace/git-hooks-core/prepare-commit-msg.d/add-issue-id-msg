@@ -17,5 +17,5 @@ for issue_id in $(gh issue list \
   -R cloudfoundry-incubator/eirini-release \
   -S sort:updated-asc |
   awk ' { print "[cloudfoundry-incubator/eirini-release#" $1 "]" }'); do
-  sed -i "1s;^;$issue_id;" "$1"
+  sed -i "1 i\\\n\\n$issue_id" "$1"
 done
