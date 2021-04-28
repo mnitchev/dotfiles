@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/plugged')
     Plug 'benmills/vimux'                                             " Allow vim to do tmux stuff, like open panes for the test plugin
     Plug 'bronson/vim-trailing-whitespace'
+    Plug 'cappyzawa/starlark.vim'
     Plug 'christoomey/vim-system-copy'                                " Add mappings to copy to clipboard
     Plug 'christoomey/vim-tmux-navigator'                             " Navigate through vim splits seamlessly
     Plug 'fatih/vim-go'                                               " Golang plugin
@@ -37,6 +38,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'trayo/vim-gomega-snippets'
     Plug 'vim-ruby/vim-ruby'                                          " Ruby plugin
     Plug 'vmchale/dhall-vim'
+    Plug 'vmware-tanzu/ytt.vim'
     Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }                          " Runs shfmt to auto format the current buffer
     Plug 'zhimsel/vim-stay'                                           " Remember cursor, folds, etc
 call plug#end()
