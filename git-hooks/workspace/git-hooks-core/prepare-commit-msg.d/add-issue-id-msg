@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+if grep -q 'Issue: cloudfoundry-incubator/eirini-release#' && [[ "$2" != "commit" ]]; then
+  exit 0
+fi
+
 config_file="$HOME/.gitconfig"
 pass_token=eirini/github/eirinici/gh-access-token
 
@@ -16,6 +20,6 @@ for issue_id in $(gh issue list \
   -a "$author_username" \
   -R cloudfoundry-incubator/eirini-release \
   -S sort:updated-asc |
-  awk ' { print "[cloudfoundry-incubator/eirini-release#" $1 "]" }'); do
-  sed -i "1 i\\\n\\n$issue_id" "$1"
+  awk ' { print "Issue:cloudfoundry-incubator/eirini-release#" $1 }'); do
+  git interpret-trailers --in-place --trailer "$issue_id" "$1"
 done
