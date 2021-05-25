@@ -76,7 +76,7 @@ prompt-push() {
 }
 
 fly-login() {
-  if ! flightattendant -target eirini; then
+  if ! fly -t eirini status >/dev/null; then
     echo "not logged in to concourse - attempting to log in"
     ensure-tty
     fly -t eirini login --team-name main --concourse-url https://jetson.eirini.cf-app.com/ </dev/tty
