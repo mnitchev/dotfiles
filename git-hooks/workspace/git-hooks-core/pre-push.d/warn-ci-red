@@ -7,17 +7,39 @@ NORMAL='\033[0m'
 EIRINI_REPOS="eirini eirini-ci eirini-private-config eirini-release"
 
 main() {
+  local repo_name
+  repo_name=$(repo-name)
+
   while read -r _ _ remote_ref _; do
-    if [[ "$remote_ref" =~ .*/master$ ]]; then
-      check-eirini-project
-      check-ci
+    local dev_branch
+    dev_branch="master"
+
+    if [[ "$repo_name" == "eirini-release" ]]; then
+      dev_branch="develop"
     fi
+
+    check_push_to_dev_branch $dev_branch
   done
 }
 
-check-eirini-project() {
+check_push_to_dev_branch() {
+  local dev_branch
+  dev_branch=$1
+
+  if [[ "$remote_ref" =~ .*/$dev_branch$ ]]; then
+    check-eirini-project
+    check-ci
+  fi
+}
+
+repo-name() {
   git_dir="$(git rev-parse --show-toplevel)"
-  repo_name="$(basename $git_dir)"
+  basename $git_dir
+}
+
+check-eirini-project() {
+  local repo_name
+  repo_name=$(repo-name)
 
   if [[ ! " ${EIRINI_REPOS[@]} " =~ " ${repo_name} " ]]; then
     echo 'Skipping CI checks'
