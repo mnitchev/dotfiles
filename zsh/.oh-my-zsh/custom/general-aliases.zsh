@@ -7,6 +7,7 @@
 alias c='clear'
 alias watch='watch '
 alias vim='nvim'
+alias fd='fdfind'
 alias cflogin='cf-lite'
 alias dockerlogin='docker login -u eiriniuser -p $(pass eirini/docker-hub)'
 alias flylogin='fly-login'
