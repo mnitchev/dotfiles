@@ -48,7 +48,7 @@ check-eirini-project() {
 }
 
 check-ci() {
-  if check-pipeline "ci" || check-pipeline "acceptance"; then
+  if check-pipeline "eirini" || check-pipeline "eirini-controller" || check-pipeline "acceptance"; then
     echo -e "${RED}   Pipeline is red.    ${NORMAL}"
     prompt-push
   fi
