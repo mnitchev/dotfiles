@@ -1,6 +1,11 @@
 #!/bin/bash
 
 current_context="$(yq eval '.current-context' ~/.kube/config)"
+if [[ "$current_context" == "null" ]]; then
+  echo "no cluster"
+  exit 0
+fi
+
 if [[ $current_context =~ gke ]]; then
   echo "$current_context" | sed "s/gke_cff-eirini-peace-pods_europe-west[1-9]-[a-z]_//g"
 elif [[ $current_context =~ kind- ]]; then
