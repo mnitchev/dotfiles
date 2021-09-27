@@ -31,6 +31,9 @@
                     "ST1000": false,
                     "ST1003": false
                 },
+                "buildFlags": [
+                    "-tags=e2e"
+                ],
                 "gofumpt": true
             }
         },
