@@ -264,6 +264,14 @@ set foldlevelstart=99
 set foldmethod=expr
 " ---------------------------------------------------------------------
 
+" -------------------------- AUTO FORMAT ------------------------------
+augroup AutoFormat
+    autocmd!
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 10000); LSP_organize_imports()
+    autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 3000)
+augroup END
+" ---------------------------------------------------------------------
+
 " ------------------------------ MOVEMENT ------------------------------
 "Move vertically (down) by visual line
 nnoremap j gj
