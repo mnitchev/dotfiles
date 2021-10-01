@@ -103,6 +103,7 @@ set undofile                                                          "Undo acro
 set noshowmode                                                        "Do not show message on last line when in Insert, Replace or Visual mode
 set termguicolors                                                     "Enable TrueColor
 set inccommand=nosplit                                                "Shows the effects of a command incrementally, as you type
+set signcolumn=yes:1                                                  "Keep the left margin open
 
 if !has('nvim')
   set ttymouse=sgr                                                    "Make the mouse work even in columns beyond 223
@@ -110,15 +111,6 @@ endif
 
 let mapleader=' '
 let maplocalleader='\'
-
-" load LSP
-lua require('lsp')
-
-" initialise lspsaga
-lua require('lspsaga').init_lsp_saga()
-
-" initialise treesitter
-lua require('treesitter')
 
 "Replace escape with jk
 inoremap jk <esc>
@@ -261,6 +253,22 @@ augroup END
 set incsearch               "Incremental search
 set hlsearch                "Highlight matches
 set ignorecase              "Ignore case on search
+" ---------------------------------------------------------------------
+
+" ------------------------ LUA MODULES SETUP --------------------------
+" load LSP
+" must be called *after* updating colorscheme, else errors aren't highlighted
+lua require('lsp')
+
+" initialise lspsaga
+lua require('lspsaga').init_lsp_saga()
+
+" display line error in popup after 1/2 second
+set updatetime=500
+autocmd CursorHold * Lspsaga show_line_diagnostics
+
+" initialise treesitter
+lua require('treesitter')
 " ---------------------------------------------------------------------
 
 " ------------------------------ FOLDING ------------------------------
