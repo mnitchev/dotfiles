@@ -73,8 +73,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'vmware-tanzu/ytt.vim'
     " Runs shfmt to auto format the current buffer
     Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-    " Remember cursor, folds, etc
-    Plug 'zhimsel/vim-stay'
 call plug#end()
 " ---------------------------------------------------------------------
 
@@ -114,6 +112,12 @@ command! WQ wq
 command! Wq wq
 command! W w
 command! Q q
+
+" restore file cursor position
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   execute "normal! g`\"" |
+    \ endif
 
 " Increase the maximum amount of memory to use for pattern matching
 set maxmempattern=2000
