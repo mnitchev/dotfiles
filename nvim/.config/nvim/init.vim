@@ -54,6 +54,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " ANSI escape sequences concealed, but highlighted as specified
     Plug 'powerman/vim-plugin-AnsiEsc'
+    " prettier formatting
+    Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['json', 'markdown'] }
     " Reveal the commit messages under the cursor in a 'popup window'
     Plug 'rhysd/git-messenger.vim'
     " Make hlsearch more useful
@@ -301,6 +303,7 @@ augroup AutoFormat
     autocmd!
     autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 10000); LSP_organize_imports()
     autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 3000)
+    autocmd BufWritePre *.json,*.md PrettierAsync
 augroup END
 " ---------------------------------------------------------------------
 
