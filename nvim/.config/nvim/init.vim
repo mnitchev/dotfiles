@@ -19,10 +19,10 @@ call plug#begin('~/.vim/plugged')
     " Navigate through vim splits seamlessly
     Plug 'christoomey/vim-tmux-navigator'
     " Light and configurable statusline
-    Plug 'itchyny/lightline.vim'
-    " popup windows for LSP helpers
     Plug 'glepnir/lspsaga.nvim'
     " Preview markdown files in the browser
+    Plug 'itchyny/lightline.vim'
+    " popup windows for LSP helpers
     Plug 'JamshedVesuna/vim-markdown-preview'
     " Test runner integration
     Plug 'janko/vim-test'
@@ -107,7 +107,6 @@ set undofile                                                          "Undo acro
 set noshowmode                                                        "Do not show message on last line when in Insert, Replace or Visual mode
 set termguicolors                                                     "Enable TrueColor
 set inccommand=nosplit                                                "Shows the effects of a command incrementally, as you type
-set signcolumn=yes:1                                                  "Keep the left margin open
 
 if !has('nvim')
   set ttymouse=sgr                                                    "Make the mouse work even in columns beyond 223
@@ -272,6 +271,13 @@ lua require('config.treesitter')
 set updatetime=500
 autocmd CursorHold * Lspsaga show_line_diagnostics
 
+" ---------------------------------------------------------------------
+
+" ---------------------- LEFT MARGIN ----------------------------------
+"  keep the left margin open always
+set signcolumn=yes:1
+" show diagnostics in preference to git modification symbols
+let signify_priority=5
 " ---------------------------------------------------------------------
 
 " --------------------- COMPLETION ------------------------------------
