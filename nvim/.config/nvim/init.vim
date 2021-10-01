@@ -70,7 +70,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'trayo/vim-gomega-snippets'
     " Ruby plugin
     Plug 'vim-ruby/vim-ruby'
-    Plug 'vmchale/dhall-vim'
     Plug 'vmware-tanzu/ytt.vim'
     " Runs shfmt to auto format the current buffer
     Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
