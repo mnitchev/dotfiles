@@ -12,10 +12,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-system-copy'
     " Navigate through vim splits seamlessly
     Plug 'christoomey/vim-tmux-navigator'
-    " Golang plugin
-    Plug 'fatih/vim-go'
     " Light and configurable statusline
     Plug 'itchyny/lightline.vim'
+    " popup windows for LSP helpers
+    Plug 'glepnir/lspsaga.nvim'
     " Preview markdown files in the browser
     Plug 'JamshedVesuna/vim-markdown-preview'
     " Test runner integration
@@ -38,7 +38,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'mtth/scratch.vim'
     " Our colorscheme
     Plug 'nanotech/jellybeans.vim'
-    Plug 'neoclide/coc.nvim', {'branch':'release' }
+    " Config for built-in nvim lsp
+    Plug 'neovim/nvim-lspconfig'
+    " use built-in syntax highlighting engine
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " ANSI escape sequences concealed, but highlighted as specified
     Plug 'powerman/vim-plugin-AnsiEsc'
     " Reveal the commit messages under the cursor in a 'popup window'
@@ -101,6 +104,15 @@ endif
 
 let mapleader=' '
 let maplocalleader='\'
+
+" load LSP
+lua require('lsp')
+
+" initialise lspsaga
+lua require('lspsaga').init_lsp_saga()
+
+" initialise treesitter
+lua require('treesitter')
 
 "Replace escape with jk
 inoremap jk <esc>
@@ -208,8 +220,6 @@ highlight StatusLineNC guibg=#1c1c1c
 " Wildmenu autocomplete
 highlight StatusLine gui=italic guifg=grey guibg=#1c1c1c
 
-" COC floating window background
-highlight CocFloating guibg=#333333
 " ---------------------------------------------------------------------
 
 " ------------------------------ SPACES & TABS -----------------------------
@@ -394,7 +404,6 @@ let g:lightline = {
       \              [ 'filetype', 'encodingformat' ] ],
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status',
       \   'gitbranch': 'LightlineBranch',
       \   'mode': 'LightlineMode',
       \   'encodingformat': 'LightlineFileEncodingFormat',
@@ -531,89 +540,6 @@ endfunction
 " Use 2 spaces instead of tabs
 let g:shfmt_extra_args = '-i 2 -ci'
 let g:shfmt_fmt_on_save = 1
-" --------------------------------------------------------------------------
-
-" --------------------------------- Coc  -------------------------------
-
-" add json-lsp
-let g:coc_global_extensions=['coc-json', 'coc-yaml', 'coc-prettier']
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-let g:coc_status_warning_sign = '⚠ '
-let g:coc_status_error_sign = '❌ '
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-" Use leader ep and en to navigate to previous/next error
-nmap <leader>ep  <Plug>(coc-diagnostic-prev-error)
-nmap <leader>en  <Plug>(coc-diagnostic-next-error)
-
-augroup fixImports
-    autocmd!
-    autocmd BufWritePre *.go :silent! :call CocAction('runCommand', 'editor.action.organizeImport')
-augroup end
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-nmap <leader>rn  <Plug>(coc-rename)
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Confirm completion
-inoremap <silent><expr> <C-o> pumvisible() ? coc#_select_confirm() :
-                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 " --------------------------------------------------------------------------
 
 " --------------------------------- Snippets  -------------------------------
