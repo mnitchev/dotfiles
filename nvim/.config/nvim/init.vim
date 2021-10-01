@@ -508,28 +508,6 @@ function! LightlineReadonly()
 endfunction
 " --------------------------------------------------------------------------
 
-" --------------------------------- Vim-Go --------------------------------
-let g:go_gopls_enabled=0
-let g:go_doc_keywordprg_enabled=0
-let g:go_fmt_autosave=0
-
-" Highlight different language structs
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_build_constraints = 1
-
-" disable the default mappings provided by the plugin
-let g:go_def_mapping_enabled = 0
-
-" Alternate toggles
-autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')              " Switch to test file
-autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')           " Vertical split with test file
-autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')            " Horizontal split with test file
-
-" --------------------------------------------------------------------------
-
 " Toggle comment with ctrl + /
 nmap <C-_> gc$
 vmap <C-_> gc
@@ -547,7 +525,7 @@ let vim_markdown_preview_hotkey='<Leader>mp'
 
 " --------------------------------------------------------------------------
 
-" --------------------------------- Vipe  -------------------------------
+" --------------------------- Cool Matching  -------------------------------
 " Show number of matches in the command-line
 let g:CoolTotalMatches = 1
 " --------------------------------------------------------------------------
