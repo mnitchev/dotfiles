@@ -46,6 +46,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'nanotech/jellybeans.vim'
     " Config for built-in nvim lsp
     Plug 'neovim/nvim-lspconfig'
+    " lsp auto completions
+    Plug 'nvim-lua/completion-nvim'
     " lsp status helper
     Plug 'nvim-lua/lsp-status.nvim'
     " use built-in syntax highlighting engine
@@ -270,6 +272,15 @@ lua require('config.treesitter')
 set updatetime=500
 autocmd CursorHold * Lspsaga show_line_diagnostics
 
+" ---------------------------------------------------------------------
+
+" --------------------- COMPLETION ------------------------------------
+set completeopt=menuone,noinsert,noselect
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set shortmess+=c
+let g:completion_enable_snippet = 'UltiSnips'
+autocmd BufEnter * lua require'completion'.on_attach()
 " ---------------------------------------------------------------------
 
 " ------------------------------ FOLDING ------------------------------
