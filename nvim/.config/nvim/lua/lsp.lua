@@ -17,25 +17,26 @@ local on_attach = function(client, bufnr)
 
     -- Mappings
     local opts = { noremap=true, silent=true }
-    -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', ':Lspsaga hover_doc<CR>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', 'gs', ':Lspsaga signature_help<CR>', opts)
+    buf_set_keymap('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
+
     buf_set_keymap('n', '<leader>ca', ':Lspsaga code_action<CR>', opts)
     buf_set_keymap('v', '<leader>ca', ':<C-U>Lspsaga range_code_action<CR>', opts)
-    buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+
     buf_set_keymap('n', '<leader>rn', ':Lspsaga rename<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<leader>e', ':Lspsaga show_line_diagnostics<CR>', opts)
+
+    buf_set_keymap('n', '<leader>ee', ':Lspsaga show_line_diagnostics<CR>', opts)
     buf_set_keymap('n', '[g', ':Lspsaga diagnostic_jump_prev<CR>', opts)
+    buf_set_keymap('n', '<leader>ep', ':Lspsaga diagnostic_jump_prev<CR>', opts)
     buf_set_keymap('n', ']g', ':Lspsaga diagnostic_jump_next<CR>', opts)
-    buf_set_keymap('n', '<leader>db', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    buf_set_keymap('n', '<leader>da', '<cmd>lua vim.lsp.diagnostic.set_loclist({workspace = true})<CR>', opts)
+    buf_set_keymap('n', '<leader>en', ':Lspsaga diagnostic_jump_next<CR>', opts)
+    buf_set_keymap('n', '<leader>eb', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<leader>ea', '<cmd>lua vim.lsp.diagnostic.set_loclist({workspace = true})<CR>', opts)
 end
 
 -- Use a loop to conveniently both setup defined servers
