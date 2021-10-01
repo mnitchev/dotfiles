@@ -258,9 +258,10 @@ set ignorecase              "Ignore case on search
 " ---------------------------------------------------------------------
 
 " ------------------------------ FOLDING ------------------------------
-set foldenable              "Enable folding
-set foldmethod=syntax       "Fold based on syntax highlighting
-set foldlevelstart=99       "Do not close folds when a buffer is opened
+set foldenable
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevelstart=99
+set foldmethod=expr
 " ---------------------------------------------------------------------
 
 " ------------------------------ MOVEMENT ------------------------------
