@@ -46,6 +46,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'nanotech/jellybeans.vim'
     " Config for built-in nvim lsp
     Plug 'neovim/nvim-lspconfig'
+    " lsp status helper
+    Plug 'nvim-lua/lsp-status.nvim'
     " use built-in syntax highlighting engine
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " ANSI escape sequences concealed, but highlighted as specified
@@ -258,17 +260,16 @@ set ignorecase              "Ignore case on search
 " ------------------------ LUA MODULES SETUP --------------------------
 " load LSP
 " must be called *after* updating colorscheme, else errors aren't highlighted
-lua require('lsp')
+lua require('config.lsp')
 
-" initialise lspsaga
 lua require('lspsaga').init_lsp_saga()
+lua require('config.lspstatus')
+lua require('config.treesitter')
 
 " display line error in popup after 1/2 second
 set updatetime=500
 autocmd CursorHold * Lspsaga show_line_diagnostics
 
-" initialise treesitter
-lua require('treesitter')
 " ---------------------------------------------------------------------
 
 " ------------------------------ FOLDING ------------------------------
@@ -421,12 +422,13 @@ let g:lightline = {
       \             [ 'gitbranch' ],
       \             [ 'readonly' ],
       \             [ 'relativepath', 'modified' ] ],
-      \   'right': [ [ 'cocstatus'],
+      \   'right': [ [ 'lspstatus'],
       \              [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'filetype', 'encodingformat' ] ],
       \ },
       \ 'component_function': {
+      \   'lspstatus': 'LspStatus',
       \   'gitbranch': 'LightlineBranch',
       \   'mode': 'LightlineMode',
       \   'encodingformat': 'LightlineFileEncodingFormat',
@@ -441,6 +443,14 @@ let g:lightline = {
       \ }
 
 " Custom functions
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
+endfunction
+
 function! LightlineBranch()
   if &ft == 'nerdtree'
     return ''
