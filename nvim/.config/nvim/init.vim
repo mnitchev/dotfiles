@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'bronson/vim-trailing-whitespace'
     " Syntax highlighting for starlark
     Plug 'cappyzawa/starlark.vim'
-    " Add mappings to copy to clipboard
+    " Add mappings to copy to clipboard - doesn't work over ssh
     Plug 'christoomey/vim-system-copy'
     " Navigate through vim splits seamlessly
     Plug 'christoomey/vim-tmux-navigator'
