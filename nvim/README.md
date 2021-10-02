@@ -82,7 +82,7 @@ The leader key is \<space\>.
 ### tpope's vim-unimpaired
 
 See https://github.com/tpope/vim-unimpaired/blob/master/doc/unimpaired.txt, or
-`:h unimpaired' for a full list. Here are some notable mappings.
+`:h unimpaired` for a full list. Here are some notable mappings.
 
 | Key combo  | Description                                                        |
 | ---------- | ------------------------------------------------------------------ |
