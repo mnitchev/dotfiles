@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 
     " Allow vim to do tmux stuff, like open panes for the test plugin
     Plug 'benmills/vimux'
+    " Highlights and removes trailing whitespace
     Plug 'bronson/vim-trailing-whitespace'
     " Syntax highlighting for starlark
     Plug 'cappyzawa/starlark.vim'
@@ -18,11 +19,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-system-copy'
     " Navigate through vim splits seamlessly
     Plug 'christoomey/vim-tmux-navigator'
-    " Light and configurable statusline
-    Plug 'glepnir/lspsaga.nvim'
-    " Preview markdown files in the browser
-    Plug 'itchyny/lightline.vim'
     " popup windows for LSP helpers
+    Plug 'glepnir/lspsaga.nvim'
+    " Light and configurable statusline
+    Plug 'itchyny/lightline.vim'
+    " Preview markdown files in the browser
     Plug 'JamshedVesuna/vim-markdown-preview'
     " Test runner integration
     Plug 'janko/vim-test'
@@ -85,6 +86,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'trayo/vim-gomega-snippets'
     " Ruby plugin
     Plug 'vim-ruby/vim-ruby'
+    " ytt syntax highlighting
     Plug 'vmware-tanzu/ytt.vim'
     " Runs shfmt to auto format the current buffer
     Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
