@@ -560,13 +560,6 @@ let vim_markdown_preview_hotkey='<Leader>mp'
 let g:CoolTotalMatches = 1
 " --------------------------------------------------------------------------
 
-" --------------------------------- Vipe  -------------------------------
-map <leader>t :call RunRspec()<cr>
-function! RunRspec()
-    call vipe#push('bundle exec rspec ' . expand('%'))
-endfunction
-" --------------------------------------------------------------------------
-
 " --------------------------------- Shfmt  -------------------------------
 " Use 2 spaces instead of tabs
 let g:shfmt_extra_args = '-i 2 -ci'
