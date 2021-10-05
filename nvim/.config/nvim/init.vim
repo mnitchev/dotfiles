@@ -32,6 +32,8 @@ call plug#begin('~/.vim/plugged')
     " Awesome fuzzy finder
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    " invoke gofumpt for go file formatting
+    Plug 'lukas-reineke/format.nvim'
     " Outline viewer for vim
     Plug 'majutsushi/tagbar'
     Plug 'mhinz/vim-grepper'
@@ -301,9 +303,10 @@ set foldmethod=expr
 " ---------------------------------------------------------------------
 
 " -------------------------- AUTO FORMAT ------------------------------
+lua require 'format'.setup { go = { { cmd = { 'gofumpt -w', 'goimports -w' } } } }
 augroup AutoFormat
     autocmd!
-    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 10000); LSP_organize_imports()
+    autocmd BufWritePre *.go Format
     autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 3000)
     autocmd BufWritePre *.json,*.md PrettierAsync
 augroup END
