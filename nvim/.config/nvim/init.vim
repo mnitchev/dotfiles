@@ -704,3 +704,17 @@ command! -bang AS call GoAlternateSwitch(<bang>0, 'split')
 command! -bang AV call GoAlternateSwitch(<bang>0, 'vsplit')
 
 " --------------------------------------------------------------------------
+
+" ----------------------- JSON / YAML TAGS ---------------------------------
+" snakecase converts a string to snake case. i.e: FooBar -> foo_bar
+" Copied from tpope/vim-abolish
+" Used in go.snippets for json and yaml expansions
+function! Snakecase(word) abort
+  let word = substitute(a:word, '::', '/', 'g')
+  let word = substitute(word, '\(\u\+\)\(\u\l\)', '\1_\2', 'g')
+  let word = substitute(word, '\(\l\|\d\)\(\u\)', '\1_\2', 'g')
+  let word = substitute(word, '[.-]', '_', 'g')
+  let word = tolower(word)
+  return word
+endfunction
+" --------------------------------------------------------------------------

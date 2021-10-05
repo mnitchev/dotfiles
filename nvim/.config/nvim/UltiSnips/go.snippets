@@ -237,12 +237,12 @@ endsnippet
 
 # json field tag
 snippet json "\`json:key\`"
-\`json:"${1:`!v  go#util#snippetcase(matchstr(getline("."), '\w\+'))`}"\`
+\`json:"${1:`!v  Snakecase(matchstr(getline("."), '\w\+'))`}"\`
 endsnippet
 
 # yaml field tag
 snippet yaml "\`yaml:key\`"
-\`yaml:"${1:`!v  go#util#snippetcase(matchstr(getline("."), '\w\+'))`}"\`
+\`yaml:"${1:`!v  Snakecase(matchstr(getline("."), '\w\+'))`}"\`
 endsnippet
 
 # fallthrough
