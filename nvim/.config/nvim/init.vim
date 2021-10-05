@@ -718,3 +718,49 @@ function! Snakecase(word) abort
   return word
 endfunction
 " --------------------------------------------------------------------------
+
+" --------------------- :GoGenerate ----------------------------------------
+" Copied and adapted from various places in vim-go
+function SetGoCompilerOptions()
+    setlocal errorformat =%-G#\ %.%#                                 " Ignore lines beginning with '#' ('# command-line-arguments' line sometimes appears?)
+    setlocal errorformat+=%-G%.%#panic:\ %m                          " Ignore lines containing 'panic: message'
+    setlocal errorformat+=%Ecan\'t\ load\ package:\ %m               " Start of multiline error string is 'can\'t load package'
+    setlocal errorformat+=%A%\\%%(%[%^:]%\\+:\ %\\)%\\?%f:%l:%c:\ %m " Start of multiline unspecified string is 'filename:linenumber:columnnumber:'
+    setlocal errorformat+=%A%\\%%(%[%^:]%\\+:\ %\\)%\\?%f:%l:\ %m    " Start of multiline unspecified string is 'filename:linenumber:'
+    setlocal errorformat+=%C%*\\s%m                                  " Continuation of multiline error message is indented
+    setlocal errorformat+=%-G%.%#                                    " All lines not matching any of the above patterns are ignored
+endfunction
+
+augroup GoGenerate
+  autocmd!
+  autocmd FileType go call SetGoCompilerOptions()
+augroup END
+
+function! GoGenerate(bang) abort
+  let default_makeprg = &makeprg
+  let &makeprg = "go generate " . shellescape(expand("%:p:h"))
+
+  try
+    silent! exe 'make!'
+  finally
+    redraw!
+    let &makeprg = default_makeprg
+  endtry
+
+  let errors = getqflist()
+  if !empty(errors)
+      let height = 10
+      if len(errors) < 10
+          let height = len(errors)
+      endif
+      exe 'copen ' . height
+    if !a:bang
+        cc 1
+    endif
+  else
+    cclose
+  endif
+endfunction
+
+command! -bang GoGenerate  call GoGenerate(<bang>0)
+" --------------------------------------------------------------------------
