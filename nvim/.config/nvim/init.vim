@@ -609,6 +609,7 @@ endfunction
 command! -bang A  call GoAlternateSwitch(<bang>0, '')
 command! -bang AS call GoAlternateSwitch(<bang>0, 'split')
 command! -bang AV call GoAlternateSwitch(<bang>0, 'vsplit')
+command! -bang AT call GoAlternateSwitch(<bang>0, 'tabe')
 
 " --------------------------------------------------------------------------
 
