@@ -4,10 +4,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 main() {
+  configure_home "$@"
   generate_gitconfig
   compile_authorized_keys
   compile_gpg_keys
-  configure_home "$@"
 }
 
 generate_gitconfig() {
