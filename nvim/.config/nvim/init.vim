@@ -210,10 +210,13 @@ set foldmethod=expr
 " ---------------------------------------------------------------------
 
 " -------------------------- AUTO FORMAT ------------------------------
-lua require 'format'.setup { go = { { cmd = { 'gofumpt -w', 'goimports -w' } } } }
+let g:formatdef_gofumpt = '"gofumpt"'
+let g:formatdef_goimports = '"goimports"'
+let g:formatters_go = ['gofumpt', 'goimports']
+let g:run_all_formatters_go = 1
 augroup AutoFormat
     autocmd!
-    autocmd BufWritePost *.go FormatWrite
+    autocmd BufWritePre *.go :Autoformat
     autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 3000)
     autocmd BufWritePre *.json,*.md PrettierAsync
 augroup END

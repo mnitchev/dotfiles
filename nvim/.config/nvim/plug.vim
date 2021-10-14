@@ -25,8 +25,6 @@ call plug#begin('~/.vim/plugged')
     " Awesome fuzzy finder
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    " invoke gofumpt for go file formatting
-    Plug 'lukas-reineke/format.nvim'
     " Outline viewer for vim
     Plug 'majutsushi/tagbar'
     Plug 'mhinz/vim-grepper'
@@ -79,6 +77,8 @@ call plug#begin('~/.vim/plugged')
     " Add snippets for Ginkgo BDD testing library for go
     Plug 'trayo/vim-ginkgo-snippets'
     Plug 'trayo/vim-gomega-snippets'
+    " invoke gofumpt for go file formatting
+    Plug 'vim-autoformat/vim-autoformat'
     " Ruby plugin
     Plug 'vim-ruby/vim-ruby'
     " ytt syntax highlighting
