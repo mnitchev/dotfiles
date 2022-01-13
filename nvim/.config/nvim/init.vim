@@ -177,6 +177,7 @@ set ignorecase              "Ignore case on search
 lua require('config.lsp')
 
 lua require('lspsaga').init_lsp_saga()
+lua require('config.completion')
 lua require('config.lspstatus')
 lua require('config.treesitter')
 
@@ -199,7 +200,7 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set shortmess+=c
 let g:completion_enable_snippet = 'UltiSnips'
-autocmd BufEnter * lua require'completion'.on_attach()
+"
 " ---------------------------------------------------------------------
 
 " ------------------------------ FOLDING ------------------------------
