@@ -174,10 +174,10 @@ set ignorecase              "Ignore case on search
 " ------------------------ LUA MODULES SETUP --------------------------
 " load LSP
 " must be called *after* updating colorscheme, else errors aren't highlighted
+let g:coq_settings = { 'auto_start': v:true }
 lua require('config.lsp')
 
 lua require('lspsaga').init_lsp_saga()
-lua require('config.completion')
 lua require('config.lspstatus')
 lua require('config.treesitter')
 
@@ -196,11 +196,9 @@ let signify_priority=5
 
 " --------------------- COMPLETION ------------------------------------
 set completeopt=menuone,noinsert,noselect
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set shortmess+=c
-let g:completion_enable_snippet = 'UltiSnips'
-"
 " ---------------------------------------------------------------------
 
 " ------------------------------ FOLDING ------------------------------

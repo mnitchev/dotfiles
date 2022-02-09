@@ -1,0 +1,64 @@
+snippet kieron
+    bye1
+
+snippet desc
+abbr Ginkgo Describe
+    Describe("${1:something}", func() {
+        ${0}
+    })
+
+snippet cont
+abbr Ginkgo Context
+    Context("${1:something}", func() {
+        ${0}
+    })
+
+snippet when
+abbr Ginkgo When
+    When("${1:something}", func() {
+        ${0}
+    })
+
+snippet bef
+abbr Ginkgo BeforeEach
+    BeforeEach(func() {
+        ${0}
+    })
+
+snippet aft
+abbr Ginkgo AfterEach
+    AfterEach(func() {
+        ${0}
+    })
+
+snippet just
+abbr Ginkgo JustBeforeEach
+    JustBeforeEach(func() {
+        ${0}
+    })
+
+snippet it
+abbr Ginkgo It
+    It("${1:does something}", func() {
+        ${0}
+    })
+
+snippet exto
+abbr Gomega Expect(...).To(...)
+    Expect(${1:actual}).To(${0})
+
+snippet exnt
+abbr Gomega Expect(...).NotTo(...)
+    Expect(${1:actual}).NotTo(${0})
+
+snippet extn
+abbr Gomega Expect(...).ToNot(...)
+    Expect(${1:actual}).ToNot(${0})
+
+snippet exeo
+abbr Gomega Expect(err).To(HaveOccurred())
+    Expect(err).To(HaveOccurred())
+
+snippet exen
+abbr Gomega Expect(err).NotTo(HaveOccurred())
+    Expect(err).NotTo(HaveOccurred())

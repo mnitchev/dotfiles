@@ -8,6 +8,7 @@ main() {
   generate_gitconfig
   compile_authorized_keys
   compile_gpg_keys
+  prepare_coq_nvim
 }
 
 generate_gitconfig() {
@@ -76,6 +77,10 @@ configure_home() {
     return
   fi
   stow --dir="$SCRIPT_DIR" --target "$HOME" "${bundles[@]}"
+}
+
+prepare_coq_nvim() {
+  nvim --headless "+COQdeps" "+COQsnips compile" "+qall"
 }
 
 main "$@"
