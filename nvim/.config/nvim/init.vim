@@ -174,7 +174,7 @@ set ignorecase              "Ignore case on search
 " ------------------------ LUA MODULES SETUP --------------------------
 " load LSP
 " must be called *after* updating colorscheme, else errors aren't highlighted
-let g:coq_settings = {'auto_start': v:true, 'keymap': {'jump_to_mark': '<C-P>'}}
+let g:coq_settings = {'auto_start': v:true, 'keymap': {'jump_to_mark': '<C-E>'}}
 
 lua require('config.lsp')
 
