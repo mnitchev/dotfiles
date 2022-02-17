@@ -1,19 +1,8 @@
 authors:
-  ae: Anonymous Eirininaut
-  gs: Georgi Sabev
-  gc: Giuseppe Capizzi
-  db: Danail Branekov
-  kb: Kieron Browne
+  mn: Mario Nitchev
 
 email_addresses:
-  ae: eirini@cloudfoundry.org
-  gs: georgethebeatle@gmail.com
-  gc: gcapizzi@pivotal.io
-  db: danailster@gmail.com
-  kb: kbrowne@vmware.com
+  mn: marionitchev@gmail.com
 
 usernames:
-  db: danail-branekov
-  gc: gcapizzi
-  gs: georgethebeatle
-  kb: kieron-dev
+  mn: mnitchev
