@@ -39,6 +39,7 @@ main() {
   setup_locale
   install_packages
   install_snaps
+  install_openvpn
   install_kubectl
   install_nodejs
   install_nvim
@@ -87,14 +88,13 @@ install_packages() {
     libtool-bin \
     net-tools \
     ntp \
-    openvpn3 \
     pkg-config \
     python3 \
     python3-dev \
     python3-pip \
     python3-venv \
     ripgrep \
-    slack-desktop \
+    slack \
     software-properties-common \
     stow \
     tmux \
@@ -102,6 +102,13 @@ install_packages() {
     wget \
     xsel \
     zsh
+}
+
+install_openvpn() {
+  curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/openvpn-repo-pkg-keyring.gpg
+  curl -fsSL https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-impish.list >/etc/apt/sources.list.d/openvpn3.list
+  apt update
+  apt-get install -y openvpn3
 }
 
 install_snaps() {
