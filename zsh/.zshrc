@@ -36,7 +36,10 @@ export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # Custom scripts
 export PATH=$HOME/bin:$PATH
 
-# Golang
+# Kubectl Krew
+export PATH="${PATH}:${HOME}/.krew/bin"
+
+ #Golang
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
@@ -74,11 +77,10 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob
 # Direnv
 eval "$(direnv hook zsh)"
 
+# Opsctl
+source <(opsctl completion zsh)
+
 # Fix forwarded sockets socket
 if ! ssh-agent-socket-available; then
   fix-ssh
-fi
-
-if ! gpg-socket-symlinked; then
-  fix-gpg
 fi
