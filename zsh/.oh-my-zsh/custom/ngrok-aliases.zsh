@@ -12,7 +12,7 @@ else
   host="$(echo "$url" | cut -d / -f 3 | cut -d : -f 1)"
   port="$(echo "$url" | cut -d / -f 3 | cut -d : -f 2)"
 
-  echo "ssh -A -R $HOME/.gnupg/S.gpg-agent-guest:\$(gpgconf --list-dirs agent-socket) -p $port $(whoami)@$host"
+  echo "ssh -A -p $port $(whoami)@$host"
 fi
 }
 
