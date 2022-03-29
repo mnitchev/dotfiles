@@ -1,0 +1,13 @@
+    <layout>
+      <configItem>
+        <name>xy</name>
+
+        <shortDescription>en</shortDescription>
+        <description>XY English (with vim bindings)</description>
+        <languageList>
+                 <iso639Id>eng</iso639Id>
+        </languageList>
+      </configItem>
+      <variantList>
+      </variantList>
+    </layout>
