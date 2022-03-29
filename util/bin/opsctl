@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+resotre-executables() {
+  mv "$SCRIPT_DIR"/opsctl "$SCRIPT_DIR"/opsctl_bin
+  mv "$SCRIPT_DIR"/opsctl.tmp "$SCRIPT_DIR"/opsctl
+}
+
+export OPSCTL_GITHUB_TOKEN=$(lpass show opsctl-token --notes)
+if [[ "$1" == "version" ]] && [[ "$2" == "update" ]]; then
+  mv "$SCRIPT_DIR"/opsctl "$SCRIPT_DIR"/opsctl.tmp
+  mv "$SCRIPT_DIR"/opsctl_bin "$SCRIPT_DIR"/opsctl
+
+  trap resotre-executables EXIT
+  "$SCRIPT_DIR"/opsctl "$@"
+  exit "$?"
+fi
+
+"$SCRIPT_DIR"/opsctl_bin "$@"
