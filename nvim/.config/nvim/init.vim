@@ -28,9 +28,6 @@ endif
 let mapleader=' '
 let maplocalleader='\'
 
-"Replace escape with jk
-inoremap jk <esc>
-
 "Convert current word to uppercase
 inoremap <C-u> <esc>mzgUiw`za
 

@@ -36,8 +36,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'milkypostman/vim-togglelist'
     " Unobtrusive scratch window
     Plug 'mtth/scratch.vim'
-    " Our colorscheme
+    " Jellybeans colorscheme
     Plug 'nanotech/jellybeans.vim'
+    " Gruvbox colorscheme
+    Plug 'morhetz/gruvbox'
     " Config for built-in nvim lsp
     Plug 'neovim/nvim-lspconfig'
     " auto completions
