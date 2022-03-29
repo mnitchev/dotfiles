@@ -43,6 +43,9 @@ main() {
   install_pure_zsh_theme
   install_tmux_plugin_manager
   install_zsh_autosuggestions
+  install_krew
+  install_kubectl_plugins
+  install_alacritty
   switch_to_zsh
 }
 
@@ -200,6 +203,36 @@ install_pure_zsh_theme() {
     git pull -r
   }
   popd
+}
+
+install_alacritty() {
+  git_clone "https://github.com/alacritty/alacritty.git" "$HOME/workspace/alacritty"
+  pushd "$HOME/workspace/alacritty"
+  {
+    cargo build --release --no-default-features --features=wayland
+    sudo cp target/release/alacritty /usr/local/bin
+    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+    sudo desktop-file-install extra/linux/Alacritty.desktop
+    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+    sudo update-desktop-database
+  }
+  popd
+}
+
+install_krew() {
+  set -x
+  cd "$(mktemp -d)"
+  OS="$(uname | tr '[:upper:]' '[:lower:]')"
+  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')"
+  KREW="krew-${OS}_${ARCH}"
+
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz"
+  tar zxvf "${KREW}.tar.gz"
+  ./"${KREW}" install krew
+}
+
+install_kubectl_plugins() {
+  kubectl krew install gs
 }
 
 switch_to_zsh() {
