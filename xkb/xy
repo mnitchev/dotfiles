@@ -19,6 +19,6 @@
     key <AE04> { [ 4, dollar, End, End         ] };
     key <TLDE> { [ Escape, Escape, grave, asciitilde ] };
     key <BKSL> { [  backslash, bar, grave, asciitilde] };
-    key <ESC> { [ grave, asciitilde, Escape, Escape ] };
+    key <ESC> { [ Escape, Espace, grave, asciitilde] };
     include "level3(ralt_switch)"
  };
