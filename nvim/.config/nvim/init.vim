@@ -481,8 +481,8 @@ let g:shfmt_fmt_on_save = 1
 " --------------------------------- Snippets  -------------------------------
 """ ultisnips
 let g:UltiSnipsExpandTrigger='<c-j>'
-let g:UltiSnipsJumpForwardTrigger='<c-f>'
-let g:UltiSnipsJumpBackwardTrigger='<c-b>'
+let g:UltiSnipsJumpForwardTrigger='<c-l>'
+let g:UltiSnipsJumpBackwardTrigger='<c-h>'
 " --------------------------------------------------------------------------
 
 " --------------------------------- FuzzyFind  -----------------------------

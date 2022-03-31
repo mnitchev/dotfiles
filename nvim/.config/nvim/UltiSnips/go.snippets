@@ -522,7 +522,7 @@ var (
 endsnippet
 
 # equals fails the test if exp is not equal to act.
-snippet eq "equals: test two identifiers with DeepEqual"
+snippet deq "equals: test two identifiers with DeepEqual"
 if !reflect.DeepEqual(${1:expected}, ${2:actual}) {
 	_, file, line, _ := runtime.Caller(0)
 	fmt.Printf("%s:%d:\n\n\texp: %#v\n\n\tgot: %#v\n\n", filepath.Base(file), line, $1, $2)
@@ -611,16 +611,36 @@ It("${1:does something}", func() {
 })
 endsnippet
 
+snippet ex "Gomega Expect(...).To(...)" b
+Expect(${1:actual}).To(${2:expected})
+endsnippet
+
 snippet exto "Gomega Expect(...).To(...)" b
-Expect(${1:actual}).To(${0:${VISUAL}})
+Expect(${1:actual}).To(${2:expected})
+endsnippet
+
+snippet eq "Gomega Expect(...).To(Equal(...))" b
+Expect(${1:actual}).To(Equal(${2:expected}))
+endsnippet
+
+snippet exn "Gomega Expect(...).To(...)" b
+Expect(${1:actual}).NotTo(${2:expected})
 endsnippet
 
 snippet exnt "Gomega Expect(...).NotTo(...)" b
-Expect(${1:actual}).NotTo(${0:${VISUAL}})
+Expect(${1:actual}).NotTo(${2:expected})
+endsnippet
+
+snippet eqn "Gomega Expect(...).NotTo(Equal(...))" b
+Expect(${1:actual}).NotTo(Equal(${2:expected}))
 endsnippet
 
 snippet extn "Gomega Expect(...).ToNot(...)" b
-Expect(${1:actual}).ToNot(${0:${VISUAL}})
+Expect(${1:actual}).ToNot(${2:expected})
+endsnippet
+
+snippet exe "Gomega Expect(err).To(HaveOccurred())" b
+Expect(err).To(HaveOccurred())
 endsnippet
 
 snippet exeo "Gomega Expect(err).To(HaveOccurred())" b
@@ -629,6 +649,14 @@ endsnippet
 
 snippet exen "Gomega Expect(err).NotTo(HaveOccurred())" b
 Expect(err).NotTo(HaveOccurred())
+endsnippet
+
+snippet ev "Gomega Eventually(...).Should(...)" b
+Eventually(${1:actual}).Should(${2:expected})
+endsnippet
+
+snippet evn "Gomega Eventually(...).ShouldNot(...)" b
+Eventually(${1:actual}).ShouldNot(${2:expected})
 endsnippet
 
 # vim:ft=snippets:
