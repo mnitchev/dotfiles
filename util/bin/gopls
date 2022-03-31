@@ -19,11 +19,11 @@ if [[ "$OSTYPE" =~ "linux" ]]; then
 
   # Set the high memory limit to 1/3 of the total.
   # This is the soft limit at which gopls will get throttled but not killed.
-  memory_limit="$((1024 * $total_memory / 3))"
-  echo "$memory_limit" | tee "$cgroup_path/memory.high" >/dev/null
+  memory_limit="$((1024 * $total_memory / 2))"
+  # echo "$memory_limit" | tee "$cgroup_path/memory.high" >/dev/null
 
   # Set the max memory limit to the high + 1GB.
-  echo "$(($GIGABYTE + $memory_limit))" | tee "$cgroup_path/memory.max" >/dev/null
+  echo "$memory_limit" | tee "$cgroup_path/memory.max" >/dev/null
 fi
 
 $HOME/go/bin/gopls "$@"
