@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=kitty
+GenericName=Terminal emulator
+Comment=Fast, feature-rich, GPU based terminal
+TryExec=/home/mario/workspace/kitty/bin/kitty
+Exec=/home/mario/workspace/kitty/bin/kitty
+Icon=/home/mario/workspace/whiskers/whiskers_256x256.png
+Categories=System;TerminalEmulator;

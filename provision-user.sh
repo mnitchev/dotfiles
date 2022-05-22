@@ -45,7 +45,7 @@ main() {
   install_zsh_autosuggestions
   install_krew
   install_kubectl_plugins
-  install_alacritty
+  install_kitty
   switch_to_zsh
 }
 
@@ -205,18 +205,25 @@ install_pure_zsh_theme() {
   popd
 }
 
-install_alacritty() {
-  git_clone "https://github.com/alacritty/alacritty.git" "$HOME/workspace/alacritty"
-  pushd "$HOME/workspace/alacritty"
-  {
-    cargo build --release --no-default-features --features=wayland
-    sudo cp target/release/alacritty /usr/local/bin
-    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-    sudo desktop-file-install extra/linux/Alacritty.desktop
-    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
-    sudo update-desktop-database
-  }
-  popd
+install_kitty() {
+  local latest_release release_number
+  latest_release="$(curl -s https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name')"
+  release_number="$(echo $latest_release | cut -c 2-)"
+
+  echo ">>> Installing kitty ($latest_release)"
+
+  mkdir -p "$HOME/workspace/kitty"
+  curl -L "https://github.com/kovidgoyal/kitty/releases/download/${latest_release}/kitty-${release_number}-x86_64.txz" | tar -xJ -C "$HOME/workspace/kitty"
+  if ! [[ -f "$HOME/bin/kitty" ]]; then
+    ln -s "$HOME/workspace/kitty/bin/kitty" "$HOME/bin/kitty"
+  fi
+
+  local kitty_desktop="~/.local/share/applications/kitty.desktop"
+  if ! [[ -f "$kitty_desktop" ]]; then
+    ln -s "$SCRIPT_DIR/kitty/kitty.desktop" "$kitty_desktop"
+  fi
+
+  cp $HOME/workspace/kitty/share/applications/kitty-open.desktop ~/.local/share/applications/
 }
 
 install_krew() {
