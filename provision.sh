@@ -117,6 +117,7 @@ install_packages() {
     tmux \
     unzip \
     wget \
+    wl-clipboard \
     xsel \
     zsh
 }
@@ -145,7 +146,7 @@ install_golang() {
   echo ">>> Installing Golang"
   rm -rf /usr/local/go
   mkdir -p /usr/local/go
-  curl -sL "https://dl.google.com/go/go1.17.5.linux-amd64.tar.gz" | tar xz -C "/usr/local"
+  curl -sL "https://dl.google.com/go/go1.18.2.linux-amd64.tar.gz" | tar xz -C "/usr/local"
 }
 
 install_nodejs() {
@@ -161,7 +162,9 @@ install_nvim() {
     apt-get remove -y neovim
   fi
 
-  url="$(curl -s https://api.github.com/repos/neovim/neovim/releases/tags/v0.6.1 | jq -r '.assets[] | select(.name == "nvim.appimage") | .browser_download_url')"
+  local url latest_release
+  latest_release="$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | jq -r '.tag_name')"
+  url="$(curl -s https://api.github.com/repos/neovim/neovim/releases/tags/${latest_release} | jq -r '.assets[] | select(.name == "nvim.appimage") | .browser_download_url')"
 
   curl -sL "$url" --output /tmp/nvim
   chmod +x /tmp/nvim
@@ -219,9 +222,8 @@ install_layout() {
   if ! grep -q '<name>xy</name>' /usr/share/X11/xkb/rules/evdev.xml; then
     sed -i '/<layoutList>/r xkb/layout.xml' /usr/share/X11/xkb/rules/evdev.xml
     dpkg-reconfigure xkb-data
-    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'xy'), ('xkb', 'us'), ('xkb', 'bg+phonetic')]"
-
   fi
+  gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'xy'), ('xkb', 'us'), ('xkb', 'bg+phonetic')]"
 }
 
 install_vault() {

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 readonly USAGE="Usage: provision.sh [-l | -c <command_name>]"
 
 main() {
@@ -34,7 +35,7 @@ main() {
   install_gotools
   install_docker
   install_ohmyzsh
-  install_vim_plug
+  install_vim_packer
   install_nvim_extensions
   install_cred_alert
   configure_dotfiles
@@ -73,7 +74,7 @@ install_docker() {
 
 install_gotools() {
   echo ">>> Installing golangci-lint"
-  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$HOME/go/bin/" v1.44.0
+  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$HOME/go/bin/" v1.46.2
 
   echo ">>> Installing gopls"
   go_install golang.org/x/tools/gopls
@@ -100,10 +101,12 @@ install_zsh_autosuggestions() {
   git_clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 }
 
-install_vim_plug() {
-  echo ">>> Installing vim-plug"
-  curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+install_vim_packer() {
+  echo ">>> Installing vim packer"
+  local packer_dir="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  if ! [[ -d "$packer_dir" ]]; then
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim "$packer_dir"
+  fi
 }
 
 install_nvim_extensions() {
@@ -166,18 +169,21 @@ install_vim_plugins() {
   # are bringing those files (dependency loop). In order to untie the loop we do plug install/update
   # with just the plug part of the config. Later when you run nvim it will laod and install all remaining
   # stuff without you having to run :PlugInstall.
-  nvim -u "$HOME/.config/nvim/plug.vim" --headless +PlugClean +PlugInstall +PlugUpdate +UpdateRemotePlugins +qall
+  nvim -u "$HOME/.config/nvim/plug.vim" --headless +PackerClean +PackerInstall +PackerUpdate +UpdateRemotePlugins +qall
 }
 
 install_misc_tools() {
   echo ">>> Installing Ginkgo"
   go_install "github.com/onsi/ginkgo/ginkgo"
 
-  echo ">>> Installing k9s (v0.25.8)"
-  curl -L https://github.com/derailed/k9s/releases/download/v0.25.8/k9s_Linux_x86_64.tar.gz | tar xvzf - -C "$HOME/bin" k9s
+  local url latest_release
+  latest_release="$(curl -s https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.tag_name')"
+  echo ">>> Installing k9s ($latest_release)"
+  curl -L https://github.com/derailed/k9s/releases/download/${latest_release}/k9s_Linux_x86_64.tar.gz | tar xvzf - -C "$HOME/bin" k9s
 
-  echo ">>> Installing kind (v0.11.1)"
-  curl -L https://github.com/kubernetes-sigs/kind/releases/download/v0.11.1/kind-linux-amd64 -o "$HOME/bin/kind"
+  latest_release="$(curl -s https://api.github.com/repos/kubernetes-sigs/kind/releases/latest | jq -r '.tag_name')"
+  echo ">>> Installing kind ($latest_release)"
+  curl -L https://github.com/kubernetes-sigs/kind/releases/download/${latest_release}/kind-linux-amd64 -o "$HOME/bin/kind"
   chmod +x "$HOME/bin/kind"
 }
 
@@ -218,9 +224,9 @@ install_kitty() {
     ln -s "$HOME/workspace/kitty/bin/kitty" "$HOME/bin/kitty"
   fi
 
-  local kitty_desktop="~/.local/share/applications/kitty.desktop"
+  local kitty_desktop="$HOME/.local/share/applications/kitty.desktop"
   if ! [[ -f "$kitty_desktop" ]]; then
-    ln -s "$SCRIPT_DIR/kitty/kitty.desktop" "$kitty_desktop"
+    ln -s "$SCRIPT_DIR/kitty/.config/kitty/kitty.desktop" "$kitty_desktop"
   fi
 
   cp $HOME/workspace/kitty/share/applications/kitty-open.desktop ~/.local/share/applications/
