@@ -49,6 +49,11 @@ for _, lsp in ipairs(servers) do
     }))
 end
 
+local handle = io.popen("go list -m")
+local module = handle:read("*a")
+module = module:gsub("[\n\r]", "")
+handle:close()
+
 nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities({
     on_attach = on_attach;
     cmd = { 'gopls', '--remote=auto' };
@@ -58,6 +63,7 @@ nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities({
             usePlaceholders = true,
             staticcheck = true,
             gofumpt = true,
+            ['local'] = module,
             buildFlags = {"-tags=e2e"},
             memoryMode = "DegradeClosed",
         }
@@ -72,7 +78,7 @@ function LSP_organize_imports()
     for _, res in pairs(result or {}) do
         for _, r in pairs(res.result or {}) do
             if r.edit then
-                vim.lsp.util.apply_workspace_edit(r.edit)
+                vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
             else
                 vim.lsp.buf.execute_command(r.command)
             end
