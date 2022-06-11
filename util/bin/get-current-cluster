@@ -6,10 +6,10 @@ if [[ "$current_context" == "null" ]]; then
   exit 0
 fi
 
-if [[ $current_context =~ gke ]]; then
-  echo "$current_context" | sed "s/gke_cff-eirini-peace-pods_europe-west[1-9]-[a-z]_//g"
-elif [[ $current_context =~ kind- ]]; then
-  echo "$current_context" | sed "s/^kind-//"
+if [[ $current_context =~ kind- ]]; then
+  cluster_name="$(echo "$current_context" | sed "s/kind-//g")"
 else
-  echo "$current_context" | sed "s/\/.*$//g"
+  cluster_name="$(echo "$current_context" | sed "s/\/.*$//g")"
 fi
+
+echo "⛵ $cluster_name" | cut -c -22
