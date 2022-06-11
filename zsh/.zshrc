@@ -1,8 +1,8 @@
 # Path to oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
-ZSH_THEME=""
-
+ZSH_THEME="lambda-mod-zsh-theme/lambda-mod"
 plugins=(
   docker
   docker-compose
@@ -27,6 +27,7 @@ export EDITOR="nvim"
 export GIT_EDITOR="nvim"
 export KUBE_EDITOR="nvim"
 
+
 # Keys
 bindkey '\C-b' beginning-of-line
 bindkey "^[r" redo
@@ -47,28 +48,8 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 # snap
 export PATH=$PATH:/snap/bin
 
-# Show non-zero exit status
-precmd_pipestatus() {
-    local exit_status="${(j.|.)pipestatus}"
-    if [[ $exit_status = 0 ]]; then
-           return 0
-    fi
-    echo -n ${exit_status}' '
-}
-
-# Set Pure ZSH theme
-fpath+=$HOME/.zsh/pure
-autoload -U promptinit; promptinit
-prompt pure
-
-# Remove pure theme state (user@hostname) from prompt
-prompt_pure_state=()
-
-# Show exit code of last command as a separate prompt character
-PROMPT='%(?.%F{#32CD32}.%F{red}❯%F{red})❯%f '
-
-# Show exit status before prompt
-PROMPT='%F{red}$(precmd_pipestatus)'$PROMPT
+# rust
+source $HOME/.cargo/env
 
 # Fuzzy Find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
