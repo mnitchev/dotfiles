@@ -6,6 +6,8 @@ return require('packer').startup(function()
     use 'benmills/vimux'
     -- Highlights and removes trailing whitespace
     use 'ntpeters/vim-better-whitespace'
+    -- Syntax highlighting for helm
+    use 'towolf/vim-helm'
     -- Syntax highlighting for starlark
     use 'cappyzawa/starlark.vim'
     -- Add mappings to copy to clipboard - doesn't work over ssh

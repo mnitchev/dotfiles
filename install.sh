@@ -17,7 +17,7 @@ generate_gitconfig() {
 
   cat <<EOF >"$HOME/.gitconfig"
 [include]
-  path = ~/.common-gitconfig
+  path = $HOME/.common-gitconfig
 [user]
   name = "Mario Nitchev"
   email = "marionitchev@gmail.com"

@@ -146,7 +146,7 @@ install_golang() {
   echo ">>> Installing Golang"
   rm -rf /usr/local/go
   mkdir -p /usr/local/go
-  curl -sL "https://dl.google.com/go/go1.18.2.linux-amd64.tar.gz" | tar xz -C "/usr/local"
+  curl -sL "https://dl.google.com/go/go1.19.3.linux-amd64.tar.gz" | tar xz -C "/usr/local"
 }
 
 install_nodejs() {
@@ -184,7 +184,7 @@ install_misc_tools() {
   rm /tmp/terraform.zip
 
   echo ">>> Installing yq"
-  curl -sLo yq https://github.com/mikefarah/yq/releases/download/v4.6.2/yq_linux_amd64 && install yq /usr/local/bin/ && rm -f yq
+  curl -sLo yq https://github.com/mikefarah/yq/releases/download/v4.28.1/yq_linux_amd64 && install yq /usr/local/bin/ && rm -f yq
 }
 
 install_npm_packages() {
@@ -219,11 +219,13 @@ install_helm3() {
 
 install_layout() {
   cp $SCRIPT_DIR/xkb/xy /usr/share/X11/xkb/symbols/xy
+  cp $SCRIPT_DIR/xkb/bx /usr/share/X11/xkb/symbols/bx
+
   if ! grep -q '<name>xy</name>' /usr/share/X11/xkb/rules/evdev.xml; then
     sed -i '/<layoutList>/r xkb/layout.xml' /usr/share/X11/xkb/rules/evdev.xml
     dpkg-reconfigure xkb-data
   fi
-  gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'xy'), ('xkb', 'us'), ('xkb', 'bg+phonetic')]"
+  gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'xy'), ('xkb', 'bx')]"
 }
 
 install_vault() {

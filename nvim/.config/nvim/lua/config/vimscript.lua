@@ -79,6 +79,7 @@ let g:coq_settings = {'auto_start': v:true, 'keymap': {'jump_to_mark': '<C-L>'}}
 " Remap the <c-l> in normal mode to vim-tmux-navigator's binding. Coq also
 " maps <c-l> in insert mode, so it will continue to work. This is a bit hacky,
 " but at least jump_to_mark can be a sane binding
+au VimEnter * :nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 au BufEnter * :nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 
 autocmd CursorHold * Lspsaga show_line_diagnostics
