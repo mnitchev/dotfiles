@@ -44,7 +44,7 @@ local options = {
    },
    disable_netrw = true,
    hijack_netrw = true,
-   ignore_ft_on_setup = { "dashboard" },
+   -- ignore_ft_on_setup = { "dashboard" },
    open_on_tab = false,
    hijack_cursor = true,
    hijack_unnamed_buffer_when_opening = false,

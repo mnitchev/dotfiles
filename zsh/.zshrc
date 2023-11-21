@@ -45,6 +45,9 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
+#pip
+export PATH="$PATH:$HOME/.local/bin"
+
 # snap
 export PATH=$PATH:/snap/bin
 

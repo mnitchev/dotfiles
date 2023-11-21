@@ -94,8 +94,8 @@ let signify_priority=5
 " -------------------------- AUTO FORMAT ------------------------------
 augroup AutoFormat
     autocmd!
-    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 3000); LSP_organize_imports()
-    autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_sync(nil, 3000)
+    autocmd BufWritePre *.go lua vim.lsp.buf.format({timeout_ms=3000}); LSP_organize_imports()
+    autocmd BufWritePre *.rb lua vim.lsp.buf.format({timeout_ms=3000})
     autocmd BufWritePre *.json,*.md PrettierAsync
 augroup END
 " ---------------------------------------------------------------------

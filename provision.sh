@@ -146,12 +146,12 @@ install_golang() {
   echo ">>> Installing Golang"
   rm -rf /usr/local/go
   mkdir -p /usr/local/go
-  curl -sL "https://dl.google.com/go/go1.19.3.linux-amd64.tar.gz" | tar xz -C "/usr/local"
+  curl -sL "https://dl.google.com/go/go1.21.0.linux-amd64.tar.gz" | tar xz -C "/usr/local"
 }
 
 install_nodejs() {
   echo ">>> Installing NodeJS"
-  curl -sL https://deb.nodesource.com/setup_14.x | bash -
+  curl -sL https://deb.nodesource.com/setup_20.x | bash -
   apt-get -y install nodejs
 }
 
