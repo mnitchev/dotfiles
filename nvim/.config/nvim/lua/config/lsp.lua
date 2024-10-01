@@ -65,7 +65,6 @@ nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities({
             gofumpt = true,
             ['local'] = module,
             buildFlags = {"-tags=e2e"},
-            memoryMode = "DegradeClosed",
         }
     };
 }))

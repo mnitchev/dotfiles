@@ -35,9 +35,6 @@ bindkey "^[r" redo
 # Vim stuff
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 
-# Custom scripts
-export PATH=$HOME/bin:$PATH
-
 # Kubectl Krew
 export PATH="${PATH}:${HOME}/.krew/bin"
 
@@ -50,6 +47,9 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # snap
 export PATH=$PATH:/snap/bin
+
+# Custom scripts
+export PATH=$HOME/bin:$PATH
 
 # rust
 source $HOME/.cargo/env

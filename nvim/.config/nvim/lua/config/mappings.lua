@@ -5,6 +5,57 @@ vim.api.nvim_set_keymap(
   { noremap = true }
 )
 
+-- Copilot
+vim.api.nvim_set_keymap(
+  "i",
+  "<C-Right>",
+  'copilot#Accept()',
+  {
+      noremap = true,
+      expr = true
+  }
+)
+
+vim.api.nvim_set_keymap(
+  "i",
+  "<C-Down>",
+  'copilot#Next()',
+  {
+      noremap = true,
+      expr = true
+  }
+)
+
+vim.api.nvim_set_keymap(
+  "i",
+  "<C-Up>",
+  'copilot#Previous()',
+  {
+      noremap = true,
+      expr = true
+  }
+)
+
+vim.api.nvim_set_keymap(
+  "i",
+  "<C-Left>",
+  'copilot#Dismiss()',
+  {
+      noremap = true,
+      expr = true
+  }
+)
+
+vim.api.nvim_set_keymap(
+  "i",
+  "<C-\\>",
+  'copilot#Suggest()',
+  {
+      noremap = true,
+      expr = true
+  }
+)
+
 -- vimrc key mappings
 vim.api.nvim_set_keymap(
   "n",
