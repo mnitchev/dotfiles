@@ -3,9 +3,9 @@
 set -e
 
 HOMETIME="20:00:00"
-LASTPASS_NAME="$1"
+SECRET_NAME="$1"
 HOURS="$2"
-file_name=$(echo $LASTPASS_NAME | sed "s|/|-|g")
+file_name="$(echo $SECRET_NAME | sed "s|/|-|g")"
 PRIVATE_KEY="/tmp/$file_name"
 
 main() {
@@ -21,7 +21,7 @@ main() {
 
 save_private_key_to_file() {
   delete_private_key_file
-  lpass show "$LASTPASS_NAME" --notes > "$PRIVATE_KEY"
+  op item get "$SECRET_NAME" --fields notesPlain --format=json | jq '.value' -r > "$PRIVATE_KEY"
   chmod 400 "$PRIVATE_KEY"
 }
 
@@ -44,13 +44,13 @@ add_private_key_until_hometime() {
     echo "$HOMETIME is history. Go home!"
     exit 1
   else
-    echo "Adding $LASTPASS_NAME until $HOMETIME..."
+    echo "Adding $SECRET_NAME until $HOMETIME..."
     ssh-add -t "$seconds_remaining" "$PRIVATE_KEY"
   fi
 }
 
 add_private_key_for_x_hours() {
-  echo "Adding $LASTPASS_NAME for $HOURS hours..."
+  echo "Adding $SECRET_NAME for $HOURS hours..."
   ssh-add -t "${HOURS}h" "$PRIVATE_KEY"
 }
 

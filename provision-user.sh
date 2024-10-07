@@ -111,9 +111,7 @@ install_vim_packer() {
 
 install_nvim_extensions() {
   echo ">>> Installing the NeoVim extensions"
-  sudo npm install -g neovim
-  pip3 install --upgrade pip
-  pip3 install --upgrade neovim
+  sudo apt-get install python3-neovim
 }
 
 git_clone() {
@@ -178,8 +176,9 @@ install_misc_tools() {
 
   local url latest_release
   latest_release="$(curl -s https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.tag_name')"
+
   echo ">>> Installing k9s ($latest_release)"
-  curl -L https://github.com/derailed/k9s/releases/download/${latest_release}/k9s_Linux_x86_64.tar.gz | tar xvzf - -C "$HOME/bin" k9s
+  curl -L https://github.com/derailed/k9s/releases/download/${latest_release}/k9s_Linux_amd64.tar.gz | tar xvzf - -C "$HOME/bin" k9s
 
   latest_release="$(curl -s https://api.github.com/repos/kubernetes-sigs/kind/releases/latest | jq -r '.tag_name')"
   echo ">>> Installing kind ($latest_release)"

@@ -1,5 +1,7 @@
 local nvim_lsp = require 'lspconfig'
 local coq = require 'coq'
+local salspsaga = pcall(require, 'lspsaga')
+
 
 -- disable inline diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -42,7 +44,7 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = { "tsserver", "bashls" }
+local servers = { "ts_ls", "bashls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities( {
         on_attach = on_attach;
@@ -84,3 +86,13 @@ function LSP_organize_imports()
         end
     end
 end
+
+local saga_status, saga = pcall(require, "lspsaga")
+if not saga_status then
+  return
+end
+saga.setup({
+ ui = {
+        code_action = ''
+    }
+})

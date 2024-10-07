@@ -15,7 +15,7 @@
       <configItem>
         <name>bx</name>
 
-        <shortDescription>en</shortDescription>
+        <shortDescription>bg</shortDescription>
         <description>BX Bulgarian Phonetic (with vim bindings)</description>
         <languageList>
                  <iso639Id>bg</iso639Id>

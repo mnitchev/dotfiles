@@ -51,19 +51,16 @@ export PATH=$PATH:/snap/bin
 # Custom scripts
 export PATH=$HOME/bin:$PATH
 
-# rust
-source $HOME/.cargo/env
-
 # Fuzzy Find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 15% --border'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!vendor/"'
 
 # Direnv
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 
-# Opsctl
-source <(opsctl completion zsh)
+# # Opsctl
+# source <(opsctl completion zsh)
 
 # Fix forwarded sockets socket
 if ! ssh-agent-socket-available; then

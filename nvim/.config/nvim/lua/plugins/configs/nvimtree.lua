@@ -56,7 +56,6 @@ local options = {
    view = {
       side = "left",
       width = 35,
-      hide_root_folder = true,
    },
    git = {
       enable = false,
@@ -68,6 +67,7 @@ local options = {
       },
    },
    renderer = {
+      root_folder_label = '',
       indent_markers = {
          enable = true,
       },

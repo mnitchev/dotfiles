@@ -100,7 +100,7 @@ local file_name = {
 local dir_name = {
    provider = function()
       local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      return "  " .. dir_name .. " "
+      return "  " .. dir_name .. " "
    end,
 
    hl = {
@@ -180,7 +180,7 @@ local diagnostic = {
          return lsp.diagnostics_exist(lsp_severity.HINT)
       end,
       hl = { fg = colors.grey_fg2 },
-      icon = "  ",
+      icon = " 󰅏 ",
    },
 
    info = {
@@ -189,7 +189,7 @@ local diagnostic = {
          return lsp.diagnostics_exist(lsp_severity.INFO)
       end,
       hl = { fg = colors.green },
-      icon = "  ",
+      icon = "  ",
    },
 }
 

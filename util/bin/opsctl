@@ -11,6 +11,7 @@ resotre-executables() {
 }
 
 export OPSCTL_GITHUB_TOKEN=$(lpass show opsctl-token --notes)
+
 if [[ "$1" == "version" ]] && [[ "$2" == "update" ]]; then
   mv "$SCRIPT_DIR"/opsctl "$SCRIPT_DIR"/opsctl.tmp
   mv "$SCRIPT_DIR"/opsctl_bin "$SCRIPT_DIR"/opsctl

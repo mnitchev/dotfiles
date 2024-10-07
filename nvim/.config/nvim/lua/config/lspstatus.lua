@@ -4,8 +4,8 @@ lsp_status.config{
     status_symbol = '',
     current_function = false,
     indicator_errors = '❌',
-    indicator_warnings = '⚠️ ',
-    indicator_info = 'ℹ️',
+    indicator_warnings = '',
+    indicator_info = '󰅏',
     indicator_hint = '🤔',
     indicator_ok = '✅',
 }

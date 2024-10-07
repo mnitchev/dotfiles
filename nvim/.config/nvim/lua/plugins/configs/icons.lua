@@ -34,12 +34,12 @@ local options = {
          name = "html",
       },
       jpeg = {
-         icon = "",
+         icon = "󰈥",
          color = colors.dark_purple,
          name = "jpeg",
       },
       jpg = {
-         icon = "",
+         icon = "󰈥",
          color = colors.dark_purple,
          name = "jpg",
       },
@@ -54,7 +54,7 @@ local options = {
          name = "kt",
       },
       lock = {
-         icon = "",
+         icon = "",
          color = colors.red,
          name = "lock",
       },
@@ -64,7 +64,7 @@ local options = {
          name = "lua",
       },
       mp3 = {
-         icon = "",
+         icon = "",
          color = colors.white,
          name = "mp3",
       },
@@ -79,7 +79,7 @@ local options = {
          name = "out",
       },
       png = {
-         icon = "",
+         icon = "",
          color = colors.dark_purple,
          name = "png",
       },
@@ -119,7 +119,7 @@ local options = {
          name = "rpm",
       },
       vue = {
-         icon = "﵂",
+         icon = "",
          color = colors.vibrant_green,
          name = "vue",
       },

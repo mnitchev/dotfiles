@@ -97,6 +97,7 @@ install_packages() {
     libevent-dev \
     libfontconfig1-dev \
     libfreetype6-dev \
+    libfuse2 \
     libncurses5-dev \
     libssl-dev \
     libtool \
@@ -123,8 +124,10 @@ install_packages() {
 }
 
 install_openvpn() {
-  curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor >/etc/apt/trusted.gpg.d/openvpn-repo-pkg-keyring.gpg
-  curl -fsSL https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-impish.list >/etc/apt/sources.list.d/openvpn3.list
+  mkdir -p /etc/apt/keyrings    ### This might not exist in all distributions
+  curl -sSfL https://packages.openvpn.net/packages-repo.gpg >/etc/apt/keyrings/openvpn.asc
+  echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian noble main" >>/etc/apt/sources.list.d/openvpn3.list
+  echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian bookworm main" >>/etc/apt/sources.list.d/openvpn3.list
   apt update
   apt-get install -y openvpn3
 }
@@ -173,7 +176,7 @@ install_nvim() {
 
 install_misc_tools() {
   echo ">>> Installing ngrok"
-  curl -sL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz" | tar xz -C /usr/bin
+   curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
 
   echo ">>> Installing git-duet"
   curl -sL "https://github.com/git-duet/git-duet/releases/download/0.7.0/linux_amd64.tar.gz" | tar xvz -C /usr/bin

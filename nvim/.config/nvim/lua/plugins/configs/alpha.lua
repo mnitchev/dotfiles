@@ -85,11 +85,11 @@ options.buttons = {
    val = {
       button("e", "  New file", "<cmd>ene <CR>"),
       button("CTRL p", "  Find File  ", ":Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>"),
-      button("SPC f h", "  Recent File  ", ":Telescope oldfiles<CR>"),
-      button("SPC f s", "  Search Word  ", ":Telescope live_grep<CR>"),
+      button("SPC f h", "  Recent File  ", ":Telescope oldfiles<CR>"),
+      button("SPC f s", "  Search Word  ", ":Telescope live_grep<CR>"),
       button("SPC f b", "  Bookmarks  ", ":Telescope marks<CR>"),
       button("SPC v e", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
-      button( "q", "  > Quit NVIM", ":qa<CR>"),
+      button( "q", "󰩈  > Quit NVIM", ":qa<CR>"),
    },
    opts = {
       spacing = 1,

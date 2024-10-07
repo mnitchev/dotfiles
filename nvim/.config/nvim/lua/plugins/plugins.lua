@@ -15,10 +15,10 @@ return require('packer').startup(function()
     -- Navigate through vim splits seamlessly
     use 'christoomey/vim-tmux-navigator'
     -- popup windows for LSP helpers
-    use 'tami5/lspsaga.nvim'
+
     -- Light and configurable statusline
     use 'feline-nvim/feline.nvim'
-    use 'NvChad/extensions'
+    use 'mnitchev/extensions'
     use {
         'mnitchev/base46',
         config = function()
@@ -58,6 +58,7 @@ return require('packer').startup(function()
     use 'nanotech/jellybeans.vim'
     -- Config for built-in nvim lsp
     use 'neovim/nvim-lspconfig'
+
     -- auto completions
     use {
         'ms-jpq/coq_nvim',
@@ -114,4 +115,16 @@ return require('packer').startup(function()
         'z0mbix/vim-shfmt',
         ft = {'sh'}
     }
+
+    use ({
+        'nvimdev/lspsaga.nvim',
+        after = 'nvim-lspconfig',
+        config = function()
+           local ok, saga = pcall(require, "lspsaga")
+           if ok then
+              saga.setup({})
+           end
+        end,
+    })
+
 end)

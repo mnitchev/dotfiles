@@ -6,9 +6,9 @@ require('config.vimscript')
 require('config.mappings')
 require('config.vimopts')
 
+-- require('lspsaga').init_lsp_saga()
 require('config.lsp')
 require('config.lspstatus')
-require('lspsaga').init_lsp_saga()
 
 require('plugins.configs.treesitter')
 require('plugins.configs.feline')

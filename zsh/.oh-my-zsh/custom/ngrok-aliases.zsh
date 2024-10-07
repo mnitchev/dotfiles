@@ -18,6 +18,6 @@ fi
 
 init-ngrok() {
   tmux new-session -s ngrok -d
-  tmux send -t ngrok "ngrok tcp --region=eu 22" ENTER
+  tmux send -t ngrok "ngrok tcp 22" ENTER
 }
 
