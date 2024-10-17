@@ -21,4 +21,10 @@ if [[ "$1" == "version" ]] && [[ "$2" == "update" ]]; then
   exit "$?"
 fi
 
-"$SCRIPT_DIR"/opsctl_bin "$@"
+additional_args=()
+
+if [[ "$("$SCRIPT_DIR"/opsctl_bin "$@" --help 2>/dev/null | grep -q "\-\-user")" -eq 0 ]]; then
+  additional_args=("${additional_args[@]}" "--user" "mario")
+fi
+
+"$SCRIPT_DIR"/opsctl_bin "$@" "${additional_args[@]}"
