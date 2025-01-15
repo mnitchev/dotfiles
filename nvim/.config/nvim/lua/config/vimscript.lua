@@ -82,7 +82,7 @@ let g:coq_settings = {'auto_start': v:true, 'keymap': {'jump_to_mark': '<C-L>'}}
 au VimEnter * :nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 au BufEnter * :nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 
-autocmd CursorHold * Lspsaga show_line_diagnostics
+autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
 
 " ---------------------------------------------------------------------
 
