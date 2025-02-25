@@ -54,6 +54,9 @@ export PATH=$PATH:/snap/bin
 # Custom scripts
 export PATH=$HOME/bin:$PATH
 
+# Cargo
+export PATH="$PATH:/Users/mario/.cargo/bin"
+
 # Fuzzy Find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 15% --border'

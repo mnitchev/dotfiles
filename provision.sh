@@ -37,24 +37,12 @@ main() {
   shift $((OPTIND - 1))
   echo ">>> Installing everything..."
 
-  add_sshd_config
-  setup_locale
   install_packages
-  install_snaps
-  install_openvpn
-  install_kubectl
-  install_nodejs
-  install_nvim
-  install_npm_packages
-  install_golang
+  setup_locale
   install_misc_tools
-  install_delta
-  install_github_cli
-  install_helm3
-  install_layout
   install_gcloud
-  install_dive
 }
+
 
 add_sshd_config() {
   echo "StreamLocalBindUnlink yes" >/etc/ssh/sshd_config.d/streamlocalbindunlink.conf
@@ -69,58 +57,33 @@ setup_locale() {
 }
 
 install_packages() {
-  echo ">>> Installing the APT packages"
-  apt-get update
-  apt-get -y install \
-    apt-transport-https \
-    autoconf \
-    automake \
-    build-essential \
-    ca-certificates \
-    ca-certificates \
-    cargo \
-    cmake \
-    cowsay \
-    curl \
-    direnv \
-    fd-find \
-    fortune \
-    fzf \
-    g++ \
-    git \
-    gnome-tweaks \
-    gnupg \
-    iputils-ping \
-    jq \
-    lastpass-cli \
-    libdevmapper-dev \
-    libevent-dev \
-    libfontconfig1-dev \
-    libfreetype6-dev \
-    libfuse2 \
-    libncurses5-dev \
-    libssl-dev \
-    libtool \
-    libtool-bin \
-    libxcb-xfixes0-dev \
-    libxkbcommon-dev \
-    net-tools \
-    ntp \
-    openssh-server \
-    pkg-config \
-    python3 \
-    python3-dev \
-    python3-pip \
-    python3-venv \
-    ripgrep \
-    software-properties-common \
-    stow \
-    tmux \
-    unzip \
-    wget \
-    wl-clipboard \
-    xsel \
-    zsh
+  echo ">>> Installing brew packages"
+  brew install \
+    cmake
+    # curl \
+    # delta \
+    # dive \
+    # fd \
+    # fzf \
+    # gh \
+    # git \
+    # golang \
+    # helm \
+    # jq \
+    # kubectl \
+    # node \
+    # nvim \
+    # openssh \
+    # python3 \
+    # ripgrep \
+    # stow \
+    # tmux \
+    # unzip \
+    # wget \
+    # yq \
+    # zsh
+
+   brew install --cask ngrok
 }
 
 install_openvpn() {
@@ -160,11 +123,6 @@ install_nodejs() {
 
 install_nvim() {
   echo ">>> Installing NeoVim"
-  if grep -q '^deb http://ppa.launchpad.net/neovim-ppa/stable/ubuntu' /etc/apt/sources.list.d/*.list; then
-    add-apt-repository --remove ppa:neovim-ppa/stable -y
-    apt-get remove -y neovim
-  fi
-
   local url latest_release
   latest_release="$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | jq -r '.tag_name')"
   url="$(curl -s https://api.github.com/repos/neovim/neovim/releases/tags/${latest_release} | jq -r '.assets[] | select(.name == "nvim.appimage") | .browser_download_url')"
@@ -175,9 +133,6 @@ install_nvim() {
 }
 
 install_misc_tools() {
-  echo ">>> Installing ngrok"
-   curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-
   echo ">>> Installing git-duet"
   curl -sL "https://github.com/git-duet/git-duet/releases/download/0.7.0/linux_amd64.tar.gz" | tar xvz -C /usr/bin
 
@@ -185,9 +140,6 @@ install_misc_tools() {
   curl -sL "https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip" -o /tmp/terraform.zip
   unzip -ou /tmp/terraform.zip -d /usr/bin
   rm /tmp/terraform.zip
-
-  echo ">>> Installing yq"
-  curl -sLo yq https://github.com/mikefarah/yq/releases/download/v4.28.1/yq_linux_amd64 && install yq /usr/local/bin/ && rm -f yq
 }
 
 install_npm_packages() {
