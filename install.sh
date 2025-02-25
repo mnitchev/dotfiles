@@ -7,7 +7,6 @@ main() {
   configure_home "$@"
   install_zsh_theme
   generate_gitconfig
-  prepare_coq_nvim
 }
 
 generate_gitconfig() {
@@ -49,10 +48,6 @@ install_zsh_theme() {
   fi
 
   git clone https://github.com/halfo/lambda-mod-zsh-theme $ZSH_CUSTOM/themes/lambda-mod-zsh-theme
-}
-
-prepare_coq_nvim() {
-  nvim --headless "+COQdeps" "+COQsnips compile" "+qall"
 }
 
 main "$@"

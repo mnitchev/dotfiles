@@ -6,7 +6,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Copy the entire repository into the container
 RUN mkdir ./dotfiles
-COPY . ./dotfiles
 
 RUN brew install \
     bash-language-server \
@@ -34,6 +33,7 @@ RUN brew install \
     wget \
     yq \
     zsh
+COPY . ./dotfiles
 RUN ./dotfiles/provision-user.sh
 
 # Default command (change as needed)

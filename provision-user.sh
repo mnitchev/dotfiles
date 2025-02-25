@@ -3,6 +3,8 @@ set -euo pipefail
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 readonly USAGE="Usage: provision.sh [-l | -c <command_name>]"
+readonly ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+export ZSH_CUSTOM
 
 main() {
   while getopts ":lch" opt; do
@@ -33,7 +35,6 @@ main() {
   echo ">>> Installing everything..."
   mkdir_home_user_bin
   install_gotools
-  install_docker
   install_ohmyzsh
   install_vim_packer
   install_nvim_extensions
@@ -111,7 +112,7 @@ install_vim_packer() {
 
 install_nvim_extensions() {
   echo ">>> Installing the NeoVim extensions"
-  sudo apt-get install python3-neovim
+  python3 -m pip install --user --upgrade pynvim --break-system-packages
 }
 
 git_clone() {
@@ -144,7 +145,7 @@ git_clone() {
 configure_dotfiles() {
   echo ">>> Installing dotfiles"
 
-  git_clone "git@github.com:mnitchev/dotfiles.git"
+  git_clone "https://github.com/mnitchev/dotfiles.git" "$HOME/workspace/dotfiles"
 
   pushd "$HOME/workspace/dotfiles"
   {
