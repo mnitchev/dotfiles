@@ -8,11 +8,32 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN mkdir ./dotfiles
 COPY . ./dotfiles
 
-RUN ./dotfiles/provision.sh -c install_packages
-RUN ./dotfiles/provision.sh -c setup_locale
-RUN ./dotfiles/provision.sh -c install_gcloud
-# If 'provision-user.sh' must be run as a regular user, do that using 'su' or 'sudo -u'.
-# Otherwise, if it’s okay to run as root, you can just do:
+RUN brew install \
+    bash-language-server \
+    cmake \
+    curl \
+    delta \
+    dive \
+    docker \
+    fd \
+    fzf \
+    gh \
+    git \
+    golang \
+    helm \
+    jq \
+    kubectl \
+    node \
+    nvim \
+    openssh \
+    python3 \
+    ripgrep \
+    stow \
+    tmux \
+    unzip \
+    wget \
+    yq \
+    zsh
 RUN ./dotfiles/provision-user.sh
 
 # Default command (change as needed)

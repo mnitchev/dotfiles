@@ -190,7 +190,7 @@ go_install() {
   local package=$1
   local version=${2:-latest}
 
-  /usr/local/go/bin/go install $package@$version
+  go install $package@$version
 }
 
 install_pure_zsh_theme() {

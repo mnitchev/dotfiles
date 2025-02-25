@@ -5,10 +5,10 @@ readonly USAGE="Usage: provision.sh [-l | -c <command_name>]"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 main() {
-  if [[ $EUID -ne 0 ]]; then
-    echo "Script must be run as root."
-    exit 1
-  fi
+  # if [[ $EUID -ne 0 ]]; then
+  #   echo "Script must be run as root."
+  #   exit 1
+  # fi
 
   while getopts ":lch" opt; do
     case ${opt} in
@@ -192,7 +192,7 @@ install_vault() {
 install_gcloud() {
   echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-  sudo apt-get update && sudo apt-get install google-cloud-cli
+  sudo apt-get update && sudo apt-get install -y  google-cloud-cli
 }
 
 install_dive() {
