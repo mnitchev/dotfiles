@@ -42,7 +42,7 @@ configure_home() {
 
 configure_nvim() {
   git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
-  ln -S custom.lua ~/.config/nvim/lua/plugins/custom.lua
+  ln -s custom.lua ~/.config/nvim/lua/plugins/custom.lua
 
 }
 
