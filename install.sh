@@ -7,6 +7,7 @@ main() {
   configure_home "$@"
   install_zsh_theme
   generate_gitconfig
+  configure_nvim
 }
 
 generate_gitconfig() {
@@ -29,7 +30,7 @@ EOF
 
 configure_home() {
   local bundles action
-  bundles=(nvim tmux zsh git-hooks git util kitty)
+  bundles=(tmux zsh git-hooks git util)
   action=${1:-"install"}
 
   stow --dir="$SCRIPT_DIR" --target "$HOME" --delete "${bundles[@]}"
@@ -37,6 +38,12 @@ configure_home() {
     return
   fi
   stow --dir="$SCRIPT_DIR" --target "$HOME" "${bundles[@]}"
+}
+
+configure_nvim() {
+  git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
+  ln -S custom.lua ~/.config/nvim/lua/plugins/custom.lua
+
 }
 
 install_zsh_theme() {
@@ -47,7 +54,7 @@ install_zsh_theme() {
     return
   fi
 
-  git clone https://github.com/halfo/lambda-mod-zsh-theme $ZSH_CUSTOM/themes/lambda-mod-zsh-theme
+  git clone https://github.com/mnitchev/lambda-mod-zsh-theme $ZSH_CUSTOM/themes/lambda-mod-zsh-theme
 }
 
 main "$@"
