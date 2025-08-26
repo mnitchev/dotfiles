@@ -122,8 +122,10 @@ return {
           ["<Leader>fp"] = { function() require("astrocore.buffer").nav(-1) end, desc = "Previous buffer"},
           ["<Leader>fo"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers"},
           ["<Leader>fa"] = { "<Cmd>A<CR>", desc = "Open alternative file" },
+          ["<Leader>fd"] = { ":bp|bd#<cr>", desc = "Close current buffer" },
           ["gr"] = { function() vim.lsp.buf.references() end, desc = "Search references" },
           ["gi"] = { function() vim.lsp.buf.implementation() end, desc = "Search implementation" },
+          ["gt"] = { function() vim.lsp.buf.type_definition() end, desc = "Search implementation" },
           ["<Leader>rn"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" },
           ["<Leader>en"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic symbol" },
           ["<Leader>ep"] = { function() vim.diagnostic.goto_prev() end, desc = "Prev diagnostic symbol" },
@@ -182,6 +184,11 @@ return {
     opt = true,
   },
   {
+    "ntpeters/vim-better-whitespace",
+    name = "vim-better-whitespace",
+    opt = true,
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
@@ -211,27 +218,27 @@ return {
     "nvim-treesitter/nvim-treesitter",
     name = "nvim-treesitter",
     build = ":TSUpdate",
-    config = function () 
+    config = function ()
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
           ensure_installed = "all",
           sync_install = false,
           highlight = { enable = true },
-          indent = { enable = true },  
+          indent = { enable = true },
         })
     end
   },
   {
     "nvim-telescope/telescope.nvim",
     name = "telescope.nvim",
-    config = function () 
+    config = function ()
       local present, telescope = pcall(require, "telescope")
       local actions = require "telescope.actions"
       local options = {
         pickers = {
           find_files = {
-            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            file_ignore_patterns = { 'node_modules', '.git/', '.venv' },
             hidden = true,
           },
           buffers = {
@@ -328,7 +335,6 @@ return {
   },
 }
 
-
 -- -- open in github
 -- vim.api.nvim_set_keymap(
 --   "n",
@@ -343,3 +349,4 @@ return {
 --   { silent = true }
 -- )
 --
+
