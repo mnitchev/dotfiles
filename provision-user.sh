@@ -46,8 +46,6 @@ main() {
   install_tmux_plugin_manager
   install_zsh_autosuggestions
   install_krew
-  install_kubectl_plugins
-  install_kitty
   switch_to_zsh
 }
 
@@ -244,9 +242,6 @@ install_krew() {
   ./"${KREW}" install krew
 }
 
-install_kubectl_plugins() {
-  kubectl krew install gs
-}
 
 switch_to_zsh() {
   echo ">>> Setting Zsh as the default shell"

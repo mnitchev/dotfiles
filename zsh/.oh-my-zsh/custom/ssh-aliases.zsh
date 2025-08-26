@@ -5,12 +5,13 @@ alias pssh='print-ssh-command'
 export-ssh-agent-config() {
   killall ssh-agent 2>/dev/null
   local ssh_sock
-  ssh_sock="$XDG_RUNTIME_DIR/keyring/ssh"
-  if [[ -z "$ssh_sock" ]]; then
-      eval "$(ssh-agent -s)"
-      return
-  fi
-  export SSH_AUTH_SOCK="$ssh_sock"
+  for dir in $(ls /tmp | grep ssh); do 
+    sock="$(ls /tmp/$dir)"
+    ssh_sock="/tmp/$dir/$sock"
+    if test -S "$ssh_sock"; then
+      export SSH_AUTH_SOCK="$ssh_sock"
+    fi
+  done
 }
 
 ssh-agent-socket-available() {

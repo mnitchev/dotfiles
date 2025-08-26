@@ -1,6 +1,6 @@
 #!/bin/bash
 
-current_context="$(yq eval '.current-context' ~/.kube/config)"
+current_context="$(kubectl config current-context)"
 if [[ "$current_context" == "null" ]]; then
   echo "no cluster"
   exit 0

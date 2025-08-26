@@ -1,6 +1,7 @@
 # Path to oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+export KUBECONFIG="$HOME/.kube/config"
 
 ZSH_THEME="lambda-mod-zsh-theme/lambda-mod"
 plugins=(
@@ -61,6 +62,8 @@ export PATH="$PATH:/Users/mario/.cargo/bin"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 15% --border'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!vendor/"'
+
+export K9S_FEATURE_GATE_NODE_SHELL=true
 
 # Direnv
 # eval "$(direnv hook zsh)"

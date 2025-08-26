@@ -87,7 +87,7 @@ kube-get() {
 kube-logs() {
   shift 1
   exec 3>&1
-  err=$(kubectl logs -f $@ 2>&1 1>&3)
+  err=$(kubectl logs $@ 2>&1 1>&3)
   if [[ "$?" -eq 1 ]] && $(echo -n "$err" | grep -q "a container name must be specified"); then
       local count=1 line_num result_count containers
       containers=$(echo -n "$err" | awk -F '[][]' '{print $2}' | sed 's/ /\n/g')

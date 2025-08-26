@@ -46,6 +46,17 @@ function go_alternate_switch (bang, cmd)
   end
 end
 
+vim.filetype.add({
+  extension = {
+    gotmpl = 'gotmpl',
+  },
+  pattern = {
+    [".*/templates/.*%.tpl"] = "helm",
+    [".*/templates/.*%.ya?ml"] = "helm",
+    ["helmfile.*%.ya?ml"] = "helm",
+  },
+})
+
 -- Create an actual user command that calls our function
 vim.api.nvim_create_user_command(
   'A',
@@ -91,7 +102,6 @@ function LSP_organize_imports()
     end
 end
 
-
 return {
   {
     "AstroNvim/astrocore",
@@ -99,6 +109,7 @@ return {
     opts = {
       options = {
         opt = {
+          wrap = true,
           relativenumber = false, -- sets `vim.opt.relativenumber`
           signcolumn = "auto", -- sets `vim.opt.relativenumber`
         },
@@ -111,32 +122,74 @@ return {
           ["<Leader>fp"] = { function() require("astrocore.buffer").nav(-1) end, desc = "Previous buffer"},
           ["<Leader>fo"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers"},
           ["<Leader>fa"] = { "<Cmd>A<CR>", desc = "Open alternative file" },
+          ["gr"] = { function() vim.lsp.buf.references() end, desc = "Search references" },
+          ["gi"] = { function() vim.lsp.buf.implementation() end, desc = "Search implementation" },
+          ["<Leader>rn"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" },
+          ["<Leader>en"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic symbol" },
+          ["<Leader>ep"] = { function() vim.diagnostic.goto_prev() end, desc = "Prev diagnostic symbol" },
           ["<Leader>gh"] = { "<Cmd>GBrowse<CR>", desc = "Open file in git" },
           ["<Leader>fh"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find buffers"},
           ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files"},
+          ["<C-_>"] = { "gcc", remap = true, desc = "Toggle comment line" },
           ["\\"] = { "<Cmd>Neotree toggle<CR>", desc = "Toggle Explorer" }
         },
         v = {
           ["<Leader>gh"] = { "<Cmd>GBrowse<CR>", desc = "Open file in git" },
+          [">"] = { ">gv" },
+          ["<C-_>"] = { "gcgv", remap = true, desc = "Toggle comment line" },
+          ["<"] = { "<gv" }
         }
       }
     }
   },
   {
     "AstroNvim/astrocommunity",
-    { import = "astrocommunity.colorscheme.github-nvim-theme" },
+    { import = "astrocommunity.colorscheme.nordic-nvim" },
   },
   {
     "AstroNvim/astroui",
     ---@type AstroUIOpts
     opts = {
-      colorscheme = "github_dark_dimmed",
+      colorscheme = "nordic",
+    },
+  },
+  { -- further customize the options set by the community
+    "nordic.nvim",
+    opts = {
+      on_palette = function(palette)
+        palette.black1 = "#1e2122"
+      end,
+      telescope = {
+        style = 'flat',
+      },
+      bright_border = false,
+    -- Reduce the overall amount of blue in the theme (diverges from base Nord).
+      reduced_blue = true,
+      swap_backgrounds = true,
+      cursorline = {
+        -- Bold cursorline number.
+        bold_number = true,
+        -- Available styles: 'dark', 'light'.
+        theme = 'light',
+        -- Blending the cursorline bg with the buffer bg.
+        blend = 0.75,
+    },
     },
   },
   {
     "tpope/vim-unimpaired",
     name = "vim-unimpaired",
     opt = true,
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true,
+        },
+      },
+    },
   },
   {
     "ray-x/lsp_signature.nvim",
@@ -167,6 +220,67 @@ return {
           highlight = { enable = true },
           indent = { enable = true },  
         })
+    end
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    name = "telescope.nvim",
+    config = function () 
+      local present, telescope = pcall(require, "telescope")
+      local actions = require "telescope.actions"
+      local options = {
+        pickers = {
+          find_files = {
+            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            hidden = true,
+          },
+          buffers = {
+            mappings = {
+              i = {
+                ["<c-d>"] = actions.delete_buffer,
+              }
+            }
+          }
+        },
+        defaults = {
+            prompt_prefix = "  ",
+            selection_caret = "  ",
+            entry_prefix = "  ",
+            initial_mode = "insert",
+            selection_strategy = "reset",
+            sorting_strategy = "ascending",
+            layout_strategy = "horizontal",
+            layout_config = {
+              horizontal = {
+                  prompt_position = "top",
+                  preview_width = 0.55,
+                  results_width = 0.8,
+              },
+              vertical = {
+                  mirror = false,
+              },
+              width = 0.87,
+              height = 0.80,
+              preview_cutoff = 120,
+            },
+            file_sorter = require("telescope.sorters").get_fuzzy_file,
+            file_ignore_patterns = { "node_modules", "%.git" },
+            generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+            path_display = { "truncate" },
+            winblend = 0,
+            border = {},
+            borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+            color_devicons = true,
+            use_less = true,
+            set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+            file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+            grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+            qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+            -- Developer configurations: Not meant for general override
+            buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+        },
+      }
+      telescope.setup(options)
     end
   },
   {
