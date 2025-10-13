@@ -187,6 +187,7 @@ return {
     "ntpeters/vim-better-whitespace",
     name = "vim-better-whitespace",
     opt = true,
+    event = "BufRead",
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -222,6 +223,7 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
+          ignore_install = {"ipkg"},
           ensure_installed = "all",
           sync_install = false,
           highlight = { enable = true },

@@ -5,7 +5,7 @@
 #/_/  |_/_/_/\__,_/____/\___/____/
 
 alias c='clear'
-alias watch='watch '
+alias watch='viddy '
 alias vim='nvim'
 alias cflogin='cf-lite'
 alias dockerlogin='docker login -u eiriniuser -p $(pass eirini/docker-hub)'
