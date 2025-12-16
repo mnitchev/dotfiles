@@ -43,7 +43,6 @@ configure_home() {
 configure_nvim() {
   git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
   ln -s $PWD/custom.lua ~/.config/nvim/lua/plugins/custom.lua
-
 }
 
 install_zsh_theme() {
@@ -56,5 +55,6 @@ install_zsh_theme() {
 
   git clone https://github.com/mnitchev/lambda-mod-zsh-theme $ZSH_CUSTOM/themes/lambda-mod-zsh-theme
 }
+
 
 main "$@"

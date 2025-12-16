@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 current_context="$(kubectl config current-context)"
 if [[ "$current_context" == "null" ]]; then
@@ -6,10 +6,33 @@ if [[ "$current_context" == "null" ]]; then
   exit 0
 fi
 
-if [[ $current_context =~ kind- ]]; then
-  cluster_name="$(echo "$current_context" | sed "s/kind-//g")"
-else
-  cluster_name="$(echo "$current_context" | sed "s/\/.*$//g")"
+cluster_name="$current_context"
+if echo "$cluster_name" | grep "@"; then
+  cluster_name="$(echo "$cluster_name" | awk -F "@" '{print $3}')"
 fi
 
-echo "⛵ $cluster_name" | cut -c -22
+# Determine emoji based on cluster type
+emoji="⛵"
+if [[ $cluster_name =~ kind- ]]; then
+  emoji="🐳"  # Docker/Kind (local)
+  cluster_name="$(echo "$cluster_name" | sed "s/kind-//g")"
+elif [[ $cluster_name =~ gke_ ]] || [[ $current_context =~ gke_ ]]; then
+  emoji="☁️"  # GKE (Google Cloud)
+  cluster_name="$(echo "$cluster_name" | sed "s/\/.*$//g")"
+elif [[ $cluster_name =~ eks ]] || [[ $current_context =~ arn:aws ]] || [[ $current_context =~ \.eks\. ]]; then
+  emoji="📦"  # EKS (AWS)
+  cluster_name="$(echo "$cluster_name" | sed "s/\/.*$//g")"
+elif [[ $cluster_name =~ aks ]] || [[ $current_context =~ azure ]]; then
+  emoji="🔷"  # AKS (Azure)
+  cluster_name="$(echo "$cluster_name" | sed "s/\/.*$//g")"
+elif [[ $cluster_name =~ minikube ]] || [[ $current_context =~ minikube ]]; then
+  emoji="💻"  # Minikube (local)
+  cluster_name="$(echo "$cluster_name" | sed "s/\/.*$//g")"
+elif [[ $cluster_name =~ k3s ]] || [[ $cluster_name =~ k3d ]]; then
+  emoji="🚀"  # k3s/k3d (lightweight)
+  cluster_name="$(echo "$cluster_name" | sed "s/\/.*$//g")"
+else
+  cluster_name="$(echo "$cluster_name" | sed "s/\/.*$//g")"
+fi
+
+echo "$emoji $cluster_name" | cut -c -22

@@ -1,3 +1,18 @@
 #!/bin/bash
 
-sensors | grep PCI -A 1 | grep -o --color=never "[0-9\.]*°C"
+# Get temperature value
+temp_output=$(sensors | grep Tctl | grep -o --color=never "[0-9\.]*°C")
+temp_value=$(echo "$temp_output" | grep -o "[0-9]*" | head -1)
+
+# Choose emoji based on temperature
+if [ "$temp_value" -lt 60 ]; then
+    emoji="❄️"
+elif [ "$temp_value" -lt 70 ]; then
+    emoji="🌡️"
+elif [ "$temp_value" -lt 85 ]; then
+    emoji="🔥"
+else
+    emoji="🚨"
+fi
+
+echo "$emoji $temp_output"

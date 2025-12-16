@@ -106,43 +106,63 @@ return {
   {
     "AstroNvim/astrocore",
     ---@type AstroCoreOpts
-    opts = {
-      options = {
+    opts = function(_, opts)
+      opts.options = {
         opt = {
           wrap = true,
+          number = true, -- sets `vim.opt.number`
           relativenumber = false, -- sets `vim.opt.relativenumber`
-          signcolumn = "auto", -- sets `vim.opt.relativenumber`
+          signcolumn = "auto", -- sets `vim.opt.signcolumn`
+          clipboard = "", -- disable clipboard sync (use <Leader>cp to explicitly copy)
+          showtabline = 2, -- always show tabline/bufferline
+          tabstop = 2, -- number of spaces a tab counts for
+          shiftwidth = 2, -- number of spaces for indentation
+          expandtab = true, -- use spaces instead of tabs
+          list = true, -- show whitespace characters
+          listchars = { tab = "→ ", trail = "·", nbsp = "␣", extends = "⟩", precedes = "⟨" },
         },
-      },
-      mappings = {
-        n = {
-          -- second key is the lefthand side of the map
-          -- mappings seen under group name "Buffer"
-          ["<Leader>fn"] = { function() require("astrocore.buffer").nav(1) end, desc = "Next buffer"},
-          ["<Leader>fp"] = { function() require("astrocore.buffer").nav(-1) end, desc = "Previous buffer"},
-          ["<Leader>fo"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers"},
-          ["<Leader>fa"] = { "<Cmd>A<CR>", desc = "Open alternative file" },
-          ["<Leader>fd"] = { ":bp|bd#<cr>", desc = "Close current buffer" },
-          ["gr"] = { function() vim.lsp.buf.references() end, desc = "Search references" },
-          ["gi"] = { function() vim.lsp.buf.implementation() end, desc = "Search implementation" },
-          ["gt"] = { function() vim.lsp.buf.type_definition() end, desc = "Search implementation" },
-          ["<Leader>rn"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" },
-          ["<Leader>en"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic symbol" },
-          ["<Leader>ep"] = { function() vim.diagnostic.goto_prev() end, desc = "Prev diagnostic symbol" },
-          ["<Leader>gh"] = { "<Cmd>GBrowse<CR>", desc = "Open file in git" },
-          ["<Leader>fh"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find buffers"},
-          ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files"},
-          ["<C-_>"] = { "gcc", remap = true, desc = "Toggle comment line" },
-          ["\\"] = { "<Cmd>Neotree toggle<CR>", desc = "Toggle Explorer" }
-        },
-        v = {
-          ["<Leader>gh"] = { "<Cmd>GBrowse<CR>", desc = "Open file in git" },
-          [">"] = { ">gv" },
-          ["<C-_>"] = { "gcgv", remap = true, desc = "Toggle comment line" },
-          ["<"] = { "<gv" }
-        }
       }
-    }
+
+      local maps = opts.mappings or {}
+      opts.mappings = maps
+      maps.n = maps.n or {}
+      maps.v = maps.v or {}
+
+      -- second key is the lefthand side of the map
+      -- mappings seen under group name "Buffer"
+      maps.n["<Leader>fn"] = { function() require("astrocore.buffer").nav(1) end, desc = "Next buffer"}
+      maps.n["<Leader>fp"] = { function() require("astrocore.buffer").nav(-1) end, desc = "Previous buffer"}
+      maps.n["<Leader>fo"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers"}
+      maps.n["<Leader>fa"] = { "<Cmd>A<CR>", desc = "Open alternative file" }
+      maps.n["<Leader>fd"] = { ":bp|bd#<cr>", desc = "Close current buffer" }
+      maps.n["gr"] = { function() vim.lsp.buf.references() end, desc = "Search references" }
+      maps.n["gi"] = { function() vim.lsp.buf.implementation() end, desc = "Search implementation" }
+      maps.n["gt"] = { function() vim.lsp.buf.type_definition() end, desc = "Search implementation" }
+      maps.n["<Leader>rn"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
+      maps.n["<Leader>en"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic symbol" }
+      maps.n["<Leader>ep"] = { function() vim.diagnostic.goto_prev() end, desc = "Prev diagnostic symbol" }
+      maps.n["<Leader>gh"] = { "<Cmd>GBrowse<CR>", desc = "Open file in git" }
+      maps.n["<Leader>fh"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find buffers"}
+      maps.n["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files"}
+      maps.n["<C-_>"] = { "gcc", remap = true, desc = "Toggle comment line" }
+      maps.n["\\"] = { "<Cmd>Neotree toggle<CR>", desc = "Toggle Explorer" }
+
+      -- GitHub Issues and PRs keybindings
+      maps.n["<Leader>ghi"] = { function() require("snacks").picker.gh_issue() end, desc = "GitHub Issues (open)" }
+      maps.n["<Leader>ghI"] = { function() require("snacks").picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" }
+      maps.n["<Leader>ghp"] = { function() require("snacks").picker.gh_pr() end, desc = "GitHub Pull Requests (open)" }
+      maps.n["<Leader>ghP"] = { function() require("snacks").picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" }
+      maps.n["<Leader>ghd"] = { function() require("snacks").picker.gh_pr({ state = "all", draft = true }) end, desc = "GitHub Pull Requests (including drafts)" }
+
+      -- Delete operations use unnamed register (paste with p, but not in system clipboard)
+      -- System clipboard copy is available via <Leader>cp in visual mode
+      maps.v["<Leader>gh"] = { "<Cmd>GBrowse<CR>", desc = "Open file in git" }
+      maps.v[">"] = { ">gv" }
+      maps.v["<C-_>"] = { "gcgv", remap = true, desc = "Toggle comment line" }
+      maps.v["<"] = { "<gv" }
+
+      return opts
+    end
   },
   {
     "AstroNvim/astrocommunity",
@@ -334,6 +354,20 @@ return {
         },
       },
     },
+  },
+  {
+    "folke/snacks.nvim",
+    opts = function(_, opts)
+      opts.gh = { enabled = true }  -- Enable GitHub integration
+      opts.picker = opts.picker or {}
+      opts.picker.sources = opts.picker.sources or {}
+      opts.picker.sources.gh_issue = {}
+      opts.picker.sources.gh_pr = {}
+      -- Keep indent guides enabled but ensure listchars work too
+      opts.indent = opts.indent or {}
+      opts.indent.enabled = true
+      return opts
+    end,
   },
 }
 

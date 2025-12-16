@@ -35,12 +35,13 @@ main() {
   echo ">>> Installing everything..."
   mkdir_home_user_bin
   install_gotools
+  install_docker
   install_ohmyzsh
-  install_vim_packer
-  install_nvim_extensions
+ # install_vim_packer
+ # install_nvim_extensions
   install_cred_alert
   configure_dotfiles
-  install_vim_plugins
+ # install_vim_plugins
   install_misc_tools
   install_pure_zsh_theme
   install_tmux_plugin_manager
